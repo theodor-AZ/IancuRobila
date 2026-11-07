@@ -35,8 +35,8 @@ export async function POST(req: Request) {
     const ext = IMG_EXT[img.type];
     if (!ext) return NextResponse.json({ error: "Use a PNG, JPG, WebP or SVG image." }, { status: 400 });
     if (img.size > 10 * 1024 * 1024) return NextResponse.json({ error: "The image is larger than 10 MB." }, { status: 400 });
-    await writeFile(path.join(dir, `ad${ext}`), Buffer.from(await img.arrayBuffer()));
-    adImage = fileUrl(id, `ad${ext}`);
+    await writeFile(path.join(dir, `creative${ext}`), Buffer.from(await img.arrayBuffer()));
+    adImage = fileUrl(id, `creative${ext}`);
   }
 
   const documents: string[] = [];

@@ -44,7 +44,7 @@ async function loadGlowPure(): Promise<NewScanInput> {
     adText: DEMO_AD_TEXT,
     landingUrl: `${window.location.origin}/demo-site/flawed-shop/index.html`,
     productCategory: 'cosmetics',
-    adImage: await fileFrom('/demo/ad-glowpure.svg', 'ad-glowpure.svg', 'image/svg+xml'),
+    adImage: await fileFrom('/demo/creative-glowpure.svg', 'creative-glowpure.svg', 'image/svg+xml'),
     documents: [],
   };
 }
@@ -157,11 +157,11 @@ export const NewScanScreen: React.FC<NewScanScreenProps> = ({ onStartScan }) => 
         )}
 
         <div>
-          <label htmlFor="ad-text" className={labelClass}>
+          <label htmlFor="campaign-copy" className={labelClass}>
             1. Textul Reclamei (titlu, text, call to action)
           </label>
           <textarea
-            id="ad-text"
+            id="campaign-copy"
             rows={4}
             value={v.adText}
             onChange={(e) => setV({ ...v, adText: e.target.value })}
@@ -171,11 +171,11 @@ export const NewScanScreen: React.FC<NewScanScreenProps> = ({ onStartScan }) => 
         </div>
 
         <div>
-          <label htmlFor="ad-image" className={labelClass}>
+          <label htmlFor="campaign-image" className={labelClass}>
             Imaginea Reclamei (opțional)
           </label>
           <input
-            id="ad-image"
+            id="campaign-image"
             type="file"
             accept="image/png,image/jpeg,image/webp,image/svg+xml"
             onChange={(e) => setV({ ...v, adImage: e.target.files?.[0] ?? null })}
