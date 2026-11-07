@@ -46,6 +46,8 @@ create table public.campaigns (
   updated_at       timestamptz not null default now()
 );
 create index campaigns_owner_idx on public.campaigns (owner_id, created_at desc);
+-- demo campaigns are read by every visitor (RLS: is_demo or owner)
+create index campaigns_demo_idx on public.campaigns (created_at desc) where is_demo;
 create trigger campaigns_updated_at before update on public.campaigns
   for each row execute function public.set_updated_at();
 
@@ -67,6 +69,7 @@ create table public.campaign_documents (
   created_at     timestamptz not null default now()
 );
 create index campaign_documents_campaign_idx on public.campaign_documents (campaign_id);
+create index campaign_documents_owner_idx on public.campaign_documents (owner_id);
 
 -- ---------------------------------------------------------------------------
 -- scans: one run of the Red Team pipeline on a campaign (ScanReport, ScanHistoryScreen)
@@ -192,63 +195,71 @@ alter table public.scans              enable row level security;
 alter table public.scan_steps         enable row level security;
 alter table public.findings           enable row level security;
 
+-- Helpers live in "private": security definer functions in "public" would be callable as RPC.
+create schema if not exists private;
+grant usage on schema private to anon, authenticated, service_role;
+
 -- Can the current user read this campaign? (own, or a demo)
-create function public.can_read_campaign(p_campaign_id uuid) returns boolean
+create function private.can_read_campaign(p_campaign_id uuid) returns boolean
 language sql stable security definer set search_path = '' as $$
   select exists (
     select 1 from public.campaigns
-    where id = p_campaign_id and (is_demo or owner_id = auth.uid())
+    where id = p_campaign_id and (is_demo or owner_id = (select auth.uid()))
   )
 $$;
 
 -- Can the current user read this scan?
-create function public.can_read_scan(p_scan_id uuid) returns boolean
+create function private.can_read_scan(p_scan_id uuid) returns boolean
 language sql stable security definer set search_path = '' as $$
   select exists (
     select 1 from public.scans s join public.campaigns c on c.id = s.campaign_id
-    where s.id = p_scan_id and (c.is_demo or s.owner_id = auth.uid())
+    where s.id = p_scan_id and (c.is_demo or s.owner_id = (select auth.uid()))
   )
 $$;
 
+-- policies call these as the querying role, so anon/authenticated keep EXECUTE; nobody else does
+revoke execute on function private.can_read_campaign(uuid), private.can_read_scan(uuid) from public;
+grant  execute on function private.can_read_campaign(uuid), private.can_read_scan(uuid) to anon, authenticated, service_role;
+
 -- campaigns
 create policy "campaigns: read own or demo" on public.campaigns
-  for select using (is_demo or owner_id = auth.uid());
+  for select using (is_demo or owner_id = (select auth.uid()));
 create policy "campaigns: insert own" on public.campaigns
-  for insert to authenticated with check (owner_id = auth.uid() and not is_demo);
+  for insert to authenticated with check (owner_id = (select auth.uid()) and not is_demo);
 create policy "campaigns: update own" on public.campaigns
-  for update to authenticated using (owner_id = auth.uid()) with check (owner_id = auth.uid() and not is_demo);
+  for update to authenticated using (owner_id = (select auth.uid())) with check (owner_id = (select auth.uid()) and not is_demo);
 create policy "campaigns: delete own" on public.campaigns
-  for delete to authenticated using (owner_id = auth.uid());
+  for delete to authenticated using (owner_id = (select auth.uid()));
 
 -- campaign_documents
 create policy "documents: read" on public.campaign_documents
-  for select using (public.can_read_campaign(campaign_id));
+  for select using (private.can_read_campaign(campaign_id));
 create policy "documents: insert own" on public.campaign_documents
   for insert to authenticated with check (
-    owner_id = auth.uid()
-    and exists (select 1 from public.campaigns c where c.id = campaign_id and c.owner_id = auth.uid())
+    owner_id = (select auth.uid())
+    and exists (select 1 from public.campaigns c where c.id = campaign_id and c.owner_id = (select auth.uid()))
   );
 create policy "documents: delete own" on public.campaign_documents
-  for delete to authenticated using (owner_id = auth.uid());
+  for delete to authenticated using (owner_id = (select auth.uid()));
 
 -- scans: users create scans (status queued); the pipeline (service role) fills in results
 -- (checks the row's own columns, not can_read_scan(id): a just-inserted row is not yet
 --  visible to that lookup, which would break insert(...).select() from the client)
 create policy "scans: read" on public.scans
-  for select using (owner_id = auth.uid() or public.can_read_campaign(campaign_id));
+  for select using (owner_id = (select auth.uid()) or private.can_read_campaign(campaign_id));
 create policy "scans: insert own" on public.scans
   for insert to authenticated with check (
-    owner_id = auth.uid()
-    and exists (select 1 from public.campaigns c where c.id = campaign_id and c.owner_id = auth.uid())
+    owner_id = (select auth.uid())
+    and exists (select 1 from public.campaigns c where c.id = campaign_id and c.owner_id = (select auth.uid()))
   );
 create policy "scans: delete own" on public.scans
-  for delete to authenticated using (owner_id = auth.uid());
+  for delete to authenticated using (owner_id = (select auth.uid()));
 
 -- scan_steps and findings: read-only for users, written by the pipeline
 create policy "scan_steps: read" on public.scan_steps
-  for select using (public.can_read_scan(scan_id));
+  for select using (private.can_read_scan(scan_id));
 create policy "findings: read" on public.findings
-  for select using (public.can_read_scan(scan_id));
+  for select using (private.can_read_scan(scan_id));
 
 -- ---------------------------------------------------------------------------
 -- Storage buckets (private). Path convention: <owner_id>/<campaign_id>/<file>
@@ -263,18 +274,18 @@ on conflict (id) do nothing;
 create policy "files: read own or demo" on storage.objects
   for select using (
     bucket_id in ('ad-images', 'product-documents', 'screenshots')
-    and ((storage.foldername(name))[1] = 'demo' or (storage.foldername(name))[1] = auth.uid()::text)
+    and ((storage.foldername(name))[1] = 'demo' or (storage.foldername(name))[1] = (select auth.uid())::text)
   );
 -- users upload ad images and documents; screenshots are written by the pipeline only
 create policy "files: upload own" on storage.objects
   for insert to authenticated with check (
     bucket_id in ('ad-images', 'product-documents')
-    and (storage.foldername(name))[1] = auth.uid()::text
+    and (storage.foldername(name))[1] = (select auth.uid())::text
   );
 create policy "files: delete own" on storage.objects
   for delete to authenticated using (
     bucket_id in ('ad-images', 'product-documents')
-    and (storage.foldername(name))[1] = auth.uid()::text
+    and (storage.foldername(name))[1] = (select auth.uid())::text
   );
 
 -- ---------------------------------------------------------------------------

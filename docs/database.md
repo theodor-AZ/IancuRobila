@@ -36,6 +36,7 @@ This is a proposal. The base can compute the score differently and write it to `
 - **Demo campaigns** (`is_demo = true`) can be read by everyone, logged out included, so the jury demo works without an account. Users cannot mark their own campaigns as demo.
 - Users can create campaigns, upload documents and start scans (status `queued`). **Only the pipeline**, running server-side with the `service_role` key, writes `scan_steps`, `findings`, the score and screenshots. Never expose that key in the browser.
 - Deleting a campaign deletes its documents, scans, steps and findings.
+- Policies follow the Supabase Postgres best practices: `(select auth.uid())`, which is evaluated once per query instead of once per row; `security definer` helpers in the `private` schema, which the API does not expose as RPC; and indexes on every column used by a policy or a foreign key.
 
 ## Storage
 
@@ -106,4 +107,4 @@ Each fixture folder that has `findings.json` and `summary.json` becomes one demo
 
 ## Tested
 
-The migration and seed were run on Postgres 16 (PGlite) with stubs for Supabase `auth` and `storage`. 19 checks passed: demo data is readable while logged out; users are isolated from each other; users cannot write findings or upload screenshots; `confidence` and the landing URL are validated; `insert(...).select()` works; deleting a campaign cascades. Not tested yet on a real Supabase project.
+The migration and seed were run on Postgres 16 (PGlite) with stubs for Supabase `auth` and `storage`. 21 checks passed: demo data is readable while logged out; every foreign key is indexed; the helper functions are not exposed in `public`; users are isolated from each other; users cannot write findings or upload screenshots; `confidence` and the landing URL are validated; `insert(...).select()` works; deleting a campaign cascades. Not tested yet on a real Supabase project.

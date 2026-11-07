@@ -217,8 +217,6 @@ export interface Database {
     };
     Functions: {
       compute_scan_score: { Args: { p_scan_id: string }; Returns: number };
-      can_read_campaign: { Args: { p_campaign_id: string }; Returns: boolean };
-      can_read_scan: { Args: { p_scan_id: string }; Returns: boolean };
     };
     Enums: {
       finding_category: FindingCategory;
