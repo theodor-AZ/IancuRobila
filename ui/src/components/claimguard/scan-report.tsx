@@ -145,7 +145,7 @@ export function ScanReport({ scan }: { scan: Scan }) {
         <ul className="mt-3 grid gap-x-6 gap-y-2 text-sm text-muted-foreground sm:grid-cols-2 lg:grid-cols-4">
           <li className="flex min-w-0 gap-2">
             <Megaphone aria-hidden className="mt-0.5 size-4 shrink-0" />
-            <span className="line-clamp-2">Ad text and image</span>
+            <span className="line-clamp-2">{scan.adImage ? "Ad text and image" : "Ad text (no image)"}</span>
           </li>
           <li className="flex min-w-0 gap-2">
             <Globe aria-hidden className="mt-0.5 size-4 shrink-0" />
@@ -197,7 +197,9 @@ export function ScanReport({ scan }: { scan: Scan }) {
         <EvidenceView
           className="mt-4"
           adImage={scan.adImage}
+          adText={scan.adText}
           pageCapture={scan.pageCapture}
+          pageCaptureSize={scan.pageCaptureSize}
           landingUrl={scan.landingUrl}
           findings={visible}
           numberOf={numberOf}
@@ -240,6 +242,10 @@ export function ScanReport({ scan }: { scan: Scan }) {
         <ul className="mt-2 grid max-w-[75ch] gap-1.5 text-xs leading-relaxed text-muted-foreground">
           <li>The ad, the rendered landing page (desktop and 390 px mobile) and the uploaded documents were analysed together, and claims were compared across all three.</li>
           <li>Accessibility results come from automated axe-core checks only. They catch a subset of issues and do not cover all WCAG requirements.</li>
+          <li>Claim checks (truth, legal, trust) in this version are rule-based: ad, page and document text are matched against a rule library. Technical checks (links, speed, accessibility) run in a real browser.</li>
+          {scan.warnings?.map((w) => (
+            <li key={w} className="text-sev-medium-fg">Not checked: {w}</li>
+          ))}
           <li>ClaimGuard X flags risks and missing evidence. It does not give legal verdicts or declare a message false. Confirm legal findings with counsel.</li>
         </ul>
       </section>

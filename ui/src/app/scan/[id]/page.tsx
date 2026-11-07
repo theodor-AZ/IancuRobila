@@ -1,23 +1,40 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
+import { connection } from "next/server";
+import { notFound, redirect } from "next/navigation";
 import { ScanReport } from "@/components/claimguard/scan-report";
-import { getMockScan, MOCK_SCANS } from "@/lib/mock";
-
-export function generateStaticParams() {
-  return MOCK_SCANS.map((s) => ({ id: s.id }));
-}
+import { buttonVariants } from "@/components/ui/button";
+import { ErrorState } from "@/components/ui/error-state";
+import { getScan } from "@/lib/scans";
 
 export async function generateMetadata({ params }: PageProps<"/scan/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const scan = getMockScan(id);
+  const scan = await getScan(id);
   return { title: scan ? `${scan.brand} ${scan.campaign}` : "Scan not found" };
 }
 
 async function Report({ params }: { params: Promise<{ id: string }> }) {
+  await connection();
   const { id } = await params;
-  const scan = getMockScan(id);
+  const scan = await getScan(id);
   if (!scan) notFound();
+  if (scan.status === "running") redirect(`/scan/${id}/progress`);
+  if (scan.status === "blocked" || scan.status === "failed") {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+        <p className="num text-2xs text-muted-foreground">{scan.id}</p>
+        <h1 className="mt-1 text-xl font-semibold tracking-[-0.02em]">{scan.campaign}</h1>
+        <ErrorState
+          className="mt-6"
+          variant={scan.status === "blocked" ? "blocked" : "error"}
+          title={scan.status === "blocked" ? "We couldn’t open this landing page" : "The scan stopped before it finished"}
+          description={scan.error}
+          secondaryAction={<Link href="/scan/new" className={buttonVariants({ size: "sm", variant: "outline" })}>Start a new scan</Link>}
+        />
+      </div>
+    );
+  }
   return <ScanReport scan={scan} />;
 }
 

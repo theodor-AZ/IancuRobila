@@ -55,11 +55,21 @@ export interface Scan {
   productCategory: ProductCategory;
   landingUrl: string;
   adText: string;
+  /** URL of the ad image, or "" when only ad text was given. */
   adImage: string;
+  /** URL of the landing page desktop capture used for threat frames. */
   pageCapture: string;
+  /** Pixel size of pageCapture (frames are % of it). */
+  pageCaptureSize?: { w: number; h: number };
   documents: string[];
   createdAt: string;
   durationMs: number;
   status: ScanStatus;
+  /** Index of the running step in SCAN_STEPS while status is "running". */
+  step?: number;
+  /** Shown when status is "blocked" or "failed". */
+  error?: string;
+  /** Checks that could not run (the scan still completes). */
+  warnings?: string[];
   findings: Finding[];
 }

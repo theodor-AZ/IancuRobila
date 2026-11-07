@@ -28,11 +28,19 @@ Probe rulate pe 7 nov 2026 cu `npm run scan -- <url> --out probes`, de pe un lap
 
 4. **Linkuri externe „rupte” care de fapt merg.** Facebook răspunde cu 400 oricărui client automat. Statusurile 400/401/403/405/429/999 de pe alt domeniu sunt marcate `unverified` și nu produc finding. Linkurile de social media nu mai sunt considerate CTA.
 
-5. **Bannere de cookies.** Pe eMAG bannerul a fost închis automat pe desktop, dar nu pe mobil (acolo nu a apărut, sau nu a fost recunoscut). Pe Nivea nu a fost nevoie. `dismissConsent()` încearcă selectorii cunoscuți (OneTrust, Cookiebot, Didomi, Usercentrics…) și apoi butoane cu text „Accept / Accept all / Accepta toate / Sunt de acord”. Dacă nu reușește, scanarea continuă oricum, dar captura de ecran poate avea bannerul peste conținut.
+5. **Bannere de cookies.** *(rezolvat ulterior, vezi mai jos)* Pe eMAG bannerul a fost închis automat pe desktop, dar nu pe mobil (acolo nu a apărut, sau nu a fost recunoscut). Pe Nivea nu a fost nevoie. `dismissConsent()` încearcă selectorii cunoscuți (OneTrust, Cookiebot, Didomi, Usercentrics…) și apoi butoane cu text „Accept / Accept all / Accepta toate / Sunt de acord”. Dacă nu reușește, scanarea continuă oricum, dar captura de ecran poate avea bannerul peste conținut.
 
 6. **Rețea „networkidle” care nu vine niciodată.** Paginile de marketing au trackere care țin rețeaua ocupată. Navigarea așteaptă `load`, apoi maxim 5 s după `networkidle`, apoi merge mai departe.
 
 7. **`tsx` + `page.evaluate`: `ReferenceError: __name is not defined`.** esbuild înfășoară funcțiile cu `__name()`. Am adăugat un shim în fiecare context (`browser.ts`). Atenție la mutarea în baza Next.js: dacă acolo se compilează tot cu esbuild/SWC cu `keepNames`, shim-ul trebuie păstrat.
+
+### Actualizare: bannerul Nivea (consentmanager.net)
+
+Pe mobil, bannerul Nivea rămânea peste captură. Avea două cauze. Butonul „Acceptați toate” nu era recunoscut de tipar, iar bannerul e desenat într-un **shadow DOM închis**, unde niciun selector nu ajunge. Am făcut două reparații:
+- Tiparul recunoaște acum și formele „Acceptați / Acceptati / Acceptă toate”.
+- Când nu există niciun buton accesibil, `dismissConsent()` apelează API-ul public al platformei de consimțământ (consentmanager `__cmp("setConsent", 1)`, OneTrust, Cookiebot, Didomi, Usercentrics). E exact ce face butonul „Accept all” al platformei.
+
+Verificat pe nivea.ro: bannerul e închis atât pe mobil, cât și pe desktop.
 
 ## Timpi
 

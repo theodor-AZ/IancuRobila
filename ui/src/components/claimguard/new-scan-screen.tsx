@@ -3,6 +3,7 @@
 import { useId, useState, type FormEvent } from "react";
 import { FileText, ImagePlus, ScanLine, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ErrorState } from "@/components/ui/error-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,11 +20,18 @@ export interface NewScanInput {
 
 type Errors = Partial<Record<"adText" | "adImage" | "landingUrl" | "documents", string>>;
 
-const DEMO = {
-  adText:
-    "GlowPure Hydra Cream. 48h hydration. Clinically proven. -50% this week only. 100% natural · eco-friendly packaging. Free delivery. Only today! Buy now",
-  landingUrl: "https://glowpure.example/hydra-cream",
-};
+const DEMO_AD_TEXT =
+  "GlowPure Hydra Cream. 48h hydration. Clinically proven. -50% this week only. 100% natural · eco-friendly packaging. Free delivery. Only today! Buy now";
+
+/** Demo campaign: fictional brand, landing page served by this app (public/demo-site). */
+async function loadDemo(): Promise<Pick<NewScanInput, "adText" | "landingUrl" | "adImage" | "productCategory">> {
+  let adImage: File | null = null;
+  try {
+    const blob = await (await fetch("/demo/ad-glowpure.svg")).blob();
+    adImage = new File([blob], "ad-glowpure.svg", { type: "image/svg+xml" });
+  } catch {}
+  return { adText: DEMO_AD_TEXT, landingUrl: `${window.location.origin}/demo-site/flawed-shop/index.html`, adImage, productCategory: "cosmetics" };
+}
 
 export function validateNewScan(v: NewScanInput): Errors {
   const e: Errors = {};
@@ -42,13 +50,14 @@ export function validateNewScan(v: NewScanInput): Errors {
 }
 
 /** Campaign upload. UI and validation only; `onSubmit` receives the validated input. */
-export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) => void }) {
+export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) => void | Promise<void> }) {
   const [v, setV] = useState<NewScanInput>({ adText: "", adImage: null, landingUrl: "", documents: [], productCategory: "general" });
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const ids = { text: useId(), img: useId(), url: useId(), docs: useId(), cat: useId() };
 
-  function submit(e: FormEvent) {
+  async function submit(e: FormEvent) {
     e.preventDefault();
     const errs = validateNewScan(v);
     setErrors(errs);
@@ -57,7 +66,13 @@ export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) =>
       return;
     }
     setSubmitting(true);
-    onSubmit(v);
+    setSubmitError(null);
+    try {
+      await onSubmit(v);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "The scan could not start. Try again.");
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -70,7 +85,11 @@ export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) =>
             spend the budget.
           </p>
         </div>
-        <Button type="button" variant="ghost" size="sm" onClick={() => setV((s) => ({ ...s, ...DEMO, productCategory: "cosmetics" }))}>
+        <Button type="button" variant="ghost" size="sm" onClick={async () => {
+            const demo = await loadDemo();
+            setV((s) => ({ ...s, ...demo }));
+            setErrors({});
+          }}>
           <Sparkles aria-hidden className="size-3.5" />
           Fill with demo campaign
         </Button>
@@ -226,6 +245,8 @@ export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) =>
           </div>
         </div>
       </fieldset>
+
+      {submitError && <ErrorState title="The scan could not start" description={submitError} />}
 
       <div className="flex flex-wrap items-center justify-end gap-3">
         <p className="mr-auto text-xs text-muted-foreground">A scan takes about 40 seconds.</p>

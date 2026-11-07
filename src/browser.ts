@@ -95,7 +95,7 @@ const CONSENT_SELECTORS = [
 ];
 
 const CONSENT_TEXT =
-  /^\s*(accept( all| toate)?( cookies)?|allow all( cookies)?|agree|i agree|got it|ok(ay)?|accept[aă] (tot|toate)( cookie-urile)?|sunt de acord|de acord|am în?țeles|permite (tot|toate))\s*$/i;
+  /^\s*(accept( all| toate)?( cookies)?|allow all( cookies)?|agree|i agree|got it|ok(ay)?|accept(a|ă|ați|ati) (tot|toate)( cookie-urile)?|sunt de acord|de acord|am în?țeles|permite (tot|toate))\s*$/i;
 
 /** Best-effort cookie banner dismissal in the main frame and iframes. Returns true if something was clicked. */
 export async function dismissConsent(page: Page): Promise<boolean> {
@@ -118,7 +118,29 @@ export async function dismissConsent(page: Page): Promise<boolean> {
       if (await el.click({ timeout: 2000 }).then(() => true).catch(() => false)) return true;
     }
   }
-  return false;
+  // Banners drawn in a closed shadow DOM (e.g. consentmanager.net) cannot be clicked. Use the
+  // consent platform's own public API instead; it is what its "Accept all" button calls.
+  return acceptViaCmpApi(page);
+}
+
+async function acceptViaCmpApi(page: Page): Promise<boolean> {
+  const used = await page
+    .evaluate(() => {
+      const w = window as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+      try {
+        if (typeof w.__cmp === "function" && document.querySelector("#cmpwrapper, #cmpbox")) {
+          w.__cmp("setConsent", 1);
+          return "consentmanager";
+        }
+        if (w.OneTrust?.AllowAll) { w.OneTrust.AllowAll(); return "onetrust"; }
+        if (w.Cookiebot?.submitCustomConsent && w.Cookiebot?.dialog) { w.Cookiebot.submitCustomConsent(true, true, true); return "cookiebot"; }
+        if (w.Didomi?.setUserAgreeToAll) { w.Didomi.setUserAgreeToAll(); return "didomi"; }
+        if (w.UC_UI?.acceptAllConsents && w.UC_UI?.isConsentRequired?.()) { w.UC_UI.acceptAllConsents(); return "usercentrics"; }
+      } catch {}
+      return null;
+    })
+    .catch(() => null);
+  return !!used;
 }
 
 const BLOCK_TITLE = /just a moment|attention required|access denied|are you a robot|captcha|request blocked|forbidden|pardon our interruption|verify you are human/i;

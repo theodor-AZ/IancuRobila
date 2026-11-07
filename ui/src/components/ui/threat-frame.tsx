@@ -31,6 +31,7 @@ export function ThreatFrame({
   onActivate,
   onDeactivate,
   onSelect,
+  findingId,
 }: {
   n: number;
   frame: Frame;
@@ -41,9 +42,12 @@ export function ThreatFrame({
   onActivate?: () => void;
   onDeactivate?: () => void;
   onSelect?: () => void;
+  /** Rendered as data-finding, so containers can find the frame of a finding. */
+  findingId?: string;
 }) {
   return (
     <button
+      data-finding={findingId}
       type="button"
       aria-label={`Finding ${n}: ${label}`}
       aria-pressed={active}
@@ -68,7 +72,7 @@ export function ThreatFrame({
       <span
         aria-hidden
         className={cn(
-          "num absolute -top-[2px] left-0 grid h-[18px] min-w-[18px] -translate-y-full place-items-center rounded-t-xs px-1 text-[11px] font-semibold text-background",
+          "num pointer-events-none absolute -top-[2px] left-0 grid h-[18px] min-w-[18px] -translate-y-full place-items-center rounded-t-xs px-1 text-[11px] font-semibold text-background",
           TAG[severity],
         )}
       >
