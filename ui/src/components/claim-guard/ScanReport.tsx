@@ -13,6 +13,11 @@ import {
   Layers
 } from 'lucide-react';
 
+// Locale și fus orar fixe: serverul și browserul trebuie să afișeze exact același text,
+// altfel React vede o nepotrivire la hidratare și redesenează pagina (resetând tab-ul activ).
+const formatTime = (iso: string) =>
+  new Date(iso).toLocaleTimeString('ro-RO', { timeZone: 'Europe/Bucharest' });
+
 interface ScanReportProps {
   scan: Scan;
   findings: Finding[];
@@ -141,7 +146,7 @@ export const ScanReport: React.FC<ScanReportProps> = ({ scan, findings }) => {
           <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-sm mt-2">
             <CheckCircle2 className="w-4 h-4" /> Finalizat cu succes
           </div>
-          <span className="text-[11px] text-slate-500">Scanat la {new Date(scan.createdAt).toLocaleTimeString()}</span>
+          <span className="text-[11px] text-slate-500">Scanat la {formatTime(scan.createdAt)}</span>
         </div>
       </div>
 

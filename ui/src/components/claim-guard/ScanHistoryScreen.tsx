@@ -43,7 +43,7 @@ export const ScanHistoryScreen: React.FC<ScanHistoryScreenProps> = ({ scans, onS
                     </span>
                   )}
                   <span className="text-[11px] text-slate-500">
-                    {new Date(scan.createdAt).toLocaleDateString()} {new Date(scan.createdAt).toLocaleTimeString()}
+                    {new Date(scan.createdAt).toLocaleString('ro-RO', { timeZone: 'Europe/Bucharest' })}
                   </span>
                 </div>
                 <div className="text-xs text-slate-400 truncate">
