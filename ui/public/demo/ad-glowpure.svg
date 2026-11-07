@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" font-family="Helvetica, Arial, sans-serif">
+  <!-- Fictional demo ad (invented brand "GlowPure") with planted claims for the ClaimGuard X demo. -->
+  <rect width="1080" height="1080" fill="#dcefef"/>
+  <circle cx="540" cy="640" r="250" fill="#c4e4e6"/>
+  <text x="80" y="130" font-size="44" font-weight="700" fill="#16484d" letter-spacing="1">GlowPure</text>
+
+  <rect x="640" y="120" width="340" height="200" rx="24" fill="#d92b2b"/>
+  <text x="810" y="245" font-size="120" font-weight="800" fill="#fff" text-anchor="middle">-50%</text>
+  <text x="810" y="296" font-size="30" font-weight="600" fill="#fff" text-anchor="middle">this week only</text>
+
+  <text x="80" y="300" font-size="92" font-weight="800" fill="#0f3337">Hydra Cream</text>
+  <text x="80" y="404" font-size="44" font-weight="500" fill="#1e5a60">48h hydration. Clinically proven.</text>
+
+  <g transform="translate(540 650)">
+    <rect x="-170" y="-60" width="340" height="190" rx="36" fill="#ffffff"/>
+    <rect x="-180" y="-120" width="360" height="80" rx="24" fill="#16484d"/>
+    <text x="0" y="40" font-size="40" font-weight="700" fill="#16484d" text-anchor="middle">Hydra</text>
+    <text x="0" y="86" font-size="26" fill="#3c7177" text-anchor="middle">50 ml</text>
+  </g>
+
+  <rect x="80" y="800" width="640" height="60" rx="30" fill="#2e7d4f"/>
+  <text x="400" y="841" font-size="30" font-weight="600" fill="#fff" text-anchor="middle">100% natural · eco-friendly packaging</text>
+
+  <text x="80" y="924" font-size="40" font-weight="700" fill="#0f3337">Free delivery</text>
+  <text x="1000" y="924" font-size="40" font-weight="700" fill="#d92b2b" text-anchor="end">Only today!</text>
+
+  <rect x="80" y="960" width="300" height="80" rx="40" fill="#0f3337"/>
+  <text x="230" y="1013" font-size="36" font-weight="700" fill="#fff" text-anchor="middle">Buy now</text>
+</svg>

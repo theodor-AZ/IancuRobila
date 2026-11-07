@@ -3,4 +3,6 @@ node_modules/
 .env*
 # real-site probe output (third-party HTML/screenshots) - summarized in scanner-notes.md instead
 probes/
-.impeccable/
+fixtures/nivea/
+.impeccable/hook.cache.json
+.impeccable/questions/

@@ -1,0 +1,464 @@
+[
+  {
+    "id": "SCN-0042",
+    "campaign": "Hydra Cream – Black Week",
+    "brand": "GlowPure",
+    "productCategory": "cosmetics",
+    "landingUrl": "https://glowpure.example/hydra-cream",
+    "adText": "GlowPure Hydra Cream. 48h hydration. Clinically proven. -50% this week only. 100% natural · eco-friendly packaging. Free delivery. Only today! Buy now",
+    "adImage": "/demo/ad-glowpure.svg",
+    "pageCapture": "/demo/page-glowpure.png",
+    "documents": [
+      "GlowPure_Hydra_spec_sheet.pdf",
+      "GlowPure_INCI_list.pdf"
+    ],
+    "createdAt": "2026-11-07T10:42:00+02:00",
+    "durationMs": 41800,
+    "status": "done",
+    "findings": [
+      {
+        "id": "F-01",
+        "category": "truth",
+        "severity": "critical",
+        "title": "Discount in the ad differs from the landing page",
+        "claim": "-50% this week only",
+        "evidence": {
+          "source": "page",
+          "url": "https://glowpure.example/hydra-cream",
+          "snippet": "Ad: \"-50% this week only\" · Landing page: \"-20%\" (119,99 lei, was 149,99 lei)",
+          "frames": [
+            {
+              "target": "ad",
+              "x": 59.3,
+              "y": 11.1,
+              "w": 31.5,
+              "h": 18.5
+            },
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 57.4,
+              "w": 5,
+              "h": 4.4
+            }
+          ]
+        },
+        "rule": "Directive 2005/29/EC, Art. 6(1)(d): misleading action on price advantage",
+        "risk": "Shoppers who click for half price find 20% off. That reads as bait advertising, drives refunds and complaints, and wastes the click you paid for.",
+        "fix": "-20% on GlowPure Hydra Cream this week",
+        "confidence": 0.95
+      },
+      {
+        "id": "F-02",
+        "category": "conversion",
+        "severity": "critical",
+        "title": "\"Buy Now\" leads to a page that does not exist (HTTP 404)",
+        "claim": "Buy Now",
+        "evidence": {
+          "source": "page",
+          "url": "https://glowpure.example/checkout-does-not-exist",
+          "selector": "a.btn",
+          "snippet": "GET /checkout-does-not-exist → 404 Not Found",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 74,
+              "w": 9.2,
+              "h": 6.4
+            }
+          ]
+        },
+        "rule": null,
+        "risk": "Every visitor who decides to buy hits an error page. The campaign cannot convert while this link is broken.",
+        "fix": "Point \"Buy Now\" to the live checkout URL and re-test after deploying.",
+        "confidence": 0.98
+      },
+      {
+        "id": "F-03",
+        "category": "truth",
+        "severity": "high",
+        "title": "\"Free delivery\" in the ad, but the page charges 19,99 lei shipping",
+        "claim": "Free delivery",
+        "evidence": {
+          "source": "page",
+          "snippet": "Landing page: \"Delivery: courier shipping 19,99 lei.\"",
+          "frames": [
+            {
+              "target": "ad",
+              "x": 7.4,
+              "y": 81.5,
+              "w": 26,
+              "h": 5.6
+            },
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 92,
+              "w": 46,
+              "h": 4.4
+            }
+          ]
+        },
+        "rule": "Directive 2005/29/EC, Art. 6(1)(d): price or manner in which price is calculated",
+        "risk": "Delivery cost appearing only at checkout is a top reason for abandoned carts, and the mismatch may be read as misleading.",
+        "fix": "Free delivery on orders over 150 lei (or remove \"Free delivery\" from the ad)",
+        "confidence": 0.9
+      },
+      {
+        "id": "F-04",
+        "category": "legal",
+        "severity": "high",
+        "title": "Generic environmental claim without supporting evidence",
+        "claim": "100% natural · eco-friendly packaging",
+        "evidence": {
+          "source": "document",
+          "document": "GlowPure_Hydra_spec_sheet.pdf",
+          "snippet": "No environmental certification or performance data found in the 2 uploaded documents.",
+          "frames": [
+            {
+              "target": "ad",
+              "x": 7.4,
+              "y": 74.1,
+              "w": 59.3,
+              "h": 5.6
+            }
+          ]
+        },
+        "rule": "Directive 2024/825 (EmpCo), Annex I point 4a: generic environmental claim without recognised excellent environmental performance",
+        "risk": "Possibly non-compliant with the EmpCo blacklist, which has applied EU-wide since 27 September 2026 with no transition period.",
+        "fix": "Packaging made with 50% recycled plastic (certified by <scheme>) — or remove \"eco-friendly\" until you can prove it",
+        "confidence": 0.85
+      },
+      {
+        "id": "F-05",
+        "category": "legal",
+        "severity": "high",
+        "title": "\"Clinically proven\" with no study in the product documents",
+        "claim": "48h hydration. Clinically proven.",
+        "evidence": {
+          "source": "document",
+          "document": "GlowPure_Hydra_spec_sheet.pdf, p. 1–2",
+          "snippet": "No clinical study, panel size or test duration found for the 48h hydration claim.",
+          "frames": [
+            {
+              "target": "ad",
+              "x": 7.4,
+              "y": 33.3,
+              "w": 70.4,
+              "h": 5.6
+            },
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 54,
+              "w": 30,
+              "h": 3.2
+            }
+          ]
+        },
+        "rule": "Regulation (EU) 655/2013, Annex, common criterion 3: evidential support",
+        "risk": "No evidence found for a measurable cosmetic claim. Authorities can ask for the study at any time.",
+        "fix": "Hydration that lasts all day* — *add the study reference (panel size, duration) once available",
+        "confidence": 0.8
+      },
+      {
+        "id": "F-06",
+        "category": "accessibility",
+        "severity": "high",
+        "title": "Delivery conditions are almost unreadable (contrast 1.5:1)",
+        "claim": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+        "evidence": {
+          "source": "page",
+          "selector": "p.fine",
+          "snippet": "Text #c4c4c4 on #e9e9e9 — contrast 1.5:1, required 4.5:1",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 92,
+              "w": 46,
+              "h": 4.4
+            }
+          ],
+          "details": {
+            "note": "Automated checks only: they do not cover all WCAG requirements."
+          }
+        },
+        "rule": "WCAG 2.2 SC 1.4.3 Contrast (Minimum)",
+        "risk": "The shipping cost and warranty are hard to read for low-vision visitors and on phones in sunlight. Hiding conditions in pale text also weakens your position if the price is challenged.",
+        "fix": "Use #4a4a4a on #e9e9e9 (7.4:1) for the conditions text.",
+        "confidence": 0.95
+      },
+      {
+        "id": "F-07",
+        "category": "trust",
+        "severity": "medium",
+        "title": "Scarcity claim without an inventory source",
+        "claim": "Only 2 left!",
+        "evidence": {
+          "source": "page",
+          "snippet": "Page text \"Only 2 left!\" while structured data says availability: InStock (no quantity).",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 70.2,
+              "w": 24,
+              "h": 3.2
+            }
+          ]
+        },
+        "rule": "Directive 2005/29/EC, Annex I point 7: false limited availability to force an immediate decision",
+        "risk": "No evidence found that stock is really limited. Unproven scarcity erodes trust once shoppers notice it never changes.",
+        "fix": "Show the real stock count from your inventory system, or remove \"Only 2 left!\".",
+        "confidence": 0.6
+      },
+      {
+        "id": "F-08",
+        "category": "trust",
+        "severity": "medium",
+        "title": "Urgency in the ad and a countdown on the page",
+        "claim": "Only today! · Offer ends in 02:14:59",
+        "evidence": {
+          "source": "page",
+          "snippet": "Ad: \"Only today!\" and \"this week only\" · Page: countdown \"ends in 02:14:59\"",
+          "frames": [
+            {
+              "target": "ad",
+              "x": 64.8,
+              "y": 81.5,
+              "w": 27.8,
+              "h": 5.6
+            },
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 70.2,
+              "w": 24,
+              "h": 3.2
+            }
+          ]
+        },
+        "rule": "Directive 2005/29/EC, Annex I point 7",
+        "risk": "\"Only today\" and \"this week only\" contradict each other. If the offer runs longer, the deadline may be read as false urgency.",
+        "fix": "Offer valid until 14 November 2026",
+        "confidence": 0.55
+      },
+      {
+        "id": "F-09",
+        "category": "conversion",
+        "severity": "high",
+        "title": "\"Order today\" button has no destination",
+        "claim": "Order today",
+        "evidence": {
+          "source": "page",
+          "selector": "a.btn[href='#']",
+          "snippet": "<a class=\"btn\" href=\"#\">Order today</a>",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 81,
+              "w": 10.8,
+              "h": 6.4
+            }
+          ]
+        },
+        "rule": null,
+        "risk": "If the button really does nothing, visitors who want to buy cannot continue.",
+        "fix": "Link \"Order today\" to the checkout, or remove the duplicate button.",
+        "confidence": 0.75
+      },
+      {
+        "id": "F-10",
+        "category": "accessibility",
+        "severity": "critical",
+        "title": "Cart button has no accessible name",
+        "claim": "<button class=\"icon-btn\"><svg …/></button>",
+        "evidence": {
+          "source": "page",
+          "selector": "header .icon-btn",
+          "snippet": "Screen readers announce only \"button\".",
+          "frames": [
+            {
+              "target": "page",
+              "x": 95.5,
+              "y": 0.8,
+              "w": 3.8,
+              "h": 5.2
+            }
+          ],
+          "details": {
+            "note": "Automated checks only: they do not cover all WCAG requirements."
+          }
+        },
+        "rule": "WCAG 2.2 SC 4.1.2 Name, Role, Value",
+        "risk": "Screen-reader users cannot find the cart, so they cannot complete a purchase.",
+        "fix": "Add aria-label=\"Open cart\" to the icon button.",
+        "confidence": 0.95
+      },
+      {
+        "id": "F-11",
+        "category": "accessibility",
+        "severity": "high",
+        "title": "Product image has no alternative text",
+        "claim": "<img src=\"hydra-cream.png\">",
+        "evidence": {
+          "source": "page",
+          "selector": ".hero img",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.8,
+              "y": 9,
+              "w": 31.2,
+              "h": 35
+            }
+          ],
+          "details": {
+            "note": "Automated checks only: they do not cover all WCAG requirements."
+          }
+        },
+        "rule": "WCAG 2.2 SC 1.1.1 Non-text Content",
+        "risk": "Screen-reader users miss what the product looks like and what is offered.",
+        "fix": "alt=\"GlowPure Hydra Cream, 50 ml jar\"",
+        "confidence": 0.9
+      },
+      {
+        "id": "F-12",
+        "category": "legal",
+        "severity": "low",
+        "title": "Could not verify the reference price for the discount",
+        "claim": "149,99 lei (crossed out)",
+        "evidence": {
+          "source": "page",
+          "snippet": "Crossed-out price 149,99 lei. No price history was provided, so the 30-day lowest price could not be checked.",
+          "frames": [
+            {
+              "target": "page",
+              "x": 16.6,
+              "y": 63.3,
+              "w": 22,
+              "h": 4.6
+            }
+          ]
+        },
+        "rule": "Directive 98/6/EC, Art. 6a: prior price must be the lowest price in the last 30 days",
+        "risk": "Possibly non-compliant if 149,99 lei was not the lowest price applied in the 30 days before the discount.",
+        "fix": "Keep a record of the 30-day lowest price, or show it next to the discount: \"Lowest price in the last 30 days: 149,99 lei\".",
+        "confidence": 0.4
+      }
+    ]
+  },
+  {
+    "id": "SCN-0041",
+    "campaign": "Refill pack launch",
+    "brand": "Terra Wash",
+    "productCategory": "general",
+    "landingUrl": "https://terrawash.example/refill",
+    "adText": "Terra Wash refill, 1.5 L. Washes up to 30 loads. Uses 70% less plastic than our 2023 bottle. 39,90 lei.",
+    "adImage": "/demo/ad-glowpure.svg",
+    "pageCapture": "/demo/page-glowpure.png",
+    "documents": [
+      "TerraWash_LCA_2025.pdf",
+      "TerraWash_spec.pdf"
+    ],
+    "createdAt": "2026-11-06T16:05:00+02:00",
+    "durationMs": 33100,
+    "status": "done",
+    "findings": [
+      {
+        "id": "F-01",
+        "category": "conversion",
+        "severity": "low",
+        "title": "Hero image is 1.4 MB and slows mobile load",
+        "claim": "refill-hero.jpg",
+        "evidence": {
+          "source": "page",
+          "snippet": "LCP 3.1 s on a simulated mid-range phone on 4G"
+        },
+        "rule": "Core Web Vitals: LCP ≤ 2.5 s is \"good\"",
+        "risk": "Some mobile visitors leave before the offer appears.",
+        "fix": "Serve the hero as WebP at 1200 px wide (≈180 KB) and preload it.",
+        "confidence": 0.8
+      }
+    ]
+  },
+  {
+    "id": "SCN-0040",
+    "campaign": "Black Week −40% sitewide",
+    "brand": "CasaMea",
+    "productCategory": "general",
+    "landingUrl": "https://casamea.example/black-week",
+    "adText": "Black Week: −40% on everything. Free returns. Ends Sunday.",
+    "adImage": "/demo/ad-glowpure.svg",
+    "pageCapture": "/demo/page-glowpure.png",
+    "documents": [],
+    "createdAt": "2026-11-05T11:20:00+02:00",
+    "durationMs": 52300,
+    "status": "done",
+    "findings": [
+      {
+        "id": "F-01",
+        "category": "truth",
+        "severity": "critical",
+        "title": "\"−40% on everything\" but most products are discounted 10–25%",
+        "claim": "−40% on everything",
+        "evidence": {
+          "source": "page",
+          "snippet": "38 of 46 listed products show 10–25% off; 8 show 40%."
+        },
+        "rule": "Directive 2005/29/EC, Art. 6(1)(d)",
+        "risk": "Shoppers expecting 40% everywhere find smaller discounts; likely complaints.",
+        "fix": "Up to −40% in Black Week",
+        "confidence": 0.9
+      },
+      {
+        "id": "F-02",
+        "category": "legal",
+        "severity": "high",
+        "title": "Reference prices not shown as 30-day lowest price",
+        "claim": "was 299 lei",
+        "evidence": {
+          "source": "page",
+          "snippet": "No 30-day lowest price shown next to crossed-out prices."
+        },
+        "rule": "Directive 98/6/EC, Art. 6a",
+        "risk": "Possibly non-compliant with price indication rules for announced reductions.",
+        "fix": "Show \"Lowest price in the last 30 days\" next to each reduced price.",
+        "confidence": 0.7
+      },
+      {
+        "id": "F-03",
+        "category": "accessibility",
+        "severity": "medium",
+        "title": "Form fields without labels in newsletter sign-up (2 elements)",
+        "claim": "<input type=\"email\" placeholder=\"Email\">",
+        "evidence": {
+          "source": "page",
+          "selector": "footer form input"
+        },
+        "rule": "WCAG 2.2 SC 1.3.1, 4.1.2",
+        "risk": "Screen-reader users cannot tell what to type. Automated checks only.",
+        "fix": "Add <label for=\"email\">Email address</label>.",
+        "confidence": 0.9
+      },
+      {
+        "id": "F-04",
+        "category": "conversion",
+        "severity": "medium",
+        "title": "Redirect chain of 3 hops on \"Shop now\"",
+        "claim": "Shop now",
+        "evidence": {
+          "source": "page",
+          "snippet": "/bw → /black-week → /black-week/ → /black-week/all"
+        },
+        "rule": null,
+        "risk": "Each redirect adds delay on mobile and can drop tracking parameters.",
+        "fix": "Link \"Shop now\" directly to /black-week/all.",
+        "confidence": 0.9
+      }
+    ]
+  }
+]

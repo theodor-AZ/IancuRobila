@@ -1,0 +1,231 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * ClaimGuard X design tokens.
+ * Direction: security scanner (X-ray screening console) for the UI, pentest report for the structure.
+ * Dark is the default theme (<html class="dark">); light is the same system for print and daylight.
+ *
+ * Severity tokens (each has 3 roles):
+ *   --sev-<level>      solid: threat frames, dots, gauge arcs
+ *   --sev-<level>-fg   text on the page ground (AA contrast)
+ *   --sev-<level>-bg   tinted fill behind severity labels
+ * Severity is never shown by colour alone: SeverityBadge always prints the word and a distinct icon.
+ *
+ * Spacing: Tailwind's 4px base. Use only 1 (4), 2 (8), 3 (12), 4 (16), 6 (24), 8 (32).
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* scanner world */
+  --color-beam: var(--beam);
+  --color-beam-fg: var(--beam-fg);
+  --color-scan-grid: var(--scan-grid);
+  --color-ok: var(--ok);
+  --color-ok-fg: var(--ok-fg);
+
+  /* severity */
+  --color-sev-critical: var(--sev-critical);
+  --color-sev-critical-fg: var(--sev-critical-fg);
+  --color-sev-critical-bg: var(--sev-critical-bg);
+  --color-sev-high: var(--sev-high);
+  --color-sev-high-fg: var(--sev-high-fg);
+  --color-sev-high-bg: var(--sev-high-bg);
+  --color-sev-medium: var(--sev-medium);
+  --color-sev-medium-fg: var(--sev-medium-fg);
+  --color-sev-medium-bg: var(--sev-medium-bg);
+  --color-sev-low: var(--sev-low);
+  --color-sev-low-fg: var(--sev-low-fg);
+  --color-sev-low-bg: var(--sev-low-bg);
+
+  /* type scale (px): 12 / 13 / 14 / 16 / 20 / 24 / 32 / 44 */
+  --text-2xs: 0.75rem;
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.375rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 2rem;
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 2.375rem;
+  --text-3xl: 2.75rem;
+  --text-3xl--line-height: 1;
+
+  /* radii: hairline instrument corners */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 12px;
+  --radius-3xl: 12px;
+  --radius-4xl: 999px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* light: daylight / print */
+:root {
+  --radius: 8px;
+  --background: oklch(0.975 0.005 250);
+  --foreground: oklch(0.22 0.03 258);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 258);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 258);
+  --primary: oklch(0.5 0.12 222);
+  --primary-foreground: oklch(0.985 0.005 220);
+  --secondary: oklch(0.94 0.01 250);
+  --secondary-foreground: oklch(0.26 0.03 258);
+  --muted: oklch(0.95 0.008 250);
+  --muted-foreground: oklch(0.47 0.03 258);
+  --accent: oklch(0.94 0.02 220);
+  --accent-foreground: oklch(0.26 0.03 258);
+  --destructive: oklch(0.53 0.2 27);
+  --border: oklch(0.89 0.012 250);
+  --border-strong: oklch(0.78 0.018 250);
+  --input: oklch(0.86 0.014 250);
+  --ring: oklch(0.5 0.12 222);
+
+  --beam: oklch(0.55 0.12 220);
+  --beam-fg: oklch(0.45 0.11 222);
+  --scan-grid: oklch(0.5 0.08 230 / 0.07);
+  --ok: oklch(0.6 0.14 155);
+  --ok-fg: oklch(0.44 0.11 155);
+
+  --sev-critical: oklch(0.58 0.22 27);
+  --sev-critical-fg: oklch(0.48 0.19 27);
+  --sev-critical-bg: oklch(0.58 0.22 27 / 0.1);
+  --sev-high: oklch(0.66 0.18 50);
+  --sev-high-fg: oklch(0.5 0.15 47);
+  --sev-high-bg: oklch(0.66 0.18 50 / 0.12);
+  --sev-medium: oklch(0.78 0.15 85);
+  --sev-medium-fg: oklch(0.5 0.11 75);
+  --sev-medium-bg: oklch(0.78 0.15 85 / 0.18);
+  --sev-low: oklch(0.6 0.1 245);
+  --sev-low-fg: oklch(0.47 0.1 250);
+  --sev-low-bg: oklch(0.6 0.1 245 / 0.12);
+}
+
+/* dark: the scanner console (default) */
+.dark {
+  --background: oklch(0.155 0.02 252);
+  --foreground: oklch(0.94 0.01 245);
+  --card: oklch(0.195 0.022 252);
+  --card-foreground: oklch(0.94 0.01 245);
+  --popover: oklch(0.235 0.025 252);
+  --popover-foreground: oklch(0.94 0.01 245);
+  --primary: oklch(0.82 0.12 205);
+  --primary-foreground: oklch(0.18 0.03 240);
+  --secondary: oklch(0.25 0.025 252);
+  --secondary-foreground: oklch(0.92 0.01 245);
+  --muted: oklch(0.23 0.022 252);
+  --muted-foreground: oklch(0.73 0.022 248);
+  --accent: oklch(0.27 0.035 230);
+  --accent-foreground: oklch(0.94 0.01 245);
+  --destructive: oklch(0.7 0.19 25);
+  --border: oklch(0.3 0.025 252);
+  --border-strong: oklch(0.4 0.03 250);
+  --input: oklch(0.34 0.028 252);
+  --ring: oklch(0.82 0.12 205);
+
+  --beam: oklch(0.82 0.12 205);
+  --beam-fg: oklch(0.85 0.11 205);
+  --scan-grid: oklch(0.82 0.12 205 / 0.06);
+  --ok: oklch(0.78 0.15 155);
+  --ok-fg: oklch(0.82 0.13 155);
+
+  --sev-critical: oklch(0.67 0.21 25);
+  --sev-critical-fg: oklch(0.76 0.16 25);
+  --sev-critical-bg: oklch(0.67 0.21 25 / 0.16);
+  --sev-high: oklch(0.76 0.16 55);
+  --sev-high-fg: oklch(0.82 0.13 60);
+  --sev-high-bg: oklch(0.76 0.16 55 / 0.15);
+  --sev-medium: oklch(0.87 0.15 95);
+  --sev-medium-fg: oklch(0.89 0.13 95);
+  --sev-medium-bg: oklch(0.87 0.15 95 / 0.13);
+  --sev-low: oklch(0.74 0.1 240);
+  --sev-low-fg: oklch(0.8 0.08 240);
+  --sev-low-bg: oklch(0.74 0.1 240 / 0.15);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: light;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--beam) 35%, transparent);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* numbers that are measurements: scores, ids, timings */
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums slashed-zero;
+    letter-spacing: -0.01em;
+  }
+  /* faint scanner grid used behind evidence captures */
+  .scan-grid {
+    background-image:
+      linear-gradient(var(--scan-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--scan-grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

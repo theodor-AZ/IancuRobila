@@ -1,0 +1,728 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T13:30:00Z",
+  "title": "Design System: ClaimGuard X",
+  "extensions": {
+    "themes": {
+      "default": "dark",
+      "note": "Frontmatter colours are the dark (default) theme; colorMeta.*.lightValue holds the light (daylight/print) theme. Source: ui/src/app/globals.css."
+    },
+    "colorMeta": {
+      "console-ground": {
+        "role": "neutral",
+        "displayName": "Console Ground",
+        "canonical": "oklch(0.155 0.02 252)",
+        "lightValue": "oklch(0.975 0.005 250)",
+        "cssVar": "--background",
+        "tonalRamp": [
+          "oklch(0.15 0.009 252)",
+          "oklch(0.25 0.011 252)",
+          "oklch(0.35 0.014 252)",
+          "oklch(0.48 0.017 252)",
+          "oklch(0.6 0.02 252)",
+          "oklch(0.72 0.017 252)",
+          "oklch(0.84 0.014 252)",
+          "oklch(0.95 0.011 252)"
+        ]
+      },
+      "console-panel": {
+        "role": "neutral",
+        "displayName": "Console Panel",
+        "canonical": "oklch(0.195 0.022 252)",
+        "lightValue": "oklch(1 0 0)",
+        "cssVar": "--card",
+        "tonalRamp": [
+          "oklch(0.15 0.009 252)",
+          "oklch(0.25 0.012 252)",
+          "oklch(0.35 0.015 252)",
+          "oklch(0.48 0.019 252)",
+          "oklch(0.6 0.022 252)",
+          "oklch(0.72 0.019 252)",
+          "oklch(0.84 0.015 252)",
+          "oklch(0.95 0.012 252)"
+        ]
+      },
+      "console-popover": {
+        "role": "neutral",
+        "displayName": "Console Popover",
+        "canonical": "oklch(0.235 0.025 252)",
+        "lightValue": "oklch(1 0 0)",
+        "cssVar": "--popover",
+        "tonalRamp": [
+          "oklch(0.15 0.011 252)",
+          "oklch(0.25 0.014 252)",
+          "oklch(0.35 0.017 252)",
+          "oklch(0.48 0.021 252)",
+          "oklch(0.6 0.025 252)",
+          "oklch(0.72 0.021 252)",
+          "oklch(0.84 0.017 252)",
+          "oklch(0.95 0.014 252)"
+        ]
+      },
+      "console-muted": {
+        "role": "neutral",
+        "displayName": "Muted Console",
+        "canonical": "oklch(0.23 0.022 252)",
+        "lightValue": "oklch(0.95 0.008 250)",
+        "cssVar": "--muted",
+        "tonalRamp": [
+          "oklch(0.15 0.009 252)",
+          "oklch(0.25 0.012 252)",
+          "oklch(0.35 0.015 252)",
+          "oklch(0.48 0.019 252)",
+          "oklch(0.6 0.022 252)",
+          "oklch(0.72 0.019 252)",
+          "oklch(0.84 0.015 252)",
+          "oklch(0.95 0.012 252)"
+        ]
+      },
+      "console-secondary": {
+        "role": "neutral",
+        "displayName": "Console Secondary",
+        "canonical": "oklch(0.25 0.025 252)",
+        "lightValue": "oklch(0.94 0.01 250)",
+        "cssVar": "--secondary",
+        "tonalRamp": [
+          "oklch(0.15 0.011 252)",
+          "oklch(0.25 0.014 252)",
+          "oklch(0.35 0.017 252)",
+          "oklch(0.48 0.021 252)",
+          "oklch(0.6 0.025 252)",
+          "oklch(0.72 0.021 252)",
+          "oklch(0.84 0.017 252)",
+          "oklch(0.95 0.014 252)"
+        ]
+      },
+      "beam-wash": {
+        "role": "neutral",
+        "displayName": "Beam Wash",
+        "canonical": "oklch(0.27 0.035 230)",
+        "lightValue": "oklch(0.94 0.02 220)",
+        "cssVar": "--accent",
+        "tonalRamp": [
+          "oklch(0.15 0.015 230)",
+          "oklch(0.25 0.019 230)",
+          "oklch(0.35 0.024 230)",
+          "oklch(0.48 0.03 230)",
+          "oklch(0.6 0.035 230)",
+          "oklch(0.72 0.03 230)",
+          "oklch(0.84 0.024 230)",
+          "oklch(0.95 0.019 230)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.3 0.025 252)",
+        "lightValue": "oklch(0.89 0.012 250)",
+        "cssVar": "--border",
+        "tonalRamp": [
+          "oklch(0.15 0.011 252)",
+          "oklch(0.25 0.014 252)",
+          "oklch(0.35 0.017 252)",
+          "oklch(0.48 0.021 252)",
+          "oklch(0.6 0.025 252)",
+          "oklch(0.72 0.021 252)",
+          "oklch(0.84 0.017 252)",
+          "oklch(0.95 0.014 252)"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "oklch(0.4 0.03 250)",
+        "lightValue": "oklch(0.78 0.018 250)",
+        "cssVar": "--border-strong",
+        "tonalRamp": [
+          "oklch(0.15 0.013 250)",
+          "oklch(0.25 0.017 250)",
+          "oklch(0.35 0.02 250)",
+          "oklch(0.48 0.025 250)",
+          "oklch(0.6 0.03 250)",
+          "oklch(0.72 0.025 250)",
+          "oklch(0.84 0.021 250)",
+          "oklch(0.95 0.017 250)"
+        ]
+      },
+      "input-stroke": {
+        "role": "neutral",
+        "displayName": "Input Stroke",
+        "canonical": "oklch(0.34 0.028 252)",
+        "lightValue": "oklch(0.86 0.014 250)",
+        "cssVar": "--input",
+        "tonalRamp": [
+          "oklch(0.15 0.012 252)",
+          "oklch(0.25 0.016 252)",
+          "oklch(0.35 0.019 252)",
+          "oklch(0.48 0.024 252)",
+          "oklch(0.6 0.028 252)",
+          "oklch(0.72 0.024 252)",
+          "oklch(0.84 0.019 252)",
+          "oklch(0.95 0.016 252)"
+        ]
+      },
+      "readout": {
+        "role": "neutral",
+        "displayName": "Readout",
+        "canonical": "oklch(0.94 0.01 245)",
+        "lightValue": "oklch(0.22 0.03 258)",
+        "cssVar": "--foreground",
+        "tonalRamp": [
+          "oklch(0.15 0.013 250)",
+          "oklch(0.25 0.017 250)",
+          "oklch(0.35 0.02 250)",
+          "oklch(0.48 0.025 250)",
+          "oklch(0.6 0.03 250)",
+          "oklch(0.72 0.025 250)",
+          "oklch(0.84 0.021 250)",
+          "oklch(0.95 0.017 250)"
+        ]
+      },
+      "readout-muted": {
+        "role": "neutral",
+        "displayName": "Muted Readout",
+        "canonical": "oklch(0.73 0.022 248)",
+        "lightValue": "oklch(0.47 0.03 258)",
+        "cssVar": "--muted-foreground",
+        "tonalRamp": [
+          "oklch(0.15 0.013 250)",
+          "oklch(0.25 0.017 250)",
+          "oklch(0.35 0.02 250)",
+          "oklch(0.48 0.025 250)",
+          "oklch(0.6 0.03 250)",
+          "oklch(0.72 0.025 250)",
+          "oklch(0.84 0.021 250)",
+          "oklch(0.95 0.017 250)"
+        ]
+      },
+      "beam": {
+        "role": "primary",
+        "displayName": "Scanner Beam",
+        "canonical": "oklch(0.82 0.12 205)",
+        "lightValue": "oklch(0.55 0.12 220)",
+        "cssVar": "--beam",
+        "tonalRamp": [
+          "oklch(0.15 0.051 205)",
+          "oklch(0.25 0.067 205)",
+          "oklch(0.35 0.082 205)",
+          "oklch(0.48 0.102 205)",
+          "oklch(0.6 0.12 205)",
+          "oklch(0.72 0.102 205)",
+          "oklch(0.84 0.083 205)",
+          "oklch(0.95 0.067 205)"
+        ]
+      },
+      "beam-fg": {
+        "role": "primary",
+        "displayName": "Scanner Beam Text",
+        "canonical": "oklch(0.85 0.11 205)",
+        "lightValue": "oklch(0.45 0.11 222)",
+        "cssVar": "--beam-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.047 205)",
+          "oklch(0.25 0.061 205)",
+          "oklch(0.35 0.075 205)",
+          "oklch(0.48 0.093 205)",
+          "oklch(0.6 0.11 205)",
+          "oklch(0.72 0.093 205)",
+          "oklch(0.84 0.076 205)",
+          "oklch(0.95 0.061 205)"
+        ]
+      },
+      "on-beam": {
+        "role": "primary",
+        "displayName": "On Beam",
+        "canonical": "oklch(0.18 0.03 240)",
+        "lightValue": "oklch(0.985 0.005 220)",
+        "cssVar": "--primary-foreground",
+        "tonalRamp": [
+          "oklch(0.15 0.013 240)",
+          "oklch(0.25 0.017 240)",
+          "oklch(0.35 0.02 240)",
+          "oklch(0.48 0.025 240)",
+          "oklch(0.6 0.03 240)",
+          "oklch(0.72 0.025 240)",
+          "oklch(0.84 0.021 240)",
+          "oklch(0.95 0.017 240)"
+        ]
+      },
+      "clear": {
+        "role": "secondary",
+        "displayName": "All Clear Green",
+        "canonical": "oklch(0.78 0.15 155)",
+        "lightValue": "oklch(0.6 0.14 155)",
+        "cssVar": "--ok",
+        "tonalRamp": [
+          "oklch(0.15 0.064 155)",
+          "oklch(0.25 0.083 155)",
+          "oklch(0.35 0.102 155)",
+          "oklch(0.48 0.127 155)",
+          "oklch(0.6 0.15 155)",
+          "oklch(0.72 0.127 155)",
+          "oklch(0.84 0.104 155)",
+          "oklch(0.95 0.083 155)"
+        ]
+      },
+      "clear-fg": {
+        "role": "secondary",
+        "displayName": "All Clear Text",
+        "canonical": "oklch(0.82 0.13 155)",
+        "lightValue": "oklch(0.44 0.11 155)",
+        "cssVar": "--ok-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.056 155)",
+          "oklch(0.25 0.072 155)",
+          "oklch(0.35 0.089 155)",
+          "oklch(0.48 0.11 155)",
+          "oklch(0.6 0.13 155)",
+          "oklch(0.72 0.11 155)",
+          "oklch(0.84 0.09 155)",
+          "oklch(0.95 0.072 155)"
+        ]
+      },
+      "destructive": {
+        "role": "tertiary",
+        "displayName": "Destructive",
+        "canonical": "oklch(0.7 0.19 25)",
+        "lightValue": "oklch(0.53 0.2 27)",
+        "cssVar": "--destructive",
+        "tonalRamp": [
+          "oklch(0.15 0.081 25)",
+          "oklch(0.25 0.105 25)",
+          "oklch(0.35 0.13 25)",
+          "oklch(0.48 0.161 25)",
+          "oklch(0.6 0.19 25)",
+          "oklch(0.72 0.161 25)",
+          "oklch(0.84 0.132 25)",
+          "oklch(0.95 0.105 25)"
+        ]
+      },
+      "sev-critical": {
+        "role": "tertiary",
+        "displayName": "Critical Red",
+        "canonical": "oklch(0.67 0.21 25)",
+        "lightValue": "oklch(0.58 0.22 27)",
+        "cssVar": "--sev-critical",
+        "tonalRamp": [
+          "oklch(0.15 0.09 25)",
+          "oklch(0.25 0.116 25)",
+          "oklch(0.35 0.143 25)",
+          "oklch(0.48 0.178 25)",
+          "oklch(0.6 0.21 25)",
+          "oklch(0.72 0.178 25)",
+          "oklch(0.84 0.146 25)",
+          "oklch(0.95 0.116 25)"
+        ]
+      },
+      "sev-critical-fg": {
+        "role": "tertiary",
+        "displayName": "Critical Text",
+        "canonical": "oklch(0.76 0.16 25)",
+        "lightValue": "oklch(0.48 0.19 27)",
+        "cssVar": "--sev-critical-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.081 25)",
+          "oklch(0.25 0.105 25)",
+          "oklch(0.35 0.13 25)",
+          "oklch(0.48 0.161 25)",
+          "oklch(0.6 0.19 25)",
+          "oklch(0.72 0.161 25)",
+          "oklch(0.84 0.132 25)",
+          "oklch(0.95 0.105 25)"
+        ]
+      },
+      "sev-critical-bg": {
+        "role": "tertiary",
+        "displayName": "Critical Tint",
+        "canonical": "oklch(0.67 0.21 25 / 0.16)",
+        "lightValue": "oklch(0.58 0.22 27 / 0.1)",
+        "cssVar": "--sev-critical-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.09 25)",
+          "oklch(0.25 0.116 25)",
+          "oklch(0.35 0.143 25)",
+          "oklch(0.48 0.178 25)",
+          "oklch(0.6 0.21 25)",
+          "oklch(0.72 0.178 25)",
+          "oklch(0.84 0.146 25)",
+          "oklch(0.95 0.116 25)"
+        ]
+      },
+      "sev-high": {
+        "role": "tertiary",
+        "displayName": "High Amber",
+        "canonical": "oklch(0.76 0.16 55)",
+        "lightValue": "oklch(0.66 0.18 50)",
+        "cssVar": "--sev-high",
+        "tonalRamp": [
+          "oklch(0.15 0.073 52)",
+          "oklch(0.25 0.094 52)",
+          "oklch(0.35 0.116 52)",
+          "oklch(0.48 0.144 52)",
+          "oklch(0.6 0.17 52)",
+          "oklch(0.72 0.144 52)",
+          "oklch(0.84 0.118 52)",
+          "oklch(0.95 0.094 52)"
+        ]
+      },
+      "sev-high-fg": {
+        "role": "tertiary",
+        "displayName": "High Text",
+        "canonical": "oklch(0.82 0.13 60)",
+        "lightValue": "oklch(0.5 0.15 47)",
+        "cssVar": "--sev-high-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.064 52)",
+          "oklch(0.25 0.083 52)",
+          "oklch(0.35 0.102 52)",
+          "oklch(0.48 0.127 52)",
+          "oklch(0.6 0.15 52)",
+          "oklch(0.72 0.127 52)",
+          "oklch(0.84 0.104 52)",
+          "oklch(0.95 0.083 52)"
+        ]
+      },
+      "sev-high-bg": {
+        "role": "tertiary",
+        "displayName": "High Tint",
+        "canonical": "oklch(0.76 0.16 55 / 0.15)",
+        "lightValue": "oklch(0.66 0.18 50 / 0.12)",
+        "cssVar": "--sev-high-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.073 52)",
+          "oklch(0.25 0.094 52)",
+          "oklch(0.35 0.116 52)",
+          "oklch(0.48 0.144 52)",
+          "oklch(0.6 0.17 52)",
+          "oklch(0.72 0.144 52)",
+          "oklch(0.84 0.118 52)",
+          "oklch(0.95 0.094 52)"
+        ]
+      },
+      "sev-medium": {
+        "role": "tertiary",
+        "displayName": "Medium Yellow",
+        "canonical": "oklch(0.87 0.15 95)",
+        "lightValue": "oklch(0.78 0.15 85)",
+        "cssVar": "--sev-medium",
+        "tonalRamp": [
+          "oklch(0.15 0.064 90)",
+          "oklch(0.25 0.083 90)",
+          "oklch(0.35 0.102 90)",
+          "oklch(0.48 0.127 90)",
+          "oklch(0.6 0.15 90)",
+          "oklch(0.72 0.127 90)",
+          "oklch(0.84 0.104 90)",
+          "oklch(0.95 0.083 90)"
+        ]
+      },
+      "sev-medium-fg": {
+        "role": "tertiary",
+        "displayName": "Medium Text",
+        "canonical": "oklch(0.89 0.13 95)",
+        "lightValue": "oklch(0.5 0.11 75)",
+        "cssVar": "--sev-medium-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.056 85)",
+          "oklch(0.25 0.072 85)",
+          "oklch(0.35 0.089 85)",
+          "oklch(0.48 0.11 85)",
+          "oklch(0.6 0.13 85)",
+          "oklch(0.72 0.11 85)",
+          "oklch(0.84 0.09 85)",
+          "oklch(0.95 0.072 85)"
+        ]
+      },
+      "sev-medium-bg": {
+        "role": "tertiary",
+        "displayName": "Medium Tint",
+        "canonical": "oklch(0.87 0.15 95 / 0.13)",
+        "lightValue": "oklch(0.78 0.15 85 / 0.18)",
+        "cssVar": "--sev-medium-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.064 90)",
+          "oklch(0.25 0.083 90)",
+          "oklch(0.35 0.102 90)",
+          "oklch(0.48 0.127 90)",
+          "oklch(0.6 0.15 90)",
+          "oklch(0.72 0.127 90)",
+          "oklch(0.84 0.104 90)",
+          "oklch(0.95 0.083 90)"
+        ]
+      },
+      "sev-low": {
+        "role": "tertiary",
+        "displayName": "Low Steel Blue",
+        "canonical": "oklch(0.74 0.1 240)",
+        "lightValue": "oklch(0.6 0.1 245)",
+        "cssVar": "--sev-low",
+        "tonalRamp": [
+          "oklch(0.15 0.043 242)",
+          "oklch(0.25 0.055 242)",
+          "oklch(0.35 0.068 242)",
+          "oklch(0.48 0.085 242)",
+          "oklch(0.6 0.1 242)",
+          "oklch(0.72 0.085 242)",
+          "oklch(0.84 0.069 242)",
+          "oklch(0.95 0.055 242)"
+        ]
+      },
+      "sev-low-fg": {
+        "role": "tertiary",
+        "displayName": "Low Text",
+        "canonical": "oklch(0.8 0.08 240)",
+        "lightValue": "oklch(0.47 0.1 250)",
+        "cssVar": "--sev-low-fg",
+        "tonalRamp": [
+          "oklch(0.15 0.043 245)",
+          "oklch(0.25 0.055 245)",
+          "oklch(0.35 0.068 245)",
+          "oklch(0.48 0.085 245)",
+          "oklch(0.6 0.1 245)",
+          "oklch(0.72 0.085 245)",
+          "oklch(0.84 0.069 245)",
+          "oklch(0.95 0.055 245)"
+        ]
+      },
+      "sev-low-bg": {
+        "role": "tertiary",
+        "displayName": "Low Tint",
+        "canonical": "oklch(0.74 0.1 240 / 0.15)",
+        "lightValue": "oklch(0.6 0.1 245 / 0.12)",
+        "cssVar": "--sev-low-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.043 242)",
+          "oklch(0.25 0.055 242)",
+          "oklch(0.35 0.068 242)",
+          "oklch(0.48 0.085 242)",
+          "oklch(0.6 0.1 242)",
+          "oklch(0.72 0.085 242)",
+          "oklch(0.84 0.069 242)",
+          "oklch(0.95 0.055 242)"
+        ]
+      },
+      "scan-grid": {
+        "role": "neutral",
+        "displayName": "Scan Grid",
+        "canonical": "oklch(0.82 0.12 205 / 0.06)",
+        "lightValue": "oklch(0.5 0.08 230 / 0.07)",
+        "cssVar": "--scan-grid",
+        "tonalRamp": [
+          "oklch(0.15 0.043 215)",
+          "oklch(0.25 0.055 215)",
+          "oklch(0.35 0.068 215)",
+          "oklch(0.48 0.085 215)",
+          "oklch(0.6 0.1 215)",
+          "oklch(0.72 0.085 215)",
+          "oklch(0.84 0.069 215)",
+          "oklch(0.95 0.055 215)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Score Numeral",
+        "purpose": "Campaign score on the dial only; scales with the gauge (27% of its size)."
+      },
+      "headline": {
+        "displayName": "Screen Title",
+        "purpose": "Report, list and style guide titles (32px); scan progress uses 24px."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Findings heading (20px) and finding card title (16px)."
+      },
+      "body": {
+        "displayName": "Report Body",
+        "purpose": "Prose, table cells, form text; cap at 60-75ch."
+      },
+      "body-small": {
+        "displayName": "Caption",
+        "purpose": "Category labels, risk matrix, captions, hints, errors."
+      },
+      "label": {
+        "displayName": "Structural Label",
+        "purpose": "Uppercase column headers, finding field labels, severity and score band names only."
+      },
+      "measurement": {
+        "displayName": "Readout",
+        "purpose": "Scan IDs, timestamps, durations, URLs, counts, confidence: tabular, slashed zero."
+      }
+    },
+    "shadows": [
+      {
+        "name": "capture-lift",
+        "value": "0 8px 24px -12px rgb(0 0 0 / 0.5)",
+        "purpose": "Under ad and page captures inside an evidence well."
+      },
+      {
+        "name": "frame-lock",
+        "value": "0 0 0 3px color-mix(in oklch, currentColor 30%, transparent)",
+        "purpose": "Halo on an active threat frame, tinted by its severity."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Threat frame lock (200ms) and score dial sweep (1100ms)."
+      },
+      {
+        "name": "scan-sweep",
+        "value": "2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite",
+        "purpose": "Beam sweeping the ad thumbnail while a scan runs; parks at 45% under reduced motion."
+      },
+      {
+        "name": "capture-reveal",
+        "value": "filter 700ms",
+        "purpose": "Ad thumbnail returns from 40% greyscale when the scan completes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "textures": [
+      {
+        "name": "scan-grid",
+        "value": "linear-gradient(var(--scan-grid) 1px, transparent 1px), linear-gradient(90deg, var(--scan-grid) 1px, transparent 1px); background-size: 24px 24px",
+        "purpose": "Behind evidence captures, the scan thumbnail and the OG image."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Beam-filled action that starts or changes a scan (New scan, Run scan).",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14M12 5v14\"/></svg>New scan</button>",
+      "css": ".ds-btn-primary{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:1px solid transparent;border-radius:8px;background:var(--primary);color:var(--primary-foreground);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}.ds-btn-primary:hover{background:color-mix(in oklch,var(--primary) 80%,transparent)}.ds-btn-primary:focus-visible{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklch,var(--ring) 50%,transparent)}.ds-btn-primary:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Hairline secondary action (Export PDF, Copy fix).",
+      "html": "<button class=\"ds-btn-outline\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M12 15V3M7 10l5 5 5-5M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/></svg>Export PDF</button>",
+      "css": ".ds-btn-outline{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border:1px solid var(--input);border-radius:8px;background:color-mix(in oklch,var(--input) 30%,transparent);color:var(--foreground);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}.ds-btn-outline:hover{background:color-mix(in oklch,var(--input) 50%,transparent)}.ds-btn-outline:focus-visible{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklch,var(--ring) 50%,transparent)}.ds-btn-outline:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Hairline field; URLs typed in tabular mono.",
+      "html": "<input class=\"ds-input\" value=\"https://glowpure.example/hydra-cream\" aria-label=\"Landing page URL\">",
+      "css": ".ds-input{font-family:var(--font-geist-mono),ui-monospace,monospace;font-variant-numeric:tabular-nums slashed-zero;height:32px;width:320px;padding:4px 10px;border:1px solid var(--input);border-radius:8px;background:color-mix(in oklch,var(--input) 30%,transparent);color:var(--foreground);font-size:14px;transition:border-color .15s,box-shadow .15s}.ds-input:focus-visible{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in oklch,var(--ring) 50%,transparent)}"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "Header links; the active link gets the secondary console fill.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link is-active\" href=\"#\" aria-current=\"page\">Scans</a><a class=\"ds-nav-link\" href=\"#\">Style guide</a></nav>",
+      "css": ".ds-nav{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;display:flex;gap:4px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--background)}.ds-nav-link{padding:6px 10px;border-radius:4px;font-size:14px;color:var(--muted-foreground);text-decoration:none;transition:color .15s}.ds-nav-link:hover{color:var(--foreground)}.ds-nav-link:focus-visible{outline:2px solid var(--ring);outline-offset:2px}.ds-nav-link.is-active{background:var(--secondary);color:var(--foreground)}"
+    },
+    {
+      "name": "Filter Tabs",
+      "kind": "chip",
+      "refersTo": "filter-tab-selected",
+      "description": "Category filter with mono counts above the findings.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab is-on\" role=\"tab\" aria-selected=\"true\">All <span>12</span></button><button class=\"ds-tab\" role=\"tab\">Legal <span>3</span></button><button class=\"ds-tab\" role=\"tab\">Truth <span>2</span></button></div>",
+      "css": ".ds-tabs{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;display:flex;gap:4px}.ds-tab{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px solid transparent;border-radius:4px;background:none;color:var(--muted-foreground);font:inherit;font-size:13px;cursor:pointer;transition:color .15s}.ds-tab span{font-family:var(--font-geist-mono),ui-monospace,monospace;font-variant-numeric:tabular-nums slashed-zero;color:var(--muted-foreground)}.ds-tab:hover{color:var(--foreground)}.ds-tab:focus-visible{outline:2px solid var(--ring);outline-offset:2px}.ds-tab.is-on{border-color:var(--border-strong);background:var(--secondary);color:var(--foreground)}"
+    },
+    {
+      "name": "Severity Badge",
+      "kind": "chip",
+      "refersTo": "severity-badge-critical",
+      "description": "Severity word plus a distinct icon on its tint; never colour alone.",
+      "html": "<span class=\"ds-sev ds-sev-critical\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" aria-hidden=\"true\"><path d=\"M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86z\"/><path d=\"M12 8v4M12 16h.01\"/></svg>Critical</span> <span class=\"ds-sev ds-sev-high\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" aria-hidden=\"true\"><path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\"/><path d=\"M12 9v4M12 17h.01\"/></svg>High</span>",
+      "css": ".ds-sev{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:4px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}.ds-sev-critical{background:var(--sev-critical-bg);color:var(--sev-critical-fg)}.ds-sev-high{background:var(--sev-high-bg);color:var(--sev-high-fg)}"
+    },
+    {
+      "name": "Threat Frame",
+      "kind": "custom",
+      "refersTo": "frame-number-active",
+      "description": "Signature: numbered, bracketed frame on a capture over the scan grid; hover or focus locks it with a severity halo.",
+      "html": "<div class=\"ds-well\"><button class=\"ds-frame\" aria-label=\"Finding 02: discount differs\"><i class=\"tl\"></i><i class=\"tr\"></i><i class=\"bl\"></i><i class=\"br\"></i><span class=\"ds-frame-tag\">02</span></button></div>",
+      "css": ".ds-well{position:relative;width:280px;height:160px;border:1px solid var(--border);border-radius:8px;background-color:color-mix(in oklch,var(--muted) 30%,transparent);background-image:linear-gradient(var(--scan-grid) 1px,transparent 1px),linear-gradient(90deg,var(--scan-grid) 1px,transparent 1px);background-size:24px 24px}.ds-frame{position:absolute;left:25%;top:35%;width:50%;height:40%;border:1.5px solid var(--sev-critical);color:var(--sev-critical);border-radius:2px;background:color-mix(in oklch,currentColor 5%,transparent);cursor:pointer;transition:opacity .2s cubic-bezier(.16,1,.3,1),box-shadow .2s cubic-bezier(.16,1,.3,1),background-color .2s cubic-bezier(.16,1,.3,1)}.ds-frame:hover,.ds-frame:focus-visible{outline:none;background:color-mix(in oklch,currentColor 12%,transparent);box-shadow:0 0 0 3px color-mix(in oklch,currentColor 30%,transparent)}.ds-frame i{position:absolute;width:8px;height:8px;border:0 solid currentColor}.ds-frame .tl{left:-3px;top:-3px;border-left-width:2px;border-top-width:2px}.ds-frame .tr{right:-3px;top:-3px;border-right-width:2px;border-top-width:2px}.ds-frame .bl{left:-3px;bottom:-3px;border-left-width:2px;border-bottom-width:2px}.ds-frame .br{right:-3px;bottom:-3px;border-right-width:2px;border-bottom-width:2px}.ds-frame-tag{position:absolute;left:0;top:-2px;transform:translateY(-100%);display:grid;place-items:center;height:18px;min-width:18px;padding:0 4px;border-radius:2px 2px 0 0;background:var(--sev-critical);color:var(--background);font-family:var(--font-geist-mono),ui-monospace,monospace;font-variant-numeric:tabular-nums slashed-zero;font-size:11px;font-weight:600}"
+    },
+    {
+      "name": "Findings Register",
+      "kind": "custom",
+      "refersTo": "report-panel",
+      "description": "Pentest register: frame number, severity, finding; hover tints, selection takes the beam wash.",
+      "html": "<table class=\"ds-reg\"><thead><tr><th>#</th><th>Severity</th><th>Finding</th></tr></thead><tbody><tr class=\"is-sel\"><td><span class=\"ds-num on\">01</span></td><td><span class=\"ds-sevs\">Critical</span></td><td>\"Buy Now\" leads to a page that does not exist (HTTP 404)</td></tr><tr><td><span class=\"ds-num\">02</span></td><td><span class=\"ds-sevs\">Critical</span></td><td>Discount in the ad differs from the landing page</td></tr></tbody></table>",
+      "css": ".ds-reg{font-family:var(--font-geist-sans),ui-sans-serif,system-ui,sans-serif;width:440px;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:14px;color:var(--foreground)}.ds-reg thead{background:color-mix(in oklch,var(--muted) 50%,transparent);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-foreground)}.ds-reg th{padding:8px 10px;font-weight:600}.ds-reg td{padding:10px;border-top:1px solid var(--border);vertical-align:top}.ds-reg tbody tr{cursor:pointer;transition:background-color .15s}.ds-reg tbody tr:hover{background:color-mix(in oklch,var(--muted) 40%,transparent)}.ds-reg tr.is-sel{background:var(--accent)}.ds-num{display:inline-grid;place-items:center;height:20px;min-width:24px;padding:0 4px;border:1px solid var(--border-strong);border-radius:2px;font-family:var(--font-geist-mono),ui-monospace,monospace;font-variant-numeric:tabular-nums slashed-zero;font-size:11px;font-weight:600;color:var(--muted-foreground)}.ds-num.on{background:var(--sev-critical);border-color:transparent;color:var(--background)}.ds-sevs{display:inline-flex;height:20px;align-items:center;padding:0 6px;border-radius:4px;background:var(--sev-critical-bg);color:var(--sev-critical-fg);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Screening Console",
+    "overview": "ClaimGuard X looks like an airport X-ray screening console that writes a pentest report. The campaign goes through the scanner, and what comes out is an audit: a deep blue-black ground, neutrals tinted toward the scanner's blue, hairline 1px frames, small instrument corners, and one cyan beam that marks what you can touch and what is being scanned. Severity colours are the threat palette. They only appear where a threat is being reported.\n\nDensity is report density, not dashboard density. Screens are built from bordered sections and a findings register, not from score tiles or same-size cards. The only big number is the campaign score on its tick-marked dial. Everything that is a measurement (scores, IDs, timings, URLs, counts) is set in tabular Geist Mono, and everything else is Geist Sans.\n\nDark is the default theme (`<html class=\"dark\">`). Light is the same system tuned for daylight and print, not a separate brand. Both themes are held to WCAG 2.2 AA contrast, and severity is never shown by colour alone.",
+    "keyCharacteristics": [
+      "Blue-black console ground, blue-tinted neutrals, one cyan beam accent.",
+      "Four-step threat palette (critical, high, medium, low), each in solid, text and tint roles.",
+      "Numbered threat frames with corner brackets drawn on the evidence captures, linked to matching rows in the findings table.",
+      "Tabular mono for every measurement; sans for everything else.",
+      "Hairline 1px borders and 2 to 8px radii; depth comes from tone, not shadows."
+    ],
+    "rules": [
+      {
+        "name": "The One Beam Rule",
+        "body": "Cyan means \"interactive or scanning\". It is never decoration, never a severity, and never a second brand colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Threat Palette Rule",
+        "body": "Severity colours appear only on findings, frames, counts and score bands. A severity colour on anything else reads as an alarm.",
+        "section": "colors"
+      },
+      {
+        "name": "The Never Colour Alone Rule",
+        "body": "Every severity label prints the word and a distinct icon shape (octagon, triangle, circle, info). Frames carry a number; empty matrix cells print a dot.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readout Rule",
+        "body": "If it is measured, counted or identified (score, count, ID, URL, time, percentage), it is set in tabular Geist Mono. Prose never is.",
+        "section": "typography"
+      },
+      {
+        "name": "The Small Uppercase Rule",
+        "body": "Uppercase with 0.06em tracking is only for column headers, field labels and severity/band names. It never sits above a heading as decoration.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tone Not Shadow Rule",
+        "body": "Panels separate from the ground by one tonal step and a hairline. A new surface gets a shadow only if it is a capture on the scan grid or a locked frame.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep cyan for interaction and scan state only (The One Beam Rule).",
+      "**Do** print the severity word and its icon every time a severity is shown.",
+      "**Do** set every score, count, ID, URL, timing and percentage in tabular Geist Mono.",
+      "**Do** separate report blocks with 1px hairlines and tonal steps before reaching for a box or a shadow.",
+      "**Do** number located findings with two-digit tags and repeat the same number on the table row.",
+      "**Do** keep radii between 2px and 8px for new surfaces; 12px is the ceiling.",
+      "**Do** hold AA contrast in both themes, using the `-fg` severity tokens for text."
+    ],
+    "donts": [
+      "**Don't** build screens from score tiles or rows of same-size cards; the report is a register, not a dashboard.",
+      "**Don't** use severity colours for decoration, branding or emphasis outside findings.",
+      "**Don't** add shadows to panels, buttons or popovers beyond the two in the shadow vocabulary.",
+      "**Don't** put uppercase tracked labels above headings as decoration.",
+      "**Don't** introduce a second accent hue or a display typeface; the scale stops at 44px."
+    ]
+  }
+}

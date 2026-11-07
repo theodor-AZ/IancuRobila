@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "test-pages/flawed-shop/index.html"
+        ],
+        "createdAt": "2026-11-07T09:25:04.340Z",
+        "reason": "Claude: intentional planted accessibility flaw in scanner smoke-test fixture"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "ui/src/app/globals.css"
+        ],
+        "createdAt": "2026-11-07T11:09:24.142Z",
+        "reason": "Claude: grid only backs evidence captures and the scanner progress view (measurement surface of the security-scanner direction chosen by the user)"
+      }
+    ]
+  }
+}
