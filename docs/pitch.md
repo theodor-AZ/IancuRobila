@@ -2,7 +2,7 @@
 
 Autor: THEODOR. Pitch-ul se ține în engleză (juriul poate fi internațional); notele sunt în română.
 
-Slide-urile folosesc același limbaj vizual ca aplicația: fundal închis, chenare numerotate de „threat frame”. Imaginea de deschidere/partajare e în `ui/public/brand/og.png`.
+Slide-urile folosesc același limbaj vizual ca aplicația: fundal închis (slate), accent indigo, carduri de vulnerabilitate cu Before / After.
 
 ---
 
@@ -25,17 +25,16 @@ Slide-urile folosesc același limbaj vizual ca aplicația: fundal închis, chena
 
 Campania de demo cu vulnerabilități plantate (GlowPure Hydra Cream, brand inventat).
 
-1. **New scan** (15 s): lipim textul reclamei, încărcăm imaginea, URL-ul landing page-ului și fișa tehnică PDF. Categoria: cosmetics.
-2. **Scan progress** (10 s): cei cinci pași se bifează pe rând, iar fasciculul de scanare trece peste reclamă.
-3. **Raportul** (90 s), în ordinea unui raport de pentest:
-   - **Executive summary:** scorul (de exemplu 31 / 100, „Critical risk”) și „Fix the 3 critical before launch”.
-   - **Risk matrix:** categorie × severitate. Juriul vede dintr-o privire unde e problema.
-   - **Evidence view** (momentul „prove the risks”): reclama și pagina una lângă alta. Hover pe rândul 02: chenarul „-50%” din reclamă și chenarul „-20%” de pe pagină se aprind împreună.
-   - **Finding card:** dovadă, impact, regula (Art. 6 din Directiva 2005/29), apoi fix-ul cu textul vechi tăiat și cel propus dedesubt, plus **Copy fix**.
-   - Încă un exemplu rapid: „Buy Now” duce la 404 (critical, conversion).
+1. **Scanare Nouă** (15 s): „Populează date demonstrative” completează textul reclamei, imaginea, URL-ul landing page-ului și categoria (cosmetice).
+2. **Progres** (10 s): pașii reali ai scannerului se bifează pe rând.
+3. **Raportul** (90 s):
+   - **Rezumat:** scorul de conformitate (de exemplu 23%, „Risc Critic”) și numărul de vulnerabilități critice + high.
+   - **Filtru de gravitate:** CRITICAL → LOW, ca într-un raport de pentest.
+   - **Card de vulnerabilitate:** riscul, referința legală (de exemplu Art. 6 din Directiva 2005/29 [PRODUCT-CONSISTENCY]), apoi Before / After cu textul vechi tăiat și propunerea dedesubt, plus **Copy Fix**.
+   - **Inspecție dovezi** (momentul „prove the risks”): reclama față de landing page, plus captura reală a paginii cu problema încadrată (de exemplu „Buy Now” care duce la 404).
 4. **Export PDF** (5 s): raportul pleacă la client sau la juridic.
 
-Plan B dacă demo-ul live pică: înregistrare de ecran a aceluiași flux, plus raportul deja generat la `/scan/SCN-0042`.
+Plan B dacă demo-ul live pică: înregistrare de ecran a aceluiași flux, plus raportul demonstrativ de la `/scan/scan-demo-1`.
 
 ## 3:40 – 4:20 · Ce ne diferențiază
 

@@ -1,30 +1,12 @@
-# ClaimGuard X UI: design system and screens (THEODOR)
+# ClaimGuard X: aplicația web
 
-Next.js 16 (App Router) + TypeScript + Tailwind v4 + shadcn/ui (Base UI).
+Next.js 16 (App Router) + TypeScript + Tailwind v4 + lucide-react.
 
-**Scans are real:** "New scan" runs the technical scanner from `src/lib/checks/` (Playwright, axe-core) on the server, plus rule-based claim checks (`src/lib/rules.ts`): ad ↔ landing page ↔ PDF documents. Threat frames are computed from element positions on the capture. Not here yet: the AI analysis and Supabase. Scans are stored as files in `ui/data/scans/`. The three `SCN-004x` scans are mock demo data.
+**Frontend:** template-ul Red Team (`src/components/claim-guard/*`, `src/types/finding.ts`, `src/mock/*`, `src/app/page.tsx`, `src/app/scan/[id]/page.tsx`), legat la scannerul real prin `src/lib/adapters/template.ts`.
 
-Prerequisite (once): `npx playwright install chromium`.
+**Scanările sunt reale:** „Scanare Nouă” rulează pe server scannerul tehnic din `src/lib/checks/` (Playwright, axe-core) și verificările de afirmații pe bază de reguli (`src/lib/rules.ts`, biblioteca Colegului 4): reclamă ↔ landing page ↔ documente PDF. Nu există încă analiză AI. Scanările sunt salvate ca fișiere în `ui/data/scans/` (sau în Supabase, vezi mai jos). `scan-demo-1`, `scan-clean-demo` și `scan-progress-demo` sunt datele demonstrative din template.
 
-### How a scan flows
-
-1. `POST /api/scans` (multipart: adText, landingUrl, productCategory, adImage?, documents[]?) saves the inputs and returns `{ id }`. The pipeline runs in `after()`.
-2. `src/lib/pipeline.ts` runs five steps:
-   - 0: read PDFs (unpdf)
-   - 1: `capturePage` + `extractOffer`
-   - 2: `checkLinks` + `checkPerformance`
-   - 3: `checkAccessibility`
-   - 4: `runClaimRules`, then a full-page capture with frames
-
-   Each step updates `scan.json`. A page behind a bot wall ends with status `blocked`.
-3. `GET /api/scans/[id]` is polled by the progress screen. When the status is `done`, the app redirects to the report.
-4. To test without the internet, use **Fill with demo campaign** on /scan/new. It scans `public/demo-site/flawed-shop`, which this app serves, with planted issues in all 5 categories.
-
-**Supabase (Patrick's schema):** `supabase/migrations` and `src/lib/db/`. Put `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `ui/.env.local` and `src/lib/store.ts` switches to `store-supabase.ts` (campaigns, scans, scan_steps for Realtime, findings). Without them, scans are saved as files. Uploaded files and captures stay in `data/scans/` in both modes; moving them to the storage buckets is the next step. The Supabase store is checked against the generated types only, not yet on a live project.
-
-**Colleague 4 (Role 4):** claim checks use his rule library (`src/lib/rules/library.json`), and every finding carries a `ruleId` such as `ENV-GENERIC` or `WCAG-1.4.3`. His four campaigns are served at `/demo-campaigns/<id>/index.html`, and one click on /scan/new loads one of them (ad copy, artwork, URL, evidence PDFs). Benchmark: `npx tsx scripts/evaluate-role4.mts` (see `docs/evaluation-role4.md` at the repo root).
-
-The AI analysis can replace or extend `runClaimRules`. 
+Cerință (o singură dată): `npx playwright install chromium`.
 
 ```bash
 cd ui
@@ -32,42 +14,34 @@ npm install
 npm run dev        # http://localhost:3000
 ```
 
-| Route | Screen |
+| Rută | Ce arată |
 |---|---|
-| `/` | `ScanHistoryScreen` (scanned campaigns) |
-| `/scan/new` | `NewScanScreen` (upload + validation, starts a real scan) |
-| `/scan/<id>/progress` | `ScanProgress` (live steps of the real scan; simulated for mock scans) |
-| `/scan/SCN-0042` | `ScanReport` with `EvidenceView`, `FindingsTable`, `FindingCard` |
-| `/styleguide` | tokens, type, spacing, radii, all shared components and states |
+| `/` | Aplicația cu tab-uri: Scanare Nouă → progres → Raport Activ, plus Istoric (scanări reale + demo) |
+| `/scan/<id>` | Link direct către un raport (demo sau real); dacă scanarea rulează, arată progresul live |
 
-## Direction
+### Cum curge o scanare
 
-- **UI:** security scanner. The campaign is screened, and every located problem is drawn as a numbered **threat frame** on the ad and landing page captures. The same number sits on its row in the findings table; hover or focus either one to light up both.
-- **Structure (UX):** pentest report. Executive summary (score, severity counts, risk matrix) → scope → findings register ordered by severity → finding detail (claim, evidence, impact, rule, remediation, confidence) → methodology and limitations.
-- Dark is the default theme; light is for daylight and print. The toggle is in the header.
+1. Formularul (`NewScanScreen`) trimite `POST /api/scans` (multipart: adText, landingUrl, productCategory, adImage?, documents[]?) și primește `{ id }`. Pipeline-ul rulează în `after()`.
+2. `src/lib/pipeline.ts` are cinci pași, aceiași cu primii cinci din `ScanProgress`:
+   - 0: citește PDF-urile (unpdf)
+   - 1: `capturePage` + `extractOffer`
+   - 2: `checkLinks` + `checkPerformance`
+   - 3: `checkAccessibility` + `checkKeyboard`
+   - 4: `runClaimRules`, apoi captura paginii cu chenarele fiecărei probleme
+3. `ScanProgress` interoghează `GET /api/scans/[id]` la fiecare secundă. La `done` se deschide raportul; la `blocked`/`failed` apare motivul.
+4. `toUIReport()` transformă scanarea în `Scan`/`Finding` din template:
+   - `risk` → `riskDescription`
+   - `rule` → `regulatoryReference`
+   - `claim` → `aiSuggestedFix.originalClaim`
+   - `fix` → `suggestedClaim`
+   - chenarele → `evidence.frames`
 
-## Handoff: what moves into the base repo
+   Inspecția dovezilor desenează chenarele pe captura reală a paginii.
 
-| From this sandbox | To the base | Owner |
-|---|---|---|
-| `src/app/globals.css` (tokens, both themes) | `app/globals.css` | Colleague 3 (THEODOR), first PR |
-| `src/components/ui/severity-badge.tsx`, `category-icon.tsx`, `score-gauge.tsx`, `empty-state.tsx`, `error-state.tsx`, `threat-frame.tsx` | `components/ui/` | Colleague 3, first PR |
-| `src/components/brand/*` (logo, theme toggle, app shell) | `components/brand/` | Colleague 3 |
-| `src/components/claimguard/*` (screens) | reference / starting point for Colleague 1 | Colleague 1 |
-| `src/lib/types.ts`, `src/lib/score.ts` | align with the base's official `Finding` type | base |
-| `src/mock/findings.json` (12 findings, all 5 categories), `src/mock/scans.json` (3 scans) | `mock/` | Colleague 1 |
-| `public/brand/*` (logo SVG, mark SVG, 512 PNG, OG 1200×630), `src/app/icon.svg` | `public/brand/`, `app/icon.svg` | Colleague 3 |
+**Demo fără internet:** butonul „Populează date demonstrative” scanează `public/demo-site/flawed-shop`, servit chiar de aplicație. Butoanele „Campanii de test” încarcă cele patru campanii ale Colegului 4 (`public/demo-campaigns/<id>`): text, imagine, URL și PDF-uri de dovezi.
 
-### Rules for using the components
+**Supabase (schema lui Patrick):** `supabase/migrations` și `src/lib/db/`. Cu `NEXT_PUBLIC_SUPABASE_URL` și `SUPABASE_SERVICE_ROLE_KEY` în `ui/.env.local`, `src/lib/store.ts` trece pe `store-supabase.ts`. Fișierele încărcate și capturile rămân în `data/scans/`. E verificat doar contra tipurilor, nu pe un proiect real.
 
-- Colour only through tokens (`bg-sev-critical-bg`, `text-sev-high-fg`, `text-beam-fg`, `border-border-strong`…). No hand-written hex in screens.
-- `SeverityBadge` always shows the word and an icon. Never show severity as colour alone.
-- `.num` (Geist Mono, tabular) only for measurements: scores, IDs, URLs, timings. Do not use it as decoration.
-- Spacing only from 4 / 8 / 12 / 16 / 24 / 32 (Tailwind 1, 2, 3, 4, 6, 8).
-- Radii: `rounded-xs` 2 px (frames, chips), `rounded-sm` 4 px (badges, filters), `rounded-md` 6 px (inputs), `rounded-lg` 8 px (panels, buttons).
-- `Frame` coordinates are percentages of the capture (0–100), so they scale with the image. The scanner (`src/checks/*` at the repo root) can produce them from element bounding boxes; see `scripts/boxes.ts`.
-- Copy follows rule 5 of the brief: "Possibly non-compliant with…", "No evidence found for…", never "Illegal".
+**Benchmark Colegul 4:** `npx tsx scripts/evaluate-role4.mts` (detalii în `docs/evaluation-role4.md`).
 
-## Demo assets
-
-`public/demo/ad-glowpure.svg` is a fictional ad (invented brand). `public/demo/page-glowpure.png` is the scanner's desktop capture of the local smoke page `test-pages/flawed-shop`.
+**Test cap-coadă:** din rădăcina repo-ului, `npx tsx scripts/e2e.ts http://localhost:3000 [textul butonului demo]`. Capturile ajung în `ui/.shots/`.

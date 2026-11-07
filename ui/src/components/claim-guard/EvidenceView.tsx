@@ -1,143 +1,141 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Finding } from "@/types/finding";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Eye, Globe, Megaphone, FileWarning, ArrowLeftRight } from "lucide-react";
+import React from 'react';
+import { Finding } from '@/types/finding';
+import { X, ShieldAlert } from 'lucide-react';
 
 interface EvidenceViewProps {
-  adText: string;
-  landingPageUrl: string;
-  findings: Finding[];
-  activeFinding?: Finding | null;
-  onSelectFinding?: (finding: Finding) => void;
+  finding: Finding | null;
+  onClose: () => void;
+  /** Captura landing page-ului (scanări reale); chenarele dovezii se desenează peste ea. */
+  pageCapture?: string;
 }
 
-export function EvidenceView({
-  adText,
-  landingPageUrl,
-  findings,
-  activeFinding,
-  onSelectFinding,
-}: EvidenceViewProps) {
-  const highlighted = activeFinding || findings[0];
+export const EvidenceView: React.FC<EvidenceViewProps> = ({ finding, onClose, pageCapture }) => {
+  if (!finding) return null;
+
+  const frames = finding.evidence.frames ?? [];
+  const showCapture = !!pageCapture && frames.length > 0;
+  // Fereastra de captură e centrată pe primul chenar.
+  const focusY = frames.length ? Math.max(0, frames[0].y + frames[0].h / 2) : 0;
 
   return (
-    <Card className="bg-card border-border text-foreground">
-      <CardHeader className="pb-3 border-b border-border">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-base font-semibold flex items-center gap-2">
-            <ArrowLeftRight className="w-4 h-4 text-beam-fg" />
-            Side-by-Side Evidence Inspector — &ldquo;Prove the Risks&rdquo;
-          </CardTitle>
-          <div className="flex flex-wrap gap-1.5">
-            {findings.slice(0, 5).map((f) => (
-              <button
-                key={f.id}
-                onClick={() => onSelectFinding?.(f)}
-                className={`text-xs px-2.5 py-1 rounded-md border transition-all ${
-                  highlighted?.id === f.id
-                    ? "bg-accent border-beam/40 text-beam-fg font-medium"
-                    : "bg-background border-border text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {f.title.slice(0, 26)}...
-              </button>
-            ))}
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-slate-900 border border-slate-800 w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/50">
+          <div className="flex items-center gap-2">
+            <ShieldAlert className="w-5 h-5 text-indigo-400" />
+            <h2 className="text-base font-semibold text-slate-100">
+              Inspecție Dovadă Red Team: {finding.ruleId ?? finding.id}
+            </h2>
           </div>
+          <button
+            onClick={onClose}
+            aria-label="Închide"
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
-      </CardHeader>
 
-      <CardContent className="p-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* LEFT: Ad Creative & Copy */}
-          <div className="rounded-xl bg-background border border-border p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                <Megaphone className="w-3.5 h-3.5 text-beam-fg" /> Submitted Ad Creative
-              </span>
-              <Badge variant="outline" className="text-[11px] border-border-strong text-muted-foreground">
-                Source: Ad Copy + Visual
-              </Badge>
-            </div>
+        {/* Content Body */}
+        <div className="p-6 overflow-y-auto space-y-6">
+          <div>
+            <span className="text-xs font-mono uppercase text-slate-400 bg-slate-800 px-2 py-0.5 rounded">
+              {finding.category}
+            </span>
+            <h3 className="text-lg font-bold text-slate-100 mt-2">{finding.title}</h3>
+            <p className="text-sm text-slate-300 mt-1">{finding.riskDescription}</p>
+          </div>
 
-            {/* Simulated Ad Visual Preview */}
-            <div className="relative rounded-lg bg-card border border-border p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-foreground">Sponsored • GlowBotanics Official</span>
-                <span className="text-[10px] bg-accent text-beam-fg border border-beam/40 px-2 py-0.5 rounded">
-                  Ad Preview
+          {/* Comparativ Side-by-Side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Ad Box */}
+            <div className="border border-red-900/50 bg-red-950/20 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-semibold text-red-400 uppercase tracking-wider block mb-2">
+                  1. Promisiune Reclamă ({finding.evidence.adSource})
                 </span>
+                <blockquote className="text-sm text-slate-200 font-mono bg-slate-950/60 p-3 rounded border border-red-950 break-words">
+                  &quot;{finding.evidence.adText}&quot;
+                </blockquote>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed mb-3">{adText}</p>
+              <div className="mt-4 pt-3 border-t border-red-950/80 text-[11px] text-slate-400">
+                Sursă detectată de agentul tehnic de colectare
+              </div>
+            </div>
 
-              {highlighted && (
-                <div className="p-3 rounded-lg bg-sev-critical-bg border-2 border-sev-critical/40 shadow-sm">
-                  <div className="flex items-center justify-between text-[11px] text-sev-critical-fg font-semibold mb-1">
-                    <span>FLAGGED CLAIM IN AD</span>
-                    <span className="uppercase">{highlighted.severity} RISK</span>
-                  </div>
-                  <p className="text-sm font-medium text-foreground">&ldquo;{highlighted.claim}&rdquo;</p>
-                </div>
-              )}
+            {/* Landing Box */}
+            <div className="border border-indigo-900/50 bg-indigo-950/20 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider block mb-2">
+                  2. Realitate Landing Page
+                </span>
+                <blockquote className="text-sm text-slate-200 font-mono bg-slate-950/60 p-3 rounded border border-indigo-950 break-words whitespace-pre-line">
+                  &quot;{finding.evidence.landingText}&quot;
+                </blockquote>
+              </div>
+              <div className="mt-4 pt-3 border-t border-indigo-950/80 text-[11px] text-slate-400 truncate">
+                URL: <a href={finding.evidence.landingUrl} target="_blank" rel="noreferrer" className="text-indigo-400 hover:underline">{finding.evidence.landingUrl}</a>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT: Landing Page Snapshot & Technical Evidence */}
-          <div className="rounded-xl bg-background border border-border p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-border pb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-beam-fg" /> Landing Page & Dossier Snapshot
-              </span>
-              <span className="text-xs text-muted-foreground font-mono truncate max-w-[220px]">
-                {landingPageUrl}
-              </span>
-            </div>
-
-            {highlighted ? (
-              <div className="space-y-3">
-                {/* Simulated Browser Frame */}
-                <div className="rounded-lg border border-border bg-card overflow-hidden">
-                  <div className="bg-card px-3 py-1.5 border-b border-border flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-sev-critical-bg" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-sev-medium-bg" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-ok/10" />
-                    <span className="ml-2 text-[11px] text-muted-foreground font-mono truncate">
-                      {highlighted.evidence.source}
-                    </span>
-                  </div>
-
-                  <div className="p-4 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Badge className="bg-sev-medium-bg text-sev-medium-fg border border-sev-medium/40 text-xs">
-                        <Eye className="w-3 h-3 mr-1" /> Highlighted Region:{" "}
-                        {highlighted.evidence.location || "DOM Element"}
-                      </Badge>
-                    </div>
-
-                    <div className="p-3 rounded-lg bg-sev-medium-bg border-2 border-dashed border-sev-medium/40">
-                      <p className="text-xs text-sev-medium-fg font-mono leading-relaxed">
-                        {highlighted.evidence.snippet}
-                      </p>
-                    </div>
-
-                    <div className="p-2.5 rounded bg-background border border-border text-xs text-muted-foreground flex items-start gap-2">
-                      <FileWarning className="w-4 h-4 text-sev-critical-fg shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-semibold text-foreground">Mismatch / Vulnerability Proof: </span>
-                        {highlighted.risk}
-                      </div>
-                    </div>
-                  </div>
+          {/* Captura reală a landing page-ului, cu locul exact al problemei încadrat */}
+          {showCapture && (
+            <div className="border border-slate-800 rounded-xl overflow-hidden">
+              <div className="px-3 py-2 bg-slate-950/80 border-b border-slate-800 text-xs font-semibold text-slate-300">
+                3. Unde apare pe landing page (captură realizată de scanner)
+              </div>
+              <div className="max-h-96 overflow-y-auto bg-white">
+                <div className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={pageCapture}
+                    alt="Captura landing page-ului"
+                    className="block w-full h-auto"
+                    onLoad={(e) => {
+                      const box = e.currentTarget.parentElement?.parentElement;
+                      if (box) box.scrollTop = Math.max(0, (focusY / 100) * box.scrollHeight - box.clientHeight / 2);
+                    }}
+                  />
+                  {frames.map((fr, i) => (
+                    <div
+                      key={i}
+                      className="absolute border-2 border-red-500 bg-red-500/10 rounded-sm shadow-[0_0_0_9999px_rgba(2,6,23,0.35)]"
+                      style={{ left: `${fr.x}%`, top: `${fr.y}%`, width: `${fr.w}%`, height: `${fr.h}%` }}
+                    />
+                  ))}
                 </div>
               </div>
-            ) : (
-              <p className="text-xs text-muted-foreground">Select a finding to inspect side-by-side evidence.</p>
-            )}
+            </div>
+          )}
+
+          {finding.evidence.contextSnippet && (
+            <div className="bg-slate-950 border border-slate-800 p-3 rounded-lg text-xs text-slate-400 break-words">
+              <span className="font-semibold text-slate-300 block mb-1">Dovadă context tehnic / DOM:</span>
+              {finding.evidence.contextSnippet}
+            </div>
+          )}
+
+          {/* AI Decision & Fix */}
+          <div className="bg-slate-950/80 border border-indigo-900/40 rounded-xl p-4">
+            <h4 className="text-sm font-semibold text-indigo-300 mb-2">Raționament de remediere (AI Agent Rationale):</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">{finding.aiSuggestedFix.rationale}</p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-slate-800 bg-slate-950/50 flex justify-end">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-sm font-medium transition-colors"
+          >
+            Închide Inspecția
+          </button>
+        </div>
+      </div>
+    </div>
   );
-}
+};

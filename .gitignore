@@ -4,5 +4,4 @@ node_modules/
 # real-site probe output (third-party HTML/screenshots) - summarized in scanner-notes.md instead
 probes/
 fixtures/nivea/
-.impeccable/hook.cache.json
-.impeccable/questions/
+ui/.shots/

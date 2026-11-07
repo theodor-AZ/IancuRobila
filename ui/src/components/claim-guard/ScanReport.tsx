@@ -1,229 +1,219 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Finding, Category, Severity, ScanSummary } from "@/types/finding";
-import { FindingCard } from "./FindingCard";
-import { EvidenceView } from "./EvidenceView";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useState } from 'react';
+import { Scan, Finding } from '@/types/finding';
+import { FindingCard } from './FindingCard';
+import { EvidenceView } from './EvidenceView';
 import {
   ShieldCheck,
-  ShieldAlert,
-  Printer,
+  Download,
   Filter,
   CheckCircle2,
-  SlidersHorizontal,
-  ChevronDown,
-  ChevronUp
-} from "lucide-react";
+  AlertCircle,
+  Layers
+} from 'lucide-react';
 
 interface ScanReportProps {
-  scan: ScanSummary;
+  scan: Scan;
+  findings: Finding[];
 }
 
-export function ScanReport({ scan }: ScanReportProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [hideCriticalDemo, setHideCriticalDemo] = useState<boolean>(false);
-  const [animatedScore, setAnimatedScore] = useState<number>(0);
-  const [activeFinding, setActiveFinding] = useState<Finding | null>(scan.findings[0] || null);
-  // NOU: Stare pentru a arăta toate cardurile sau doar primele 3
-  const [showAllFindings, setShowAllFindings] = useState<boolean>(false);
+export const ScanReport: React.FC<ScanReportProps> = ({ scan, findings }) => {
+  const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
+  const [inspectingFinding, setInspectingFinding] = useState<Finding | null>(null);
+  const [showCleanStateToggle, setShowCleanStateToggle] = useState<boolean>(false);
 
-  const displayedFindings = hideCriticalDemo
-    ? scan.findings.filter((f) => f.severity !== "critical")
-    : scan.findings;
+  // Comutatorul „Clean 100%” e doar pentru datele demonstrative; la o scanare reală ar arăta un scor fals.
+  const cleanState = !!scan.isDemo && showCleanStateToggle;
 
-  const targetScore = hideCriticalDemo ? Math.min(96, scan.score + 45) : scan.score;
+  // Filtrare vulnerabilități
+  const effectiveFindings = cleanState ? [] : findings;
+  const filteredFindings = effectiveFindings.filter((f) => {
+    if (selectedSeverity === 'all') return true;
+    return f.severity === selectedSeverity;
+  });
 
-  useEffect(() => {
-    let current = 0;
-    const step = Math.max(1, Math.ceil(targetScore / 25));
-    const interval = setInterval(() => {
-      current += step;
-      if (current >= targetScore) {
-        setAnimatedScore(targetScore);
-        clearInterval(interval);
-      } else {
-        setAnimatedScore(current);
-      }
-    }, 25);
-    return () => clearInterval(interval);
-  }, [targetScore]);
+  const displayScore = cleanState ? 98 : scan.score;
 
-  const filteredFindings =
-    selectedCategory === "all"
-      ? displayedFindings
-      : displayedFindings.filter((f) => f.category === selectedCategory);
+  // Calcul culoare cerc scor
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-emerald-400 border-emerald-500';
+    if (score >= 50) return 'text-amber-400 border-amber-500';
+    return 'text-red-400 border-red-500';
+  };
 
-  // NOU: Tăiem lista la 3 elemente dacă nu este apăsat butonul de Show All
-  const visibleFindings = showAllFindings ? filteredFindings : filteredFindings.slice(0, 3);
-
-  const countBySeverity = (sev: Severity) => displayedFindings.filter((f) => f.severity === sev).length;
-  const countByCategory = (cat: Category) => displayedFindings.filter((f) => f.category === cat).length;
-  const criticalCount = countBySeverity("critical");
-
-  const scoreColor =
-    animatedScore >= 80
-      ? "text-ok-fg border-ok/40 bg-ok/10"
-      : animatedScore >= 55
-      ? "text-sev-medium-fg border-sev-medium/40 bg-sev-medium-bg"
-      : "text-sev-critical-fg border-sev-critical/40 bg-sev-critical-bg";
+  const handleExportPDF = () => {
+    window.print();
+  };
 
   return (
-    <div className="space-y-6 print:space-y-4">
-      <Card className="bg-card border-border text-foreground">
-        <CardContent className="p-6">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge className="bg-accent text-beam-fg border-beam/40">
-                  Red Team Audit Report
-                </Badge>
-                <span className="text-xs text-muted-foreground font-mono">ID: {scan.id}</span>
-                <span className="text-xs text-muted-foreground">•</span>
-                <span className="text-xs text-muted-foreground">
-                  Category: <strong className="text-foreground uppercase">{scan.productCategory}</strong>
-                </span>
-              </div>
-              <h1 className="text-2xl font-bold text-foreground">{scan.campaignName}</h1>
-              <p className="text-xs text-muted-foreground font-mono">{scan.landingPageUrl}</p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <div className={`px-5 py-3 rounded-2xl border-2 flex items-center gap-3 ${scoreColor}`}>
-                <div>
-                  <div className="text-[11px] uppercase tracking-wider font-semibold opacity-80">Safety Score</div>
-                  <div className="text-3xl font-extrabold tabular-nums">
-                    {animatedScore}<span className="text-sm font-normal opacity-70">/100</span>
-                  </div>
-                </div>
-                {criticalCount === 0 ? <ShieldCheck className="w-8 h-8" /> : <ShieldAlert className="w-8 h-8" />}
-              </div>
-
-              <div className="flex flex-col gap-2 print:hidden">
-                <Button variant="outline" size="sm" onClick={() => window.print()} className="bg-background border-border-strong text-foreground hover:bg-muted">
-                  <Printer className="w-4 h-4 mr-2" /> Export PDF
-                </Button>
-                <Button variant="ghost" size="sm" onClick={() => setHideCriticalDemo(!hideCriticalDemo)} className="text-xs text-muted-foreground hover:text-foreground">
-                  <SlidersHorizontal className="w-3.5 h-3.5 mr-1.5" />
-                  {hideCriticalDemo ? "Show All Risks" : "Simulate Clean State"}
-                </Button>
-              </div>
-            </div>
+    <div className="space-y-8 max-w-6xl mx-auto py-6 px-4">
+      {/* HEADER SECTION */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <span className="text-xs font-mono uppercase bg-indigo-950 text-indigo-300 border border-indigo-800 px-2 py-0.5 rounded">
+              Auditat de Red Team AI
+            </span>
+            <span className="text-xs text-slate-400 font-mono">
+              Scan ID: {scan.id}
+            </span>
+            {scan.isDemo && (
+              <span className="text-xs font-mono uppercase bg-slate-800 text-slate-400 border border-slate-700 px-2 py-0.5 rounded">
+                Date demonstrative
+              </span>
+            )}
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2.5 mt-6 pt-6 border-t border-border">
-            <div className="p-2.5 rounded-lg bg-sev-critical-bg border border-sev-critical/40">
-              <div className="text-[11px] text-sev-critical-fg uppercase font-semibold">Critical</div>
-              <div className="text-xl font-bold text-foreground">{countBySeverity("critical")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-sev-high-bg border border-sev-high/40">
-              <div className="text-[11px] text-sev-high-fg uppercase font-semibold">High</div>
-              <div className="text-xl font-bold text-foreground">{countBySeverity("high")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-sev-medium-bg border border-sev-medium/40">
-              <div className="text-[11px] text-sev-medium-fg uppercase font-semibold">Medium</div>
-              <div className="text-xl font-bold text-foreground">{countBySeverity("medium")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-sev-low-bg border border-sev-low/40">
-              <div className="text-[11px] text-sev-low-fg uppercase font-semibold">Low</div>
-              <div className="text-xl font-bold text-foreground">{countBySeverity("low")}</div>
-            </div>
-
-            <div className="p-2.5 rounded-lg bg-background border border-border">
-              <div className="text-[11px] text-muted-foreground">Legal</div>
-              <div className="text-lg font-semibold text-foreground">{countByCategory("legal")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-background border border-border">
-              <div className="text-[11px] text-muted-foreground">Truth</div>
-              <div className="text-lg font-semibold text-foreground">{countByCategory("truth")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-background border border-border">
-              <div className="text-[11px] text-muted-foreground">Conversion</div>
-              <div className="text-lg font-semibold text-foreground">{countByCategory("conversion")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-background border border-border">
-              <div className="text-[11px] text-muted-foreground">A11y</div>
-              <div className="text-lg font-semibold text-foreground">{countByCategory("accessibility")}</div>
-            </div>
-            <div className="p-2.5 rounded-lg bg-background border border-border">
-              <div className="text-[11px] text-muted-foreground">Brand Trust</div>
-              <div className="text-lg font-semibold text-foreground">{countByCategory("trust")}</div>
-            </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-100 tracking-tight">
+            Raport de Conformitate & Securitate Marketing
+          </h1>
+          {scan.campaign && (
+            <p className="text-sm font-semibold text-indigo-300 mt-1">{scan.campaign}</p>
+          )}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400 mt-2">
+            <span>Ad: <strong className="text-slate-300 font-mono">{scan.adUrl}</strong></span>
+            <span className="break-all">Landing: <strong className="text-slate-300 font-mono">{scan.landingUrl}</strong></span>
+            {scan.documents && scan.documents.length > 0 && (
+              <span>Dovezi: <strong className="text-slate-300 font-mono">{scan.documents.join(', ')}</strong></span>
+            )}
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      {criticalCount === 0 && (
-        <div className="p-4 rounded-xl bg-ok/10 border border-ok/40 flex items-center justify-between text-ok-fg">
-          <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6 text-ok-fg shrink-0" />
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">No critical vulnerabilities found</h3>
-              <p className="text-xs text-ok-fg">This campaign passed primary blocking checks.</p>
-            </div>
+        <div className="flex items-center gap-3 self-start md:self-auto print:hidden">
+          {/* TOGGLE PENTRU PREZENTARE DEMO (STARE CURATĂ) */}
+          {scan.isDemo && (
+            <button
+              onClick={() => setShowCleanStateToggle(!showCleanStateToggle)}
+              className="px-3 py-2 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-colors"
+              title="Comută pentru a arăta starea fără vulnerabilități la demo"
+            >
+              <Layers className="w-3.5 h-3.5" />
+              {showCleanStateToggle ? 'Vezi Raportul cu Erori' : 'Simulează "Clean 100%"'}
+            </button>
+          )}
+
+          <button
+            onClick={handleExportPDF}
+            className="px-4 py-2 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-2 shadow-lg shadow-indigo-600/20 transition-all"
+          >
+            <Download className="w-4 h-4" />
+            Export Raport PDF
+          </button>
+        </div>
+      </div>
+
+      {/* KPI & SUMMARY CARDS */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* SCORE RING CARD */}
+        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex items-center justify-between shadow-sm">
+          <div>
+            <span className="text-xs font-medium text-slate-400 uppercase tracking-wider block">
+              Scor Conformitate
+            </span>
+            <span className="text-xs text-slate-500 block mt-0.5">
+              {displayScore >= 80 ? 'Risc Scăzut' : displayScore >= 50 ? 'Risc Mediu' : 'Risc Critic'}
+            </span>
           </div>
-          <Badge className="bg-ok/10 text-ok-fg border-ok/40">Ready for Launch Review</Badge>
+          <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center font-extrabold text-xl ${getScoreColor(displayScore)}`}>
+            {displayScore}%
+          </div>
+        </div>
+
+        {/* METRICS COUNT */}
+        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Critice & High</span>
+          <div className="text-2xl font-bold text-red-400 mt-2">
+            {cleanState ? 0 : scan.findingsCount.critical + scan.findingsCount.high}
+          </div>
+          <span className="text-[11px] text-slate-500">Necesită remediere imediată</span>
+        </div>
+
+        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Medium & Low</span>
+          <div className="text-2xl font-bold text-amber-400 mt-2">
+            {cleanState ? 0 : scan.findingsCount.medium + scan.findingsCount.low}
+          </div>
+          <span className="text-[11px] text-slate-500">Discrepanțe de formulare</span>
+        </div>
+
+        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">Status Scanare</span>
+          <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-sm mt-2">
+            <CheckCircle2 className="w-4 h-4" /> Finalizat cu succes
+          </div>
+          <span className="text-[11px] text-slate-500">Scanat la {new Date(scan.createdAt).toLocaleTimeString()}</span>
+        </div>
+      </div>
+
+      {/* VERIFICĂRI CARE NU AU PUTUT RULA */}
+      {scan.warnings && scan.warnings.length > 0 && (
+        <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-900/50 text-xs text-amber-300/90 space-y-1">
+          <div className="flex items-center gap-1.5 font-semibold text-amber-400">
+            <AlertCircle className="w-4 h-4" /> Verificări care nu au putut rula (raportul poate fi incomplet):
+          </div>
+          {scan.warnings.map((w) => (
+            <p key={w} className="font-mono break-words">{w}</p>
+          ))}
         </div>
       )}
 
-      <EvidenceView
-        adText={scan.adText}
-        landingPageUrl={scan.landingPageUrl}
-        findings={displayedFindings}
-        activeFinding={activeFinding}
-        onSelectFinding={(f) => setActiveFinding(f)}
-      />
-
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-foreground font-semibold">
-            <Filter className="w-4 h-4 text-beam-fg" />
-            <span>Detected Vulnerabilities ({filteredFindings.length})</span>
-          </div>
-
-          <Tabs value={selectedCategory} onValueChange={(val) => { setSelectedCategory(val); setShowAllFindings(false); }} className="print:hidden">
-            <TabsList className="bg-card border border-border flex-wrap h-auto">
-              <TabsTrigger value="all" className="text-xs">All</TabsTrigger>
-              <TabsTrigger value="legal" className="text-xs">Legal</TabsTrigger>
-              <TabsTrigger value="truth" className="text-xs">Truth</TabsTrigger>
-              <TabsTrigger value="conversion" className="text-xs">Conversion</TabsTrigger>
-              <TabsTrigger value="accessibility" className="text-xs">A11y</TabsTrigger>
-              <TabsTrigger value="trust" className="text-xs">Trust</TabsTrigger>
-            </TabsList>
-          </Tabs>
+      {/* FILTRE DE SEVERITATE */}
+      <div className="flex items-center justify-between flex-wrap gap-3 border-b border-slate-800 pb-3 print:hidden">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-slate-400" />
+          <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Filtrează după gravitate:</span>
         </div>
 
-        <div className="grid grid-cols-1 gap-4">
-          {visibleFindings.map((finding) => (
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {['all', 'critical', 'high', 'medium', 'low'].map((sev) => (
+            <button
+              key={sev}
+              onClick={() => setSelectedSeverity(sev)}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                selectedSeverity === sev
+                  ? 'bg-indigo-600 text-white shadow-md'
+                  : 'bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-700'
+              }`}
+            >
+              {sev.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* LISTA DE VULNERABILITĂȚI / STARE CURATĂ */}
+      {cleanState || filteredFindings.length === 0 ? (
+        <div className="text-center py-16 bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl">
+          <ShieldCheck className="w-16 h-16 text-emerald-400 mx-auto mb-3" />
+          <h3 className="text-lg font-bold text-slate-100">
+            {selectedSeverity !== 'all' && effectiveFindings.length > 0
+              ? `Nicio vulnerabilitate de nivel ${selectedSeverity.toUpperCase()}.`
+              : 'Nu au fost detectate vulnerabilități critice!'}
+          </h3>
+          <p className="text-sm text-slate-400 max-w-md mx-auto mt-1">
+            {selectedSeverity !== 'all' && effectiveFindings.length > 0
+              ? 'Alege alt filtru de gravitate pentru a vedea restul vulnerabilităților.'
+              : 'Toate afirmațiile din reclamă se verifică pe landing page. Niciun risc de reglementare găsit conform Directivelor UE.'}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredFindings.map((finding) => (
             <FindingCard
               key={finding.id}
               finding={finding}
-              onSelectEvidence={(f) => {
-                setActiveFinding(f);
-                window.scrollTo({ top: 260, behavior: "smooth" });
-              }}
+              onInspectEvidence={(f) => setInspectingFinding(f)}
             />
           ))}
         </div>
+      )}
 
-        {/* NOU: Butonul care deschide restul listei */}
-        {filteredFindings.length > 3 && (
-          <Button
-            variant="outline"
-            onClick={() => setShowAllFindings(!showAllFindings)}
-            className="w-full py-6 bg-card border-border text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border-strong transition-all shadow-sm"
-          >
-            {showAllFindings ? (
-              <>Hide Extra Findings <ChevronUp className="w-4 h-4 ml-2" /></>
-            ) : (
-              <>Load {filteredFindings.length - 3} More Vulnerabilities <ChevronDown className="w-4 h-4 ml-2" /></>
-            )}
-          </Button>
-        )}
-      </div>
+      {/* POPUP PENTRU INSPECȚIE DOVEZI */}
+      <EvidenceView
+        finding={inspectingFinding}
+        onClose={() => setInspectingFinding(null)}
+        pageCapture={scan.pageCapture}
+      />
     </div>
   );
-}
+};

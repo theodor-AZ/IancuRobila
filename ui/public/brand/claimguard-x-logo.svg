@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="520" height="96" viewBox="0 0 520 96" fill="none">
-  <g transform="translate(8 16) scale(2)">
-    <path d="M3 10V4.5C3 3.7 3.7 3 4.5 3H10M22 3h5.5c.8 0 1.5.7 1.5 1.5V10M29 22v5.5c0 .8-.7 1.5-1.5 1.5H22M10 29H4.5C3.7 29 3 28.3 3 27.5V22" stroke="#e8edf3" stroke-width="2.5" stroke-linecap="square"/>
-    <path d="M10 10l12 12" stroke="#e8edf3" stroke-width="3.2" stroke-linecap="square"/>
-    <path d="M22 10L10 22" stroke="#5fd3e6" stroke-width="3.2" stroke-linecap="square"/>
-  </g>
-  <text x="92" y="63" font-family="Geist, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="44" font-weight="600" letter-spacing="-0.9" fill="#e8edf3">ClaimGuard <tspan fill="#5fd3e6">X</tspan></text>
-</svg>

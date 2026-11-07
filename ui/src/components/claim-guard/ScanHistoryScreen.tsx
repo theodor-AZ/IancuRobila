@@ -1,111 +1,93 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
-import { ScanSummary } from "@/types/finding";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Globe, ShieldCheck, ShieldAlert } from "lucide-react";
+import React from 'react';
+import { Scan } from '@/types/finding';
+import { History, ArrowRight, Loader2, ShieldAlert } from 'lucide-react';
 
 interface ScanHistoryScreenProps {
-  scans: ScanSummary[];
-  onSelectScan?: (scanId: string) => void;
+  scans: Scan[];
+  onSelectScan: (scanId: string) => void;
 }
 
-export function ScanHistoryScreen({ scans, onSelectScan }: ScanHistoryScreenProps) {
+export const ScanHistoryScreen: React.FC<ScanHistoryScreenProps> = ({ scans, onSelectScan }) => {
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="max-w-5xl mx-auto py-8 px-4 space-y-6">
+      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
         <div>
-          <h2 className="text-xl font-bold text-foreground">Campaign Audit History</h2>
-          <p className="text-xs text-muted-foreground">
-            Previously analyzed marketing campaigns and Red Team risk scores
+          <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
+            <History className="w-5 h-5 text-indigo-400" />
+            Istoric Scanări & Audituri
+          </h2>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Istoricul verificărilor automate de conformitate derulate
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="space-y-3">
         {scans.map((scan) => {
-          const criticalCount = scan.findings.filter((f) => f.severity === "critical").length;
-          const isClean = scan.score >= 80;
-
+          const isCompliant = scan.score >= 80;
           return (
-            <Card
+            <button
+              type="button"
               key={scan.id}
-              className="bg-card border-border text-foreground flex flex-col justify-between hover:border-border-strong transition-all"
+              onClick={() => onSelectScan(scan.id)}
+              className="w-full text-left bg-slate-900 border border-slate-800 hover:border-slate-700 p-4 rounded-xl flex items-center justify-between gap-4 cursor-pointer transition-all hover:bg-slate-800/60"
             >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-[10px] uppercase border-border-strong text-muted-foreground">
-                    {scan.productCategory}
-                  </Badge>
-                  <span className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Calendar className="w-3 h-3" />
-                    {new Date(scan.createdAt).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
+              <div className="space-y-1 overflow-hidden">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-mono font-bold text-slate-200">{scan.campaign || scan.id}</span>
+                  {scan.isDemo && (
+                    <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                      Demo
+                    </span>
+                  )}
+                  <span className="text-[11px] text-slate-500">
+                    {new Date(scan.createdAt).toLocaleDateString()} {new Date(scan.createdAt).toLocaleTimeString()}
                   </span>
                 </div>
-                <CardTitle className="text-base font-bold text-foreground mt-2 line-clamp-2">
-                  {scan.campaignName}
-                </CardTitle>
-                <p className="text-xs text-muted-foreground flex items-center gap-1 font-mono truncate">
-                  <Globe className="w-3 h-3 shrink-0" /> {scan.landingPageUrl}
-                </p>
-              </CardHeader>
+                <div className="text-xs text-slate-400 truncate">
+                  Landing: <span className="font-mono text-slate-300">{scan.landingUrl}</span>
+                </div>
+              </div>
 
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-3 rounded-xl bg-background border border-border">
-                  <div>
-                    <div className="text-[10px] uppercase text-muted-foreground">Safety Score</div>
-                    <div
-                      className={`text-2xl font-extrabold ${
-                        isClean
-                          ? "text-ok-fg"
-                          : scan.score >= 55
-                          ? "text-sev-medium-fg"
-                          : "text-sev-critical-fg"
-                      }`}
-                    >
-                      {scan.score}/100
-                    </div>
-                  </div>
+              <div className="flex items-center gap-4 flex-shrink-0">
+                {scan.status === 'completed' ? (
                   <div className="text-right">
-                    <div className="text-[10px] uppercase text-muted-foreground">Findings</div>
-                    <div className="text-sm font-semibold text-foreground">
-                      {scan.findings.length} total ({criticalCount} critical)
-                    </div>
+                    <span className="text-xs text-slate-500 block">Scor</span>
+                    <span className={`text-sm font-bold ${isCompliant ? 'text-emerald-400' : 'text-red-400'}`}>
+                      {scan.score}%
+                    </span>
                   </div>
+                ) : scan.status === 'failed' ? (
+                  <span className="text-xs font-medium text-red-400 flex items-center gap-1">
+                    <ShieldAlert className="w-3.5 h-3.5" /> Eșuată
+                  </span>
+                ) : (
+                  <span className="text-xs font-medium text-indigo-300 flex items-center gap-1">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" /> În curs
+                  </span>
+                )}
+
+                <div className="hidden sm:flex gap-1 text-xs">
+                  {scan.findingsCount.critical > 0 && (
+                    <span className="px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-900">
+                      {scan.findingsCount.critical} Critice
+                    </span>
+                  )}
+                  {scan.findingsCount.high > 0 && (
+                    <span className="px-2 py-0.5 rounded bg-orange-950 text-orange-400 border border-orange-900">
+                      {scan.findingsCount.high} High
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex items-center gap-2">
-                  {onSelectScan && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onSelectScan(scan.id)}
-                      className="flex-1 bg-background border-border-strong text-foreground hover:bg-muted text-xs"
-                    >
-                      Preview Here
-                    </Button>
-                  )}
-                  <Link href={`/coleg1/scan/${scan.id}`} className="flex-1">
-                    <Button
-                      size="sm"
-                      className="w-full bg-primary hover:bg-primary text-primary-foreground text-xs"
-                    >
-                      Open Report <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+                <ArrowRight className="w-4 h-4 text-slate-500" />
+              </div>
+            </button>
           );
         })}
       </div>
     </div>
   );
-}
+};

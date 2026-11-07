@@ -1,57 +1,42 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { Suspense } from "react";
-import { connection } from "next/server";
-import { notFound, redirect } from "next/navigation";
-import { ScanReport } from "@/components/claimguard/scan-report";
-import { buttonVariants } from "@/components/ui/button";
-import { ErrorState } from "@/components/ui/error-state";
-import { getScan } from "@/lib/scans";
+import { Suspense } from 'react';
+import { connection } from 'next/server';
+import { notFound } from 'next/navigation';
+import { ScanReport } from '@/components/claim-guard/ScanReport';
+import { DEMO_FINDINGS, DEMO_SCANS, toUIReport } from '@/lib/adapters/template';
+import { getScan } from '@/lib/scans';
+import { LiveScan } from './live-scan';
 
-export async function generateMetadata({ params }: PageProps<"/scan/[id]">): Promise<Metadata> {
-  const { id } = await params;
-  const scan = await getScan(id);
-  return { title: scan ? `${scan.brand} ${scan.campaign}` : "Scan not found" };
+/** Link direct către un raport: /scan/scan-demo-1 (demo) sau /scan/<id> (scanare reală). */
+export default function ScanPage({ params }: PageProps<'/scan/[id]'>) {
+  return (
+    <main className="min-h-screen bg-slate-950 text-slate-100 py-8">
+      <Suspense fallback={null}>
+        <ScanContent params={params} />
+      </Suspense>
+    </main>
+  );
 }
 
-async function Report({ params }: { params: Promise<{ id: string }> }) {
+async function ScanContent({ params }: { params: PageProps<'/scan/[id]'>['params'] }) {
   await connection();
   const { id } = await params;
-  const scan = await getScan(id);
-  if (!scan) notFound();
-  if (scan.status === "running") redirect(`/scan/${id}/progress`);
-  if (scan.status === "blocked" || scan.status === "failed") {
+
+  const demo = DEMO_SCANS.find((s) => s.id === id);
+  if (demo) {
+    return <ScanReport scan={demo} findings={DEMO_FINDINGS.filter((f) => f.scanId === demo.id)} />;
+  }
+
+  const stored = await getScan(id);
+  if (!stored) notFound();
+  if (stored.status === 'running') return <LiveScan id={id} />;
+  if (stored.status !== 'done') {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
-        <p className="num text-2xs text-muted-foreground">{scan.id}</p>
-        <h1 className="mt-1 text-xl font-semibold tracking-[-0.02em]">{scan.campaign}</h1>
-        <ErrorState
-          className="mt-6"
-          variant={scan.status === "blocked" ? "blocked" : "error"}
-          title={scan.status === "blocked" ? "We couldn’t open this landing page" : "The scan stopped before it finished"}
-          description={scan.error}
-          secondaryAction={<Link href="/scan/new" className={buttonVariants({ size: "sm", variant: "outline" })}>Start a new scan</Link>}
-        />
+      <div className="max-w-xl mx-auto py-16 px-4 text-center">
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">Scanarea nu s-a putut finaliza</h1>
+        <p className="text-sm text-slate-300">{stored.error}</p>
       </div>
     );
   }
-  return <ScanReport scan={scan} />;
-}
-
-function ReportSkeleton() {
-  return (
-    <div className="mx-auto max-w-[1400px] animate-pulse px-4 pt-6 sm:px-6 motion-reduce:animate-none" aria-busy="true" aria-label="Loading report">
-      <div className="h-3 w-56 rounded-xs bg-muted" />
-      <div className="mt-3 h-8 w-2/3 rounded-xs bg-muted" />
-      <div className="mt-8 h-40 rounded-lg bg-muted/60" />
-    </div>
-  );
-}
-
-export default function ScanPage({ params }: PageProps<"/scan/[id]">) {
-  return (
-    <Suspense fallback={<ReportSkeleton />}>
-      <Report params={params} />
-    </Suspense>
-  );
+  const { scan, findings } = toUIReport(stored);
+  return <ScanReport scan={scan} findings={findings} />;
 }

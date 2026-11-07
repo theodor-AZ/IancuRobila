@@ -1,217 +1,254 @@
 [
   {
-    "id": "F-01",
-    "category": "truth",
+    "id": "f-101",
+    "scanId": "scan-demo-1",
+    "title": "Reducere iluzorie fără preț de referință",
+    "category": "price_discrepancy",
     "severity": "critical",
-    "title": "Discount in the ad differs from the landing page",
-    "claim": "-50% this week only",
+    "riskDescription": "Ad-ul promite 'Reducere garantată de 70%', dar landing page-ul listează produsele la preț întreg, discountul aplicându-se exclusiv accesoriilor din coș.",
+    "regulatoryReference": "Directiva Omnibus (UE 2019/2161) - Cerințe de transparență a reducerilor",
     "evidence": {
-      "source": "page",
-      "url": "https://glowpure.example/hydra-cream",
-      "snippet": "Ad: \"-50% this week only\" · Landing page: \"-20%\" (119,99 lei, was 149,99 lei)",
-      "frames": [
-        { "target": "ad", "x": 59.3, "y": 11.1, "w": 31.5, "h": 18.5 },
-        { "target": "page", "x": 16.6, "y": 57.4, "w": 5, "h": 4.4 }
-      ]
+      "adText": "Black Friday Exclusiv: 70% REDUCERE la orice telefon din stoc!",
+      "adSource": "Meta Ads / Feed Placement",
+      "landingText": "Preț terminal: 4.899 Lei. Reducerea de 70% se aplică doar la husa de protecție achiziționată împreună.",
+      "landingUrl": "https://exemplu-magazin.ro/produse/smartphone-pro",
+      "contextSnippet": "Textul cu referință la accesorii este plasat cu font de 8px la finalul paginii sub footer."
     },
-    "rule": "Directive 2005/29/EC, Art. 6(1)(d): misleading action on price advantage",
-    "risk": "Shoppers who click for half price find 20% off. That reads as bait advertising, drives refunds and complaints, and wastes the click you paid for.",
-    "fix": "-20% on GlowPure Hydra Cream this week",
-    "confidence": 0.95
+    "aiSuggestedFix": {
+      "originalClaim": "70% REDUCERE la orice telefon din stoc!",
+      "suggestedClaim": "Până la 70% reducere la pachetele cu accesorii selectate",
+      "rationale": "Clarifică obiectul discountului pentru a elimina riscul de amendă pentru practici înșelătoare."
+    }
   },
   {
-    "id": "F-02",
-    "category": "conversion",
+    "id": "f-102",
+    "scanId": "scan-demo-1",
+    "title": "Abonament mascat într-o perioadă de probă",
+    "category": "hidden_terms",
     "severity": "critical",
-    "title": "\"Buy Now\" leads to a page that does not exist (HTTP 404)",
-    "claim": "Buy Now",
+    "riskDescription": "Reclama promovează o 'Probă Gratuită de 14 Zile', fără nicio mențiune că la expirare cardul va fi debitat automat cu 199 EUR/lună.",
+    "regulatoryReference": "Directiva 2005/29/CE privind practicile comerciale neloiale",
     "evidence": {
-      "source": "page",
-      "url": "https://glowpure.example/checkout-does-not-exist",
-      "selector": "a.btn",
-      "snippet": "GET /checkout-does-not-exist → 404 Not Found",
-      "frames": [{ "target": "page", "x": 16.6, "y": 74, "w": 9.2, "h": 6.4 }]
+      "adText": "Testează aplicația complet GRATUIT timp de 14 zile fără obligații.",
+      "adSource": "Google Search Ad",
+      "landingText": "După cele 14 zile se va reînnoi automat abonamentul Anual Pro la 199€/lună dacă nu este anulat în primele 48h.",
+      "landingUrl": "https://exemplu-saas.com/free-trial",
+      "contextSnippet": "Clauza este bifată automat în formularul de checkout ascuns în spatele unui popup."
     },
-    "rule": null,
-    "risk": "Every visitor who decides to buy hits an error page. The campaign cannot convert while this link is broken.",
-    "fix": "Point \"Buy Now\" to the live checkout URL and re-test after deploying.",
-    "confidence": 0.98
+    "aiSuggestedFix": {
+      "originalClaim": "Testează aplicația complet GRATUIT fără obligații.",
+      "suggestedClaim": "Începe proba de 14 zile. Reînnoire automată cu 199€/lună dacă nu anulezi.",
+      "rationale": "Oferă claritate utilizatorului înainte de introducerea datelor de plată."
+    }
   },
   {
-    "id": "F-03",
-    "category": "truth",
+    "id": "f-103",
+    "scanId": "scan-demo-1",
+    "title": "Revendicare medicală nefondată privind imunitatea",
+    "category": "unsubstantiated_claim",
     "severity": "high",
-    "title": "\"Free delivery\" in the ad, but the page charges 19,99 lei shipping",
-    "claim": "Free delivery",
+    "riskDescription": "Produsul este descris în reclamă ca garantând imunitate completă împotriva infecțiilor virale fără aviz medical sau studii clinice acreditate.",
+    "regulatoryReference": "Regulamentul (CE) nr. 1924/2006 privind mențiunile nutriționale și de sănătate",
     "evidence": {
-      "source": "page",
-      "snippet": "Landing page: \"Delivery: courier shipping 19,99 lei.\"",
-      "frames": [
-        { "target": "ad", "x": 7.4, "y": 81.5, "w": 26, "h": 5.6 },
-        { "target": "page", "x": 16.6, "y": 92, "w": 46, "h": 4.4 }
-      ]
+      "adText": "Formula noastră revoluționară oprește răceala și gripa în doar 3 ore!",
+      "adSource": "TikTok Sponsored Video",
+      "landingText": "Supliment alimentar pe bază de vitamina C și zinc. Nu previne și nu tratează nicio afecțiune.",
+      "landingUrl": "https://exemplu-pharma.ro/suplimente/immunity-plus",
+      "contextSnippet": "Disclaimer-ul legal obligatoriu este prezent doar în termenii de utilizare din subsol."
     },
-    "rule": "Directive 2005/29/EC, Art. 6(1)(d): price or manner in which price is calculated",
-    "risk": "Delivery cost appearing only at checkout is a top reason for abandoned carts, and the mismatch may be read as misleading.",
-    "fix": "Free delivery on orders over 150 lei (or remove \"Free delivery\" from the ad)",
-    "confidence": 0.9
+    "aiSuggestedFix": {
+      "originalClaim": "Formula noastră revoluționară oprește răceala și gripa în doar 3 ore!",
+      "suggestedClaim": "Formulă concentrată cu Vitamina C și Zinc pentru susținerea sistemului imunitar.",
+      "rationale": "Convertește promisiunea vindecării într-o mențiune autorizată de susținere a funcției imune."
+    }
   },
   {
-    "id": "F-04",
-    "category": "legal",
+    "id": "f-104",
+    "scanId": "scan-demo-1",
+    "title": "Cronometru fals de urgență (Fake Urgency Countdown)",
+    "category": "dark_pattern",
     "severity": "high",
-    "title": "Generic environmental claim without supporting evidence",
-    "claim": "100% natural · eco-friendly packaging",
+    "riskDescription": "Se folosește un cronometru de tip numărătoare inversă care se resetează la fiecare refresh, creând o presiune psihologică falsă de achiziție.",
+    "regulatoryReference": "Digital Services Act (DSA) - Interzicerea interfețelor înșelătoare",
     "evidence": {
-      "source": "document",
-      "document": "GlowPure_Hydra_spec_sheet.pdf",
-      "snippet": "No environmental certification or performance data found in the 2 uploaded documents.",
-      "frames": [{ "target": "ad", "x": 7.4, "y": 74.1, "w": 59.3, "h": 5.6 }]
+      "adText": "Grăbește-te! Oferta expiră în 12 minute și nu se mai repetă niciodată!",
+      "adSource": "Instagram Stories Ad",
+      "landingText": "Cronometru activ resetabil: <div data-countdown='600'> (se resetează automat la reîncărcare).",
+      "landingUrl": "https://exemplu-magazin.ro/deals/flash-sale",
+      "contextSnippet": "Scriptul JS resetează valoarea timestamp-ului în localStorage la fiecare sesiune nouă."
     },
-    "rule": "Directive 2024/825 (EmpCo), Annex I point 4a: generic environmental claim without recognised excellent environmental performance",
-    "risk": "Possibly non-compliant with the EmpCo blacklist, which has applied EU-wide since 27 September 2026 with no transition period.",
-    "fix": "Packaging made with 50% recycled plastic (certified by <scheme>) — or remove \"eco-friendly\" until you can prove it",
-    "confidence": 0.85
+    "aiSuggestedFix": {
+      "originalClaim": "Grăbește-te! Oferta expiră în 12 minute și nu se mai repetă niciodată!",
+      "suggestedClaim": "Ofertă limitată disponibilă în limita stocului promoțional alocat.",
+      "rationale": "Elimină numărătoarea inversă artificială pentru conformitate cu regulamentele anti-dark pattern."
+    }
   },
   {
-    "id": "F-05",
-    "category": "legal",
-    "severity": "high",
-    "title": "\"Clinically proven\" with no study in the product documents",
-    "claim": "48h hydration. Clinically proven.",
-    "evidence": {
-      "source": "document",
-      "document": "GlowPure_Hydra_spec_sheet.pdf, p. 1–2",
-      "snippet": "No clinical study, panel size or test duration found for the 48h hydration claim.",
-      "frames": [
-        { "target": "ad", "x": 7.4, "y": 33.3, "w": 70.4, "h": 5.6 },
-        { "target": "page", "x": 16.6, "y": 54, "w": 30, "h": 3.2 }
-      ]
-    },
-    "rule": "Regulation (EU) 655/2013, Annex, common criterion 3: evidential support",
-    "risk": "No evidence found for a measurable cosmetic claim. Authorities can ask for the study at any time.",
-    "fix": "Hydration that lasts all day* — *add the study reference (panel size, duration) once available",
-    "confidence": 0.8
-  },
-  {
-    "id": "F-06",
-    "category": "accessibility",
-    "severity": "high",
-    "title": "Delivery conditions are almost unreadable (contrast 1.5:1)",
-    "claim": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
-    "evidence": {
-      "source": "page",
-      "selector": "p.fine",
-      "snippet": "Text #c4c4c4 on #e9e9e9 — contrast 1.5:1, required 4.5:1",
-      "frames": [{ "target": "page", "x": 16.6, "y": 92, "w": 46, "h": 4.4 }],
-      "details": { "note": "Automated checks only: they do not cover all WCAG requirements." }
-    },
-    "rule": "WCAG 2.2 SC 1.4.3 Contrast (Minimum)",
-    "risk": "The shipping cost and warranty are hard to read for low-vision visitors and on phones in sunlight. Hiding conditions in pale text also weakens your position if the price is challenged.",
-    "fix": "Use #4a4a4a on #e9e9e9 (7.4:1) for the conditions text.",
-    "confidence": 0.95
-  },
-  {
-    "id": "F-07",
-    "category": "trust",
+    "id": "f-105",
+    "scanId": "scan-demo-1",
+    "title": "Taxe de livrare și procesare nedeclarate în ad",
+    "category": "hidden_terms",
     "severity": "medium",
-    "title": "Scarcity claim without an inventory source",
-    "claim": "Only 2 left!",
+    "riskDescription": "Prețul din reclamă afișează 49 Lei, însă în pasul final de checkout se adaugă o 'taxă logistică' obligatorie de 25 Lei.",
+    "regulatoryReference": "ANPC - Obligația afișării prețului complet inclusiv toate taxele inevitabile",
     "evidence": {
-      "source": "page",
-      "snippet": "Page text \"Only 2 left!\" while structured data says availability: InStock (no quantity).",
-      "frames": [{ "target": "page", "x": 16.6, "y": 70.2, "w": 24, "h": 3.2 }]
+      "adText": "Preț final complet: doar 49 Lei cu totul inclus!",
+      "adSource": "Facebook Feed Ad",
+      "landingText": "Sumar comandă: Produs 49 Lei + Taxă manipulare depozit 25 Lei = Total 74 Lei.",
+      "landingUrl": "https://exemplu-retail.ro/checkout",
+      "contextSnippet": "Costul de manipulare nu poate fi debifat de utilizator."
     },
-    "rule": "Directive 2005/29/EC, Annex I point 7: false limited availability to force an immediate decision",
-    "risk": "No evidence found that stock is really limited. Unproven scarcity erodes trust once shoppers notice it never changes.",
-    "fix": "Show the real stock count from your inventory system, or remove \"Only 2 left!\".",
-    "confidence": 0.6
+    "aiSuggestedFix": {
+      "originalClaim": "Preț final complet: doar 49 Lei cu totul inclus!",
+      "suggestedClaim": "Produs la 49 Lei (Costuri finale de expediere și manipulare: 25 Lei).",
+      "rationale": "Afișarea transparentă a sumei finale totale reduce rata de abandon și elimină sancțiunea."
+    }
   },
   {
-    "id": "F-08",
-    "category": "trust",
+    "id": "f-106",
+    "scanId": "scan-demo-1",
+    "title": "Certificare ecologică nerecunoscută (Greenwashing)",
+    "category": "regulatory_risk",
     "severity": "medium",
-    "title": "Urgency in the ad and a countdown on the page",
-    "claim": "Only today! · Offer ends in 02:14:59",
+    "riskDescription": "Utilizarea unei embleme grafice proprii denumite '100% Eco Certified' care imită o siglă oficială europeană de sustenabilitate fără certificare reală.",
+    "regulatoryReference": "Propunerea UE privind Directiva privind Revendicările Ecologice (Green Claims)",
     "evidence": {
-      "source": "page",
-      "snippet": "Ad: \"Only today!\" and \"this week only\" · Page: countdown \"ends in 02:14:59\"",
-      "frames": [
-        { "target": "ad", "x": 64.8, "y": 81.5, "w": 27.8, "h": 5.6 },
-        { "target": "page", "x": 16.6, "y": 70.2, "w": 24, "h": 3.2 }
-      ]
+      "adText": "Produs 100% Ecologic și Neutru din punct de vedere al emisiilor de carbon.",
+      "adSource": "LinkedIn Sponsored Post",
+      "landingText": "Materialele conțin până la 10% polimeri reciclați. Certificarea este un standard intern al mărcii.",
+      "landingUrl": "https://exemplu-fashion.com/eco-line",
+      "contextSnippet": "Informația că standardul este intern este ascunsă într-un fișier PDF extern."
     },
-    "rule": "Directive 2005/29/EC, Annex I point 7",
-    "risk": "\"Only today\" and \"this week only\" contradict each other. If the offer runs longer, the deadline may be read as false urgency.",
-    "fix": "Offer valid until 14 November 2026",
-    "confidence": 0.55
+    "aiSuggestedFix": {
+      "originalClaim": "Produs 100% Ecologic și Neutru din punct de vedere al emisiilor de carbon.",
+      "suggestedClaim": "Fabricat cu 10% materiale reciclate, ca prim pas în reducerea impactului de mediu.",
+      "rationale": "Elimină afirmațiile absolute '100%' și folosește procente verificabile auditabile."
+    }
   },
   {
-    "id": "F-09",
-    "category": "conversion",
-    "severity": "high",
-    "title": "\"Order today\" button has no destination",
-    "claim": "Order today",
-    "evidence": {
-      "source": "page",
-      "selector": "a.btn[href='#']",
-      "snippet": "<a class=\"btn\" href=\"#\">Order today</a>",
-      "frames": [{ "target": "page", "x": 16.6, "y": 81, "w": 10.8, "h": 6.4 }]
-    },
-    "rule": null,
-    "risk": "If the button really does nothing, visitors who want to buy cannot continue.",
-    "fix": "Link \"Order today\" to the checkout, or remove the duplicate button.",
-    "confidence": 0.75
-  },
-  {
-    "id": "F-10",
-    "category": "accessibility",
-    "severity": "critical",
-    "title": "Cart button has no accessible name",
-    "claim": "<button class=\"icon-btn\"><svg …/></button>",
-    "evidence": {
-      "source": "page",
-      "selector": "header .icon-btn",
-      "snippet": "Screen readers announce only \"button\".",
-      "frames": [{ "target": "page", "x": 95.5, "y": 0.8, "w": 3.8, "h": 5.2 }],
-      "details": { "note": "Automated checks only: they do not cover all WCAG requirements." }
-    },
-    "rule": "WCAG 2.2 SC 4.1.2 Name, Role, Value",
-    "risk": "Screen-reader users cannot find the cart, so they cannot complete a purchase.",
-    "fix": "Add aria-label=\"Open cart\" to the icon button.",
-    "confidence": 0.95
-  },
-  {
-    "id": "F-11",
-    "category": "accessibility",
-    "severity": "high",
-    "title": "Product image has no alternative text",
-    "claim": "<img src=\"hydra-cream.png\">",
-    "evidence": {
-      "source": "page",
-      "selector": ".hero img",
-      "frames": [{ "target": "page", "x": 16.8, "y": 9, "w": 31.2, "h": 35 }],
-      "details": { "note": "Automated checks only: they do not cover all WCAG requirements." }
-    },
-    "rule": "WCAG 2.2 SC 1.1.1 Non-text Content",
-    "risk": "Screen-reader users miss what the product looks like and what is offered.",
-    "fix": "alt=\"GlowPure Hydra Cream, 50 ml jar\"",
-    "confidence": 0.9
-  },
-  {
-    "id": "F-12",
-    "category": "legal",
+    "id": "f-107",
+    "scanId": "scan-demo-1",
+    "title": "Recenzii generate artificial fără marcaj",
+    "category": "dark_pattern",
     "severity": "low",
-    "title": "Could not verify the reference price for the discount",
-    "claim": "149,99 lei (crossed out)",
+    "riskDescription": "Ad-ul citează recenzii de 5 stele care nu corespund unor clienți reali verificați pe platformă.",
+    "regulatoryReference": "Ghidul Comisiei Europene privind transparența recenziilor online",
     "evidence": {
-      "source": "page",
-      "snippet": "Crossed-out price 149,99 lei. No price history was provided, so the 30-day lowest price could not be checked.",
-      "frames": [{ "target": "page", "x": 16.6, "y": 63.3, "w": 22, "h": 4.6 }]
+      "adText": "'Mi-a schimbat viața complet!' - Andreea P., Client Verificat ⭐⭐⭐⭐⭐",
+      "adSource": "Display Banner Ad",
+      "landingText": "Testimonialele prezentate sunt ilustrative și realizate de actori.",
+      "landingUrl": "https://exemplu-beauty.ro/serum",
+      "contextSnippet": "Subsolul landing page-ului specifică natura fictivă a personajelor."
     },
-    "rule": "Directive 98/6/EC, Art. 6a: prior price must be the lowest price in the last 30 days",
-    "risk": "Possibly non-compliant if 149,99 lei was not the lowest price applied in the 30 days before the discount.",
-    "fix": "Keep a record of the 30-day lowest price, or show it next to the discount: \"Lowest price in the last 30 days: 149,99 lei\".",
-    "confidence": 0.4
+    "aiSuggestedFix": {
+      "originalClaim": "'Mi-a schimbat viața complet!' - Andreea P., Client Verificat",
+      "suggestedClaim": "Peste 10.000 de unități comandate în prima lună de lansare.",
+      "rationale": "Înlocuirea mărturiei simulate cu date obiective măsurabile de vânzare."
+    }
+  },
+  {
+    "id": "f-108",
+    "scanId": "scan-demo-1",
+    "title": "Politica de retur 'fără întrebări' contrazisă în pagina de comandă",
+    "category": "hidden_terms",
+    "severity": "medium",
+    "riskDescription": "Ad-ul garantează retur gratuit în 30 de zile fără condiții, însă pagina de retur impune păstrarea ambalajului intact sigilat și plata transportului de către client.",
+    "regulatoryReference": "OUG 34/2014 privind drepturile consumatorilor",
+    "evidence": {
+      "adText": "Garanție 30 de zile: Retur 100% Gratuit, fără întrebări sau explicații!",
+      "adSource": "Google Ads Performance Max",
+      "landingText": "Returul se acceptă doar în ambalajul original nedesfăcut. Costul returului (35 Lei) este suportat de cumpărător.",
+      "landingUrl": "https://exemplu-tech.ro/politica-retur",
+      "contextSnippet": "Condițiile de retur sunt afișate la 4 click-uri distanță de pagina principală."
+    },
+    "aiSuggestedFix": {
+      "originalClaim": "Retur 100% Gratuit, fără întrebări sau explicații!",
+      "suggestedClaim": "Drept de retur garantat în 30 de zile conform termenilor și condițiilor.",
+      "rationale": "Evită promisiunea gratuității când costul de transport revine cumpărătorului."
+    }
+  },
+  {
+    "id": "f-109",
+    "scanId": "scan-demo-1",
+    "title": "Disponibilitate stoc falsificată pentru declanșarea achiziției rapide",
+    "category": "dark_pattern",
+    "severity": "medium",
+    "riskDescription": "Mesaj de tip 'Doar 2 bucăți rămase în stoc' afișat permanent pentru un produs digital cu licențe nelimitate.",
+    "regulatoryReference": "Directiva 2019/2161 - Practici comerciale agresive",
+    "evidence": {
+      "adText": "Ultimele 2 licențe disponibile la acest preț! Cumpără acum!",
+      "adSource": "Retargeting Ad",
+      "landingText": "Produs livrat instant electronic: Licență Software anuală (Stoc: Nelimitat).",
+      "landingUrl": "https://exemplu-software.com/license-checkout",
+      "contextSnippet": "Codul sursă returnează constant valoarea '2' indiferent de achiziții."
+    },
+    "aiSuggestedFix": {
+      "originalClaim": "Ultimele 2 licențe disponibile la acest preț!",
+      "suggestedClaim": "Preț promoțional valabil pentru perioada campaniei curente.",
+      "rationale": "Renunțarea la stocul artificial pentru produse digitale nelimitate."
+    }
+  },
+  {
+    "id": "f-110",
+    "scanId": "scan-demo-1",
+    "title": "Dobândă Anuală Efectivă (DAE) omisă din reclamă financiară",
+    "category": "regulatory_risk",
+    "severity": "critical",
+    "riskDescription": "Reclamă la credit rapid ce promovează o rată lunară de 'doar 50 Lei', omițând DAE-ul de 145% și costul total al împrumutului.",
+    "regulatoryReference": "Directiva privind creditele de consum (CCD II) & Normele BNR",
+    "evidence": {
+      "adText": "Bani rapizi în 10 minute! Plătești doar 50 Lei pe lună fără bătăi de cap.",
+      "adSource": "Facebook Video Ad",
+      "landingText": "Exemplu reprezentativ: Împrumut 1.000 Lei / 12 luni, DAE 145.8%, Total de rambursat 2.150 Lei.",
+      "landingUrl": "https://exemplu-ifn.ro/credit-rapid",
+      "contextSnippet": "Exemplul reprezentativ obligatoriu lipsește cu desăvârșire din materialul promoțional video."
+    },
+    "aiSuggestedFix": {
+      "originalClaim": "Plătești doar 50 Lei pe lună fără bătăi de cap.",
+      "suggestedClaim": "Rate de la 50 Lei/lună. DAE 145.8%. Consultă exemplul reprezentativ pe site.",
+      "rationale": "Includerea DAE-ului direct în corpul ad-ului este cerință legală obligatorie."
+    }
+  },
+  {
+    "id": "f-111",
+    "scanId": "scan-demo-1",
+    "title": "Produs prezentat ca 'Gratuit' condiționat de achiziții majore",
+    "category": "price_discrepancy",
+    "severity": "high",
+    "riskDescription": "Headline-ul anunță 'Smartwatch Cadou Gratuit', dar pentru a fi eligibil este necesară o comandă de minim 2.500 Lei.",
+    "regulatoryReference": "ANPC - Interzicerea termenului 'Gratuit' când există costuri nespecificate",
+    "evidence": {
+      "adText": "Cadoul tău te așteaptă: Smartwatch GRATUIT pentru toți vizitatorii!",
+      "adSource": "Instagram Feed Ad",
+      "landingText": "Cadoul se adaugă automat doar la comenzile care depășesc valoarea de 2.500 Lei.",
+      "landingUrl": "https://exemplu-ceasuri.ro/promo-cadou",
+      "contextSnippet": "Textul promoțional inițial omite pragul financiar minim de calificare."
+    },
+    "aiSuggestedFix": {
+      "originalClaim": "Smartwatch GRATUIT pentru toți vizitatorii!",
+      "suggestedClaim": "Smartwatch cadou la comenzi de peste 2.500 Lei.",
+      "rationale": "Clarifică imediat condiția de eligibilitate fără a induce publicul în eroare."
+    }
+  },
+  {
+    "id": "f-112",
+    "scanId": "scan-demo-1",
+    "title": "Garanție extinsă comercială prezentată ca facilitate de exclusivitate",
+    "category": "unsubstantiated_claim",
+    "severity": "low",
+    "riskDescription": "Garanția legală obligatorie de 2 ani este promovată ca un bonus gratuit oferit din generozitatea comerciantului.",
+    "regulatoryReference": "Directiva (UE) 2019/771 privind vânzarea de bunuri",
+    "evidence": {
+      "adText": "Doar azi primești BONUS EXTRA: 2 Ani Garanție completă oferită de noi!",
+      "adSource": "Display Banner",
+      "landingText": "Produsele beneficiază de garanția legală de conformitate de 24 luni conform legii.",
+      "landingUrl": "https://exemplu-electronice.ro/garantii",
+      "contextSnippet": "Se prezintă un drept legal al consumatorului drept un avantaj promoțional exclusiv."
+    },
+    "aiSuggestedFix": {
+      "originalClaim": "Doar azi primești BONUS EXTRA: 2 Ani Garanție completă oferită de noi!",
+      "suggestedClaim": "Garanție inclusă de 2 ani, cu posibilitate de extindere opțională la 4 ani.",
+      "rationale": "Nu prezenta dreptul legal obligatoriu ca un beneficiu comercial temporar."
+    }
   }
 ]
