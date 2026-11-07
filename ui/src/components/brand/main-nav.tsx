@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 export const NAV = [
   { href: "/", label: "Scans" },
+  { href: "/coleg1", label: "Colleague 1 screens" },
   { href: "/styleguide", label: "Style guide" },
 ];
 

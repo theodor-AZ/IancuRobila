@@ -66,29 +66,29 @@ export function ScanReport({ scan }: ScanReportProps) {
 
   const scoreColor =
     animatedScore >= 80
-      ? "text-emerald-400 border-emerald-500/40 bg-emerald-500/10"
+      ? "text-ok-fg border-ok/40 bg-ok/10"
       : animatedScore >= 55
-      ? "text-amber-400 border-amber-500/40 bg-amber-500/10"
-      : "text-red-400 border-red-500/40 bg-red-500/10";
+      ? "text-sev-medium-fg border-sev-medium/40 bg-sev-medium-bg"
+      : "text-sev-critical-fg border-sev-critical/40 bg-sev-critical-bg";
 
   return (
     <div className="space-y-6 print:space-y-4">
-      <Card className="bg-slate-900 border-slate-800 text-slate-100">
+      <Card className="bg-card border-border text-foreground">
         <CardContent className="p-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2">
-                <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/40">
+                <Badge className="bg-accent text-beam-fg border-beam/40">
                   Red Team Audit Report
                 </Badge>
-                <span className="text-xs text-slate-400 font-mono">ID: {scan.id}</span>
-                <span className="text-xs text-slate-500">•</span>
-                <span className="text-xs text-slate-400">
-                  Category: <strong className="text-slate-200 uppercase">{scan.productCategory}</strong>
+                <span className="text-xs text-muted-foreground font-mono">ID: {scan.id}</span>
+                <span className="text-xs text-muted-foreground">•</span>
+                <span className="text-xs text-muted-foreground">
+                  Category: <strong className="text-foreground uppercase">{scan.productCategory}</strong>
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-white">{scan.campaignName}</h1>
-              <p className="text-xs text-slate-400 font-mono">{scan.landingPageUrl}</p>
+              <h1 className="text-2xl font-bold text-foreground">{scan.campaignName}</h1>
+              <p className="text-xs text-muted-foreground font-mono">{scan.landingPageUrl}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
@@ -103,10 +103,10 @@ export function ScanReport({ scan }: ScanReportProps) {
               </div>
 
               <div className="flex flex-col gap-2 print:hidden">
-                <Button variant="outline" size="sm" onClick={() => window.print()} className="bg-slate-950 border-slate-700 text-slate-200 hover:bg-slate-800">
+                <Button variant="outline" size="sm" onClick={() => window.print()} className="bg-background border-border-strong text-foreground hover:bg-muted">
                   <Printer className="w-4 h-4 mr-2" /> Export PDF
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => setHideCriticalDemo(!hideCriticalDemo)} className="text-xs text-slate-400 hover:text-slate-200">
+                <Button variant="ghost" size="sm" onClick={() => setHideCriticalDemo(!hideCriticalDemo)} className="text-xs text-muted-foreground hover:text-foreground">
                   <SlidersHorizontal className="w-3.5 h-3.5 mr-1.5" />
                   {hideCriticalDemo ? "Show All Risks" : "Simulate Clean State"}
                 </Button>
@@ -114,58 +114,58 @@ export function ScanReport({ scan }: ScanReportProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2.5 mt-6 pt-6 border-t border-slate-800">
-            <div className="p-2.5 rounded-lg bg-red-950/30 border border-red-900/40">
-              <div className="text-[11px] text-red-400 uppercase font-semibold">Critical</div>
-              <div className="text-xl font-bold text-white">{countBySeverity("critical")}</div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-9 gap-2.5 mt-6 pt-6 border-t border-border">
+            <div className="p-2.5 rounded-lg bg-sev-critical-bg border border-sev-critical/40">
+              <div className="text-[11px] text-sev-critical-fg uppercase font-semibold">Critical</div>
+              <div className="text-xl font-bold text-foreground">{countBySeverity("critical")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-orange-950/30 border border-orange-900/40">
-              <div className="text-[11px] text-orange-400 uppercase font-semibold">High</div>
-              <div className="text-xl font-bold text-white">{countBySeverity("high")}</div>
+            <div className="p-2.5 rounded-lg bg-sev-high-bg border border-sev-high/40">
+              <div className="text-[11px] text-sev-high-fg uppercase font-semibold">High</div>
+              <div className="text-xl font-bold text-foreground">{countBySeverity("high")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-amber-950/30 border border-amber-900/40">
-              <div className="text-[11px] text-amber-300 uppercase font-semibold">Medium</div>
-              <div className="text-xl font-bold text-white">{countBySeverity("medium")}</div>
+            <div className="p-2.5 rounded-lg bg-sev-medium-bg border border-sev-medium/40">
+              <div className="text-[11px] text-sev-medium-fg uppercase font-semibold">Medium</div>
+              <div className="text-xl font-bold text-foreground">{countBySeverity("medium")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-blue-950/30 border border-blue-900/40">
-              <div className="text-[11px] text-blue-400 uppercase font-semibold">Low</div>
-              <div className="text-xl font-bold text-white">{countBySeverity("low")}</div>
+            <div className="p-2.5 rounded-lg bg-sev-low-bg border border-sev-low/40">
+              <div className="text-[11px] text-sev-low-fg uppercase font-semibold">Low</div>
+              <div className="text-xl font-bold text-foreground">{countBySeverity("low")}</div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-              <div className="text-[11px] text-slate-400">Legal</div>
-              <div className="text-lg font-semibold text-slate-200">{countByCategory("legal")}</div>
+            <div className="p-2.5 rounded-lg bg-background border border-border">
+              <div className="text-[11px] text-muted-foreground">Legal</div>
+              <div className="text-lg font-semibold text-foreground">{countByCategory("legal")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-              <div className="text-[11px] text-slate-400">Truth</div>
-              <div className="text-lg font-semibold text-slate-200">{countByCategory("truth")}</div>
+            <div className="p-2.5 rounded-lg bg-background border border-border">
+              <div className="text-[11px] text-muted-foreground">Truth</div>
+              <div className="text-lg font-semibold text-foreground">{countByCategory("truth")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-              <div className="text-[11px] text-slate-400">Conversion</div>
-              <div className="text-lg font-semibold text-slate-200">{countByCategory("conversion")}</div>
+            <div className="p-2.5 rounded-lg bg-background border border-border">
+              <div className="text-[11px] text-muted-foreground">Conversion</div>
+              <div className="text-lg font-semibold text-foreground">{countByCategory("conversion")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-              <div className="text-[11px] text-slate-400">A11y</div>
-              <div className="text-lg font-semibold text-slate-200">{countByCategory("accessibility")}</div>
+            <div className="p-2.5 rounded-lg bg-background border border-border">
+              <div className="text-[11px] text-muted-foreground">A11y</div>
+              <div className="text-lg font-semibold text-foreground">{countByCategory("accessibility")}</div>
             </div>
-            <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-              <div className="text-[11px] text-slate-400">Brand Trust</div>
-              <div className="text-lg font-semibold text-slate-200">{countByCategory("trust")}</div>
+            <div className="p-2.5 rounded-lg bg-background border border-border">
+              <div className="text-[11px] text-muted-foreground">Brand Trust</div>
+              <div className="text-lg font-semibold text-foreground">{countByCategory("trust")}</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {criticalCount === 0 && (
-        <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/40 flex items-center justify-between text-emerald-200">
+        <div className="p-4 rounded-xl bg-ok/10 border border-ok/40 flex items-center justify-between text-ok-fg">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-6 h-6 text-ok-fg shrink-0" />
             <div>
-              <h3 className="text-sm font-semibold text-white">No critical vulnerabilities found</h3>
-              <p className="text-xs text-emerald-300/80">This campaign passed primary blocking checks.</p>
+              <h3 className="text-sm font-semibold text-foreground">No critical vulnerabilities found</h3>
+              <p className="text-xs text-ok-fg">This campaign passed primary blocking checks.</p>
             </div>
           </div>
-          <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/40">Ready for Launch Review</Badge>
+          <Badge className="bg-ok/10 text-ok-fg border-ok/40">Ready for Launch Review</Badge>
         </div>
       )}
 
@@ -179,13 +179,13 @@ export function ScanReport({ scan }: ScanReportProps) {
 
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-slate-200 font-semibold">
-            <Filter className="w-4 h-4 text-indigo-400" />
+          <div className="flex items-center gap-2 text-foreground font-semibold">
+            <Filter className="w-4 h-4 text-beam-fg" />
             <span>Detected Vulnerabilities ({filteredFindings.length})</span>
           </div>
 
           <Tabs value={selectedCategory} onValueChange={(val) => { setSelectedCategory(val); setShowAllFindings(false); }} className="print:hidden">
-            <TabsList className="bg-slate-900 border border-slate-800 flex-wrap h-auto">
+            <TabsList className="bg-card border border-border flex-wrap h-auto">
               <TabsTrigger value="all" className="text-xs">All</TabsTrigger>
               <TabsTrigger value="legal" className="text-xs">Legal</TabsTrigger>
               <TabsTrigger value="truth" className="text-xs">Truth</TabsTrigger>
@@ -214,7 +214,7 @@ export function ScanReport({ scan }: ScanReportProps) {
           <Button
             variant="outline"
             onClick={() => setShowAllFindings(!showAllFindings)}
-            className="w-full py-6 bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-200 hover:border-slate-700 transition-all shadow-sm"
+            className="w-full py-6 bg-card border-border text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border-strong transition-all shadow-sm"
           >
             {showAllFindings ? (
               <>Hide Extra Findings <ChevronUp className="w-4 h-4 ml-2" /></>

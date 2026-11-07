@@ -9,7 +9,7 @@ import { ErrorState } from "@/components/ui/error-state";
 import type { Scan } from "@/lib/types";
 
 /** Real scans poll /api/scans/[id]; mock demo scans run the simulated timer. */
-export function ProgressClient({ id, simulate, adImage, campaign }: { id: string; simulate: boolean; adImage?: string; campaign: string }) {
+export function ProgressClient({ id, simulate, adImage, campaign, reportHref }: { id: string; simulate: boolean; adImage?: string; campaign: string; reportHref: string }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [failure, setFailure] = useState<Pick<Scan, "status" | "error"> | null>(null);
@@ -59,7 +59,7 @@ export function ProgressClient({ id, simulate, adImage, campaign }: { id: string
       current={step}
       adImage={adImage}
       campaign={campaign}
-      onDone={() => router.push(`/scan/${id}`)}
+      onDone={() => router.push(reportHref)}
     />
   );
 }

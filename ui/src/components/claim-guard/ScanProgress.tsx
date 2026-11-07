@@ -39,22 +39,22 @@ export function ScanProgress({ campaignName, onComplete }: ScanProgressProps) {
   const progressPercent = Math.round(((currentStep + 1) / SCAN_STEPS.length) * 100);
 
   return (
-    <Card className="bg-slate-900 border-slate-800 text-slate-100 max-w-2xl mx-auto shadow-2xl">
-      <CardHeader className="text-center border-b border-slate-800 pb-4">
-        <div className="mx-auto w-12 h-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/40 flex items-center justify-center mb-2">
-          <ShieldAlert className="w-6 h-6 text-indigo-400 animate-pulse" />
+    <Card className="bg-card border-border text-foreground max-w-2xl mx-auto shadow-2xl">
+      <CardHeader className="text-center border-b border-border pb-4">
+        <div className="mx-auto w-12 h-12 rounded-2xl bg-accent border border-beam/40 flex items-center justify-center mb-2">
+          <ShieldAlert className="w-6 h-6 text-beam-fg animate-pulse" />
         </div>
-        <CardTitle className="text-lg text-white">Red Team Investigation in Progress</CardTitle>
-        <p className="text-xs text-slate-400">Auditing: {campaignName}</p>
+        <CardTitle className="text-lg text-foreground">Red Team Investigation in Progress</CardTitle>
+        <p className="text-xs text-muted-foreground">Auditing: {campaignName}</p>
       </CardHeader>
 
       <CardContent className="pt-6 space-y-6">
         <div className="space-y-2">
-          <div className="flex justify-between text-xs text-slate-400 font-mono">
+          <div className="flex justify-between text-xs text-muted-foreground font-mono">
             <span>PIPELINE STATUS</span>
             <span>{progressPercent}%</span>
           </div>
-          <Progress value={progressPercent} className="h-2 bg-slate-800" />
+          <Progress value={progressPercent} className="h-2 bg-muted" />
         </div>
 
         <div className="space-y-3">
@@ -66,18 +66,18 @@ export function ScanProgress({ campaignName, onComplete }: ScanProgressProps) {
                 key={step}
                 className={`p-3 rounded-lg border flex items-center gap-3 text-xs transition-all ${
                   isDone
-                    ? "bg-emerald-950/20 border-emerald-900/40 text-emerald-300"
+                    ? "bg-ok/10 border-ok/40 text-ok-fg"
                     : isCurrent
-                    ? "bg-indigo-950/40 border-indigo-500/60 text-white font-medium"
-                    : "bg-slate-950/50 border-slate-800/60 text-slate-500"
+                    ? "bg-accent border-beam/40 text-foreground font-medium"
+                    : "bg-background border-border text-muted-foreground"
                 }`}
               >
                 {isDone ? (
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-ok-fg shrink-0" />
                 ) : isCurrent ? (
-                  <Loader2 className="w-4 h-4 text-indigo-400 animate-spin shrink-0" />
+                  <Loader2 className="w-4 h-4 text-beam-fg animate-spin shrink-0" />
                 ) : (
-                  <Circle className="w-4 h-4 text-slate-600 shrink-0" />
+                  <Circle className="w-4 h-4 text-muted-foreground shrink-0" />
                 )}
                 <span>{step}</span>
               </div>
