@@ -42,6 +42,8 @@ export default function HomePage() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- încărcare inițială de date externe
     refreshScans();
+    // /?tab=new (și vechiul /scan/new) deschide direct formularul de scanare
+    if (new URLSearchParams(window.location.search).get('tab') === 'new') setActiveTab('new');
   }, [refreshScans]);
 
   const openReport = useCallback(async (id: string) => {
