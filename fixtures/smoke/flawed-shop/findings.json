@@ -1,0 +1,144 @@
+[
+  {
+    "id": "links-1doe2jm",
+    "category": "conversion",
+    "severity": "critical",
+    "title": "Call-to-action \"Buy Now\" leads to a broken page",
+    "claim": "Buy Now",
+    "evidence": {
+      "url": "http://localhost:4180/checkout-does-not-exist",
+      "selector": "main > div > p:nth-of-type(5) > a",
+      "details": {
+        "status": 404,
+        "redirectChain": [
+          "http://localhost:4180/checkout-does-not-exist"
+        ],
+        "aboveFold": true
+      }
+    },
+    "rule": null,
+    "risk": "Visitors who click the main button reach an error page instead of the offer: paid traffic is wasted and the campaign cannot convert.",
+    "fix": "Point \"Buy Now\" to a working page (the link returns HTTP 404). Re-test after deploying.",
+    "confidence": 0.95
+  },
+  {
+    "id": "a11y-5vlcuh",
+    "category": "accessibility",
+    "severity": "critical",
+    "title": "Buttons without an accessible name (1 element)",
+    "claim": "<button class=\"icon-btn\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\"><path d=\"M7 4h-2l-1 2h2l3.6 7.6-1.4 2.4h12v-2h-10.6l1.1-2h7.4l3.9-7h-14.6z\"></path></svg></button>",
+    "evidence": {
+      "url": "http://localhost:4180/flawed-shop/",
+      "selector": "button",
+      "snippet": "Fix any of the following:\n  Element does not have inner text that is visible to screen readers\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element does not have an implicit (wrapped) <label>\n  Element does not have an explicit <label>\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\"",
+      "details": {
+        "axeRule": "button-name",
+        "impact": "critical",
+        "affectedElements": 1,
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/button-name?application=playwright",
+        "note": "Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements."
+      }
+    },
+    "rule": "WCAG 2.x SC 4.1.2",
+    "risk": "Screen readers announce just \"button\", so users cannot tell what it does (e.g. add to cart). Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements.",
+    "fix": "Add visible text, or an aria-label describing the action, to every icon-only button.",
+    "confidence": 0.9
+  },
+  {
+    "id": "a11y-ly8kx2",
+    "category": "accessibility",
+    "severity": "critical",
+    "title": "Images without alternative text (1 element)",
+    "claim": "<img src=\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='320'><rect width='100%' height='100%' fill='%23d9eef0'/><circle cx='210' cy='160' r='90' fill='%23fff'/><…",
+    "evidence": {
+      "url": "http://localhost:4180/flawed-shop/",
+      "selector": "img",
+      "snippet": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\"",
+      "details": {
+        "axeRule": "image-alt",
+        "impact": "critical",
+        "affectedElements": 1,
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/image-alt?application=playwright",
+        "note": "Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements."
+      }
+    },
+    "rule": "WCAG 2.x SC 1.1.1",
+    "risk": "Screen reader users miss what the image communicates (product, offer, badge). Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements.",
+    "fix": "Add a short alt text describing the image content, or alt=\"\" if the image is purely decorative.",
+    "confidence": 0.9
+  },
+  {
+    "id": "links-1qyyz6c",
+    "category": "conversion",
+    "severity": "high",
+    "title": "Button \"Order today\" may have no destination",
+    "claim": "Order today",
+    "evidence": {
+      "selector": "main > div > p:nth-of-type(6) > a",
+      "snippet": "href=\"#\"",
+      "details": {
+        "count": 1,
+        "aboveFold": true,
+        "usesJsFramework": false
+      }
+    },
+    "rule": null,
+    "risk": "If the button really does nothing, visitors who want to buy cannot continue.",
+    "fix": "Give the button a real destination (href to the product / checkout page) or verify its click handler works.",
+    "confidence": 0.75
+  },
+  {
+    "id": "a11y-tot1ev",
+    "category": "accessibility",
+    "severity": "high",
+    "title": "Text with insufficient contrast (1 element)",
+    "claim": "<p class=\"fine\">Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.</p>\n(contrast 1.43:1)",
+    "evidence": {
+      "url": "http://localhost:4180/flawed-shop/",
+      "selector": ".fine",
+      "snippet": "Fix any of the following:\n  Element has insufficient color contrast of 1.43 (foreground color: #c4c4c4, background color: #e9e9e9, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1",
+      "details": {
+        "axeRule": "color-contrast",
+        "impact": "serious",
+        "affectedElements": 1,
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=playwright",
+        "note": "Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements.",
+        "contrastSamples": [
+          {
+            "fg": "#c4c4c4",
+            "bg": "#e9e9e9",
+            "ratio": 1.43,
+            "required": "4.5:1"
+          }
+        ]
+      }
+    },
+    "rule": "WCAG 2.x SC 1.4.3",
+    "risk": "Low-vision visitors and anyone reading on a phone in sunlight may not be able to read this text, including prices or conditions. Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements.",
+    "fix": "Darken the text or lighten the background until the contrast ratio is at least 4.5:1 (3:1 for large text).",
+    "confidence": 0.9
+  },
+  {
+    "id": "a11y-ucjrxy",
+    "category": "accessibility",
+    "severity": "high",
+    "title": "Page language is not declared (1 element)",
+    "claim": "<html>",
+    "evidence": {
+      "url": "http://localhost:4180/flawed-shop/",
+      "selector": "html",
+      "snippet": "Fix any of the following:\n  The <html> element does not have a lang attribute",
+      "details": {
+        "axeRule": "html-has-lang",
+        "impact": "serious",
+        "affectedElements": 1,
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/html-has-lang?application=playwright",
+        "note": "Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements."
+      }
+    },
+    "rule": "WCAG 2.x SC 3.1.1",
+    "risk": "Screen readers may read the page with the wrong pronunciation. Automated checks only: they catch a subset of accessibility issues and do not cover all WCAG requirements.",
+    "fix": "Add lang=\"ro\" or lang=\"en\" to the <html> element.",
+    "confidence": 0.9
+  }
+]

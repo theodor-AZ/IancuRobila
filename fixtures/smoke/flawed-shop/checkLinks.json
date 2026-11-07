@@ -1,0 +1,108 @@
+{
+  "url": "http://localhost:4180/flawed-shop/",
+  "ok": true,
+  "durationMs": 615,
+  "findings": [
+    {
+      "id": "links-1qyyz6c",
+      "category": "conversion",
+      "severity": "high",
+      "title": "Button \"Order today\" may have no destination",
+      "claim": "Order today",
+      "evidence": {
+        "selector": "main > div > p:nth-of-type(6) > a",
+        "snippet": "href=\"#\"",
+        "details": {
+          "count": 1,
+          "aboveFold": true,
+          "usesJsFramework": false
+        }
+      },
+      "rule": null,
+      "risk": "If the button really does nothing, visitors who want to buy cannot continue.",
+      "fix": "Give the button a real destination (href to the product / checkout page) or verify its click handler works.",
+      "confidence": 0.75
+    },
+    {
+      "id": "links-1doe2jm",
+      "category": "conversion",
+      "severity": "critical",
+      "title": "Call-to-action \"Buy Now\" leads to a broken page",
+      "claim": "Buy Now",
+      "evidence": {
+        "url": "http://localhost:4180/checkout-does-not-exist",
+        "selector": "main > div > p:nth-of-type(5) > a",
+        "details": {
+          "status": 404,
+          "redirectChain": [
+            "http://localhost:4180/checkout-does-not-exist"
+          ],
+          "aboveFold": true
+        }
+      },
+      "rule": null,
+      "risk": "Visitors who click the main button reach an error page instead of the offer: paid traffic is wasted and the campaign cannot convert.",
+      "fix": "Point \"Buy Now\" to a working page (the link returns HTTP 404). Re-test after deploying.",
+      "confidence": 0.95
+    }
+  ],
+  "data": {
+    "pageUrl": "http://localhost:4180/flawed-shop/",
+    "totalLinksOnPage": 5,
+    "checked": [
+      {
+        "text": "Order today",
+        "href": "#",
+        "url": null,
+        "isCta": true,
+        "aboveFold": true,
+        "selector": "main > div > p:nth-of-type(6) > a",
+        "status": null,
+        "redirectChain": [],
+        "finalUrl": null,
+        "problem": "no-destination"
+      },
+      {
+        "text": "Buy Now",
+        "href": "/checkout-does-not-exist",
+        "url": "http://localhost:4180/checkout-does-not-exist",
+        "isCta": true,
+        "aboveFold": true,
+        "selector": "main > div > p:nth-of-type(5) > a",
+        "status": 404,
+        "redirectChain": [
+          "http://localhost:4180/checkout-does-not-exist"
+        ],
+        "finalUrl": "http://localhost:4180/checkout-does-not-exist",
+        "problem": "broken"
+      },
+      {
+        "text": "Product details",
+        "href": "/flawed-shop/details.html",
+        "url": "http://localhost:4180/flawed-shop/details.html",
+        "isCta": false,
+        "aboveFold": true,
+        "selector": "main > div > p:nth-of-type(7) > a:nth-of-type(1)",
+        "status": 200,
+        "redirectChain": [
+          "http://localhost:4180/flawed-shop/details.html"
+        ],
+        "finalUrl": "http://localhost:4180/flawed-shop/details.html"
+      },
+      {
+        "text": "Our other products",
+        "href": "/clean-shop/",
+        "url": "http://localhost:4180/clean-shop/",
+        "isCta": false,
+        "aboveFold": true,
+        "selector": "main > div > p:nth-of-type(7) > a:nth-of-type(2)",
+        "status": 200,
+        "redirectChain": [
+          "http://localhost:4180/clean-shop/"
+        ],
+        "finalUrl": "http://localhost:4180/clean-shop/"
+      }
+    ],
+    "usesJsFramework": false
+  }
+}

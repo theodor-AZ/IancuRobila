@@ -1,0 +1,48 @@
+{
+  "url": "http://localhost:4180/clean-shop/",
+  "ok": true,
+  "durationMs": 2318,
+  "findings": [],
+  "data": {
+    "title": "Terra Wash Laundry Detergent – 1.5 L",
+    "lang": "en",
+    "metaDescription": null,
+    "headings": [
+      {
+        "level": 1,
+        "text": "Terra Wash Laundry Detergent, 1.5 L"
+      }
+    ],
+    "aboveFoldText": "Terra Wash Laundry Detergent, 1.5 L Washes up to 30 loads. Refill pack uses 70% less plastic than our 2023 bottle. 39,90 lei Free delivery on orders over 150 lei; otherwise courier delivery costs 15 lei. Buy now",
+    "html": "(saved to page.html, 1587 chars)",
+    "visibleText": "(saved to text.txt, 215 chars)",
+    "desktop": {
+      "device": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "status": 200,
+      "finalUrl": "http://localhost:4180/clean-shop/",
+      "loadMs": 532,
+      "consentDismissed": false,
+      "blocked": null,
+      "screenshotPath": "capture.desktop.png",
+      "screenshotFoldPath": "capture.desktop.fold.png"
+    },
+    "mobile": {
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": 200,
+      "finalUrl": "http://localhost:4180/clean-shop/",
+      "loadMs": 522,
+      "consentDismissed": false,
+      "blocked": null,
+      "screenshotPath": "capture.mobile.png",
+      "screenshotFoldPath": "capture.mobile.fold.png"
+    }
+  }
+}

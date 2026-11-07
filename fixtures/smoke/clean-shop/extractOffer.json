@@ -1,0 +1,77 @@
+{
+  "url": "http://localhost:4180/clean-shop/",
+  "ok": true,
+  "durationMs": 601,
+  "findings": [],
+  "data": {
+    "pageUrl": "http://localhost:4180/clean-shop/",
+    "product": {
+      "name": "Terra Wash Laundry Detergent 1.5 L",
+      "brand": "Terra Wash",
+      "sku": null
+    },
+    "prices": [
+      {
+        "amount": 39.9,
+        "currency": "RON",
+        "raw": "39.90",
+        "source": "json-ld",
+        "primary": true
+      }
+    ],
+    "originalPrices": [],
+    "discounts": [],
+    "computedDiscountPercent": null,
+    "shipping": {
+      "free": "conditional",
+      "freeThreshold": {
+        "amount": 150,
+        "currency": "RON",
+        "raw": "150 lei",
+        "source": "text"
+      },
+      "costs": [
+        {
+          "amount": 15,
+          "currency": "RON",
+          "raw": "15 lei",
+          "source": "text",
+          "primary": true
+        }
+      ],
+      "mentions": [
+        {
+          "raw": "Free delivery",
+          "context": "Free delivery on orders over 150 lei; otherwise courier delivery costs 15 lei.",
+          "primary": true
+        },
+        {
+          "raw": "delivery",
+          "context": "Free delivery on orders over 150 lei; otherwise courier delivery costs 15 lei.",
+          "primary": true
+        }
+      ]
+    },
+    "warranty": [],
+    "stock": [],
+    "schemaAvailability": "InStock",
+    "urgency": [],
+    "structuredProducts": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Terra Wash Laundry Detergent 1.5 L",
+        "brand": {
+          "@type": "Brand",
+          "name": "Terra Wash"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "39.90",
+          "priceCurrency": "RON",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    ]
+  }
+}

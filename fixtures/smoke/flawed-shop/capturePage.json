@@ -1,0 +1,48 @@
+{
+  "url": "http://localhost:4180/flawed-shop/",
+  "ok": true,
+  "durationMs": 2621,
+  "findings": [],
+  "data": {
+    "title": "GlowPure Hydra Cream – Special Offer",
+    "lang": null,
+    "metaDescription": null,
+    "headings": [
+      {
+        "level": 1,
+        "text": "GlowPure Hydra Cream"
+      }
+    ],
+    "aboveFoldText": "GlowPure GlowPure Hydra Cream 48h hydration. Clinically proven. 100% natural. -20% 119,99 lei 149,99 lei Only 2 left! Offer ends in 02:14:59 Buy Now Order today Product details · Our other products Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+    "html": "(saved to page.html, 3019 chars)",
+    "visibleText": "(saved to text.txt, 284 chars)",
+    "desktop": {
+      "device": "desktop",
+      "viewport": {
+        "width": 1366,
+        "height": 900
+      },
+      "status": 200,
+      "finalUrl": "http://localhost:4180/flawed-shop/",
+      "loadMs": 527,
+      "consentDismissed": false,
+      "blocked": null,
+      "screenshotPath": "capture.desktop.png",
+      "screenshotFoldPath": "capture.desktop.fold.png"
+    },
+    "mobile": {
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "status": 200,
+      "finalUrl": "http://localhost:4180/flawed-shop/",
+      "loadMs": 514,
+      "consentDismissed": false,
+      "blocked": null,
+      "screenshotPath": "capture.mobile.png",
+      "screenshotFoldPath": "capture.mobile.fold.png"
+    }
+  }
+}

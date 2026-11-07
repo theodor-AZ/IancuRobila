@@ -1,0 +1,13 @@
+{
+  "url": "http://localhost:4180/clean-shop/",
+  "ok": true,
+  "durationMs": 932,
+  "findings": [],
+  "data": {
+    "device": "mobile",
+    "axeVersion": "4.14.0",
+    "passes": 11,
+    "incomplete": 0,
+    "violations": []
+  }
+}
