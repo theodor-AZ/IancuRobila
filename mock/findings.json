@@ -1,0 +1,194 @@
+[
+  {
+    "id": "fnd-01",
+    "category": "legal",
+    "severity": "critical",
+    "title": "Unsubstantiated Generic Environmental Claim",
+    "claim": "100% eco-friendly packaging and formula",
+    "evidence": {
+      "source": "Ad Copy & Technical Sheet (eco-serum-spec.pdf)",
+      "snippet": "Packaging consists of standard PET plastic (recyclable, non-biodegradable). No EU Ecolabel or ISO 14024 certification attached.",
+      "location": "Ad Headline & Hero Banner"
+    },
+    "rule": "EU Directive 2024/825 (EmpCo) - Annex I, Point 4bis (Generic environmental claims without recognized excellent environmental performance)",
+    "risk": "Possibly non-compliant with EU EmpCo Directive rules against generic green claims without verifiable certification.",
+    "fix": "Made with 85% recycled PET plastic packaging, verifiable under ISO 14021 self-declared environmental claims.",
+    "confidence": 0.96
+  },
+  {
+    "id": "fnd-02",
+    "category": "legal",
+    "severity": "high",
+    "title": "Unverified 48-Hour Efficacy Claim",
+    "claim": "Clinically proven 48h continuous hydration protection",
+    "evidence": {
+      "source": "Clinical Summary PDF (hydration-study-2026.pdf, p. 4)",
+      "snippet": "Corneometer measurements were recorded at T=0, T=8h, and T=24h post-application on 22 subjects.",
+      "location": "Ad Body Copy"
+    },
+    "rule": "EU Regulation 655/2013 (Cosmetic Claims Common Criteria) - Point 3 (Evidential Support)",
+    "risk": "No evidence found for the 48-hour duration; uploaded laboratory dossier only documents testing up to 24 hours.",
+    "fix": "Clinically tested to provide up to 24 hours of continuous skin hydration.",
+    "confidence": 0.94
+  },
+  {
+    "id": "fnd-03",
+    "category": "legal",
+    "severity": "high",
+    "title": "Carbon Neutrality Claim Based on Offsetting",
+    "claim": "Zero carbon footprint – 100% climate neutral skincare",
+    "evidence": {
+      "source": "Landing Page Footer & Sustainability PDF",
+      "snippet": "Emissions are compensated via reforestation carbon credits in South America.",
+      "location": "Landing Page - Sustainability Section"
+    },
+    "rule": "EU Directive 2024/825 (EmpCo) - Annex I, Point 4ter (Claims of neutral/positive environmental impact based on greenhouse gas offsetting)",
+    "risk": "Possibly non-compliant with EmpCo prohibition on claiming a product has a neutral carbon impact based on offsetting schemes outside the product's lifecycle.",
+    "fix": "We reduce manufacturing emissions by 30% using solar energy and fund verified reforestation projects.",
+    "confidence": 0.98
+  },
+  {
+    "id": "fnd-04",
+    "category": "truth",
+    "severity": "critical",
+    "title": "Discount Mismatch Between Ad and Landing Page",
+    "claim": "Flash Sale: Get 50% OFF everything today!",
+    "evidence": {
+      "source": "https://demo-glowbotanics.ro/promo",
+      "snippet": "Extracted product offer shows MRP 200 RON, Sale Price 160 RON (-20% discount applied at checkout).",
+      "location": "Landing Page Pricing Block"
+    },
+    "rule": "EU Directive 2005/29/EC - Art. 6 (Misleading Actions regarding price or the manner in which price is calculated)",
+    "risk": "Significant discrepancy detected between advertised discount (-50%) and actual landing page price reduction (-20%).",
+    "fix": "Flash Sale: Get 20% OFF sitewide today (or update landing page pricing tier to match the 50% promotional offer).",
+    "confidence": 0.99
+  },
+  {
+    "id": "fnd-05",
+    "category": "truth",
+    "severity": "high",
+    "title": "Contradictory Free Shipping Condition",
+    "claim": "Free express delivery on all orders, no minimum spend!",
+    "evidence": {
+      "source": "https://demo-glowbotanics.ro/promo#shipping-info",
+      "snippet": "Standard shipping: 19.99 RON. Free delivery applies only to orders over 250 RON.",
+      "location": "Checkout Drawer & FAQ Section"
+    },
+    "rule": "EU Directive 2005/29/EC - Art. 7 (Misleading Omissions of material delivery charges)",
+    "risk": "Ad promises unconditional free delivery, while the landing page imposes a 250 RON threshold.",
+    "fix": "Free express delivery on all orders over 250 RON (19.99 RON flat rate under 250 RON).",
+    "confidence": 0.95
+  },
+  {
+    "id": "fnd-06",
+    "category": "truth",
+    "severity": "medium",
+    "title": "Ingredient 'Free-From' Inconsistency",
+    "claim": "100% Fragrance-Free & Hypoallergenic Formula",
+    "evidence": {
+      "source": "INCI List on Product Page & Technical Sheet",
+      "snippet": "Ingredients: Aqua, Glycerin, Niacinamide, Parfum (Fragrance), Linalool, Limonene.",
+      "location": "Landing Page Accordion - Ingredients"
+    },
+    "rule": "EU Regulation 655/2013 - Annex III ('Free from' claims & Fairness Criteria)",
+    "risk": "Product INCI declaration lists 'Parfum', 'Linalool', and 'Limonene', which contradicts the 'Fragrance-Free' claim.",
+    "fix": "Formulated with mild botanical scent; dermatologically tested for normal to combination skin.",
+    "confidence": 0.92
+  },
+  {
+    "id": "fnd-07",
+    "category": "conversion",
+    "severity": "critical",
+    "title": "Primary 'Buy Now' CTA Leads to HTTP 404",
+    "claim": "Shop the Bundle Now – Instant Checkout",
+    "evidence": {
+      "source": "https://demo-glowbotanics.ro/checkout/bundle-promo-2026",
+      "snippet": "Playwright link check returned HTTP Status 404 (Not Found) on primary hero CTA button.",
+      "location": "Hero Section CTA Button"
+    },
+    "rule": "Conversion & Technical Integrity Standard - Broken Funnel Path",
+    "risk": "100% of paid traffic clicking the primary bundle button hits a dead end, resulting in immediate ad budget waste.",
+    "fix": "Update CTA href attribute to point to the active checkout URL (/cart/add?id=bundle-2026).",
+    "confidence": 1.0
+  },
+  {
+    "id": "fnd-08",
+    "category": "conversion",
+    "severity": "medium",
+    "title": "Slow Mobile Largest Contentful Paint (LCP > 4.8s)",
+    "claim": "Instant skin transformation starts here",
+    "evidence": {
+      "source": "Playwright Mobile Viewport (390x844) Performance Audit",
+      "snippet": "LCP measured at 4.85s due to unoptimized 6.4MB PNG hero background image. Total Blocking Time: 620ms.",
+      "location": "Mobile Above-the-Fold Viewport"
+    },
+    "rule": "Core Web Vitals - Mobile LCP Threshold (< 2.5s recommended)",
+    "risk": "High mobile bounce risk before the landing page finishes rendering the main offer.",
+    "fix": "Convert hero image to WebP/AVIF (< 250KB) and add fetchpriority='high' to the primary product image.",
+    "confidence": 0.89
+  },
+  {
+    "id": "fnd-09",
+    "category": "accessibility",
+    "severity": "medium",
+    "title": "Insufficient Text Contrast on Discount Disclaimer",
+    "claim": "*Offer subject to terms and seasonal availability",
+    "evidence": {
+      "source": "axe-core Rule: color-contrast (automated checks only)",
+      "snippet": "Element <p class='text-gray-300 bg-gray-100'> has a contrast ratio of 1.62:1 (Expected minimum 4.5:1).",
+      "location": "Promo Banner Subtext"
+    },
+    "rule": "WCAG 2.1 AA - Success Criterion 1.4.3 Contrast (Minimum) (automated checks only)",
+    "risk": "Key promotional conditions are nearly illegible for users with low vision or on mobile screens outdoors.",
+    "fix": "Change text color class from text-gray-300 (#D1D5DB) to text-slate-700 (#334155) to achieve a 7.4:1 contrast ratio.",
+    "confidence": 0.97
+  },
+  {
+    "id": "fnd-10",
+    "category": "accessibility",
+    "severity": "low",
+    "title": "Missing Accessible Name on Icon-Only Cart Buttons",
+    "claim": "Quick Add to Bag button",
+    "evidence": {
+      "source": "axe-core Rule: button-name & image-alt (automated checks only)",
+      "snippet": "3 <button> elements in product grid contain only an SVG icon without aria-label or screen-reader text.",
+      "location": "Product Bundle Grid"
+    },
+    "rule": "WCAG 2.1 A - Success Criterion 4.1.2 Name, Role, Value (automated checks only)",
+    "risk": "Screen reader users cannot identify the action of the purchase buttons, blocking inclusive checkout flows.",
+    "fix": "Add aria-label='Add HydraGlow Serum to cart' to each icon-only action button.",
+    "confidence": 0.95
+  },
+  {
+    "id": "fnd-11",
+    "category": "trust",
+    "severity": "high",
+    "title": "Unverified Scarcity Pressure ('Only 2 Left in Stock!')",
+    "claim": "Hurry! Only 2 items left in stock at this price!",
+    "evidence": {
+      "source": "Landing Page DOM & Schema.org/Product Inspection",
+      "snippet": "Hardcoded string 'Only 2 left!' in static HTML; schema.org availability is set to 'InStock' with no inventory API call.",
+      "location": "Product Buy Box"
+    },
+    "rule": "EU Directive 2024/825 & Dark Patterns Guidance - Fake Scarcity / Urgency Cues",
+    "risk": "No evidence found for real-time inventory tracking; static scarcity message may be flagged as manipulative urgency.",
+    "fix": "Remove hardcoded stock counter or bind the badge dynamically to verified warehouse inventory counts.",
+    "confidence": 0.91
+  },
+  {
+    "id": "fnd-12",
+    "category": "trust",
+    "severity": "medium",
+    "title": "'Verified Buyer' Testimonials Without Proof Source",
+    "claim": "Rated 4.9/5 by 12,400+ Verified Customers",
+    "evidence": {
+      "source": "Landing Page Reviews Widget",
+      "snippet": "Reviews are rendered as static HTML blocks with no link to an independent review platform or verification methodology.",
+      "location": "Social Proof Section"
+    },
+    "rule": "EU Directive 2005/29/EC (Omnibus / EmpCo) - Annex I, Point 23b (Stating reviews are submitted by real consumers without verification)",
+    "risk": "No evidence found on the page explaining how customer reviews are collected, checked, or verified.",
+    "fix": "Add a clear disclosure explaining how reviews are authenticated (e.g., via post-purchase order ID links) or link to verified provider.",
+    "confidence": 0.88
+  }
+]
