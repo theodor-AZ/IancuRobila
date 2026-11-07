@@ -40,6 +40,8 @@ export interface Finding {
   claim: string;
   evidence: Evidence;
   rule: string | null;
+  /** Rule id from Colleague 4's library (e.g. "ENV-GENERIC") or a technical id ("UX-LINK", "WCAG-1.4.3"). */
+  ruleId?: string;
   risk: string;
   fix: string;
   confidence: number;

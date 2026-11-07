@@ -47,8 +47,8 @@ Plan B dacă demo-ul live pică: înregistrare de ecran a aceluiași flux, plus 
 
 ## 4:20 – 4:45 · Dovada că merge
 
-- Numărul real din evaluarea Colegului 4: „catches X of Y planted vulnerabilities, Z false alarms”, plus campania curată (0 alarme).
-- **Nu completăm numărul până nu avem rezultatul real.**
+- Rezultatul real pe benchmark-ul Colegului 4 (7 nov., scaner pe bază de reguli): **"On our 34-issue synthetic benchmark, ClaimGuard X caught 24 with zero false alarms on the clean campaign."** Detalii și limite: `docs/evaluation-role4.md`.
+- Dacă scanerul se schimbă (de exemplu când intră AI-ul), refaceți evaluarea înainte de pitch și actualizați numărul.
 - Opțional: 1–2 citate din formularul trimis marketerilor, doar dacă există răspunsuri reale.
 
 ## 4:45 – 5:00 · Închidere
@@ -63,5 +63,5 @@ Plan B dacă demo-ul live pică: înregistrare de ecran a aceluiași flux, plus 
 
 - [ ] Campania de demo rulează local (nu pe un site real, care poate bloca roboții).
 - [ ] Scorul și numerele din slide-uri coincid cu raportul real.
-- [ ] Numărul din evaluare e cel măsurat, nu estimat.
+- [ ] Numărul din evaluare e cel măsurat, nu estimat (ultima rulare: 24/34, 0 alarme false pe campania curată).
 - [ ] Înregistrarea de rezervă e pe laptop, offline.

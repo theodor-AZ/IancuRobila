@@ -1,0 +1,46 @@
+[
+  {
+    "id": "cosmetics",
+    "brand": "Velunara",
+    "landingPage": "demo-campaigns/cosmetics/index.html",
+    "adCopy": "demo-campaigns/cosmetics/ad-copy.md",
+    "evidence": [
+      "demo-campaigns/cosmetics/evidence-1.txt",
+      "demo-campaigns/cosmetics/evidence-2.txt"
+    ],
+    "control": false
+  },
+  {
+    "id": "detergent",
+    "brand": "Mossmorrow",
+    "landingPage": "demo-campaigns/detergent/index.html",
+    "adCopy": "demo-campaigns/detergent/ad-copy.md",
+    "evidence": [
+      "demo-campaigns/detergent/evidence-1.txt",
+      "demo-campaigns/detergent/evidence-2.txt"
+    ],
+    "control": false
+  },
+  {
+    "id": "store",
+    "brand": "Nookstitch",
+    "landingPage": "demo-campaigns/store/index.html",
+    "adCopy": "demo-campaigns/store/ad-copy.md",
+    "evidence": [
+      "demo-campaigns/store/evidence-1.txt",
+      "demo-campaigns/store/evidence-2.txt"
+    ],
+    "control": false
+  },
+  {
+    "id": "control",
+    "brand": "Plainharbor",
+    "landingPage": "demo-campaigns/control/index.html",
+    "adCopy": "demo-campaigns/control/ad-copy.md",
+    "evidence": [
+      "demo-campaigns/control/evidence-1.txt",
+      "demo-campaigns/control/evidence-2.txt"
+    ],
+    "control": true
+  }
+]

@@ -20,7 +20,11 @@ Prerequisite (once): `npx playwright install chromium`.
 3. `GET /api/scans/[id]` is polled by the progress screen. When the status is `done`, the app redirects to the report.
 4. To test without the internet, use **Fill with demo campaign** on /scan/new. It scans `public/demo-site/flawed-shop`, which this app serves, with planted issues in all 5 categories.
 
-When the base is ready, `src/lib/store.ts` moves to Supabase (same functions). The AI analysis can replace or extend `runClaimRules`, since its output uses the same `Finding` type.
+**Supabase (Patrick's schema):** `supabase/migrations` and `src/lib/db/`. Put `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `ui/.env.local` and `src/lib/store.ts` switches to `store-supabase.ts` (campaigns, scans, scan_steps for Realtime, findings). Without them, scans are saved as files. Uploaded files and captures stay in `data/scans/` in both modes; moving them to the storage buckets is the next step. The Supabase store is checked against the generated types only, not yet on a live project.
+
+**Colleague 4 (Role 4):** claim checks use his rule library (`src/lib/rules/library.json`), and every finding carries a `ruleId` such as `ENV-GENERIC` or `WCAG-1.4.3`. His four campaigns are served at `/demo-campaigns/<id>/index.html`, and one click on /scan/new loads one of them (ad copy, artwork, URL, evidence PDFs). Benchmark: `npx tsx scripts/evaluate-role4.mts` (see `docs/evaluation-role4.md` at the repo root).
+
+The AI analysis can replace or extend `runClaimRules`. 
 
 ```bash
 cd ui

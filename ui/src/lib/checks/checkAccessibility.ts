@@ -145,6 +145,7 @@ function toFindings(url: string, d: AccessibilityData): Finding[] {
       claim,
       evidence: { url, selector: first.map((x) => x.target).join(', '), snippet: first[0]?.summary, details },
       rule: v.wcag.length ? `WCAG 2.x SC ${v.wcag.join(', ')}` : `axe-core: ${v.ruleId}`,
+      ruleId: v.wcag.length ? `WCAG-${v.wcag[0]}` : `AXE-${v.ruleId}`,
       risk: `${text?.risk ?? v.help + '.'} ${AUTOMATED_NOTE}`,
       fix: text?.fix ?? (first[0]?.summary || `See ${v.helpUrl}`),
       confidence: 0.9,

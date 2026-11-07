@@ -1,0 +1,45 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "brand": {
+        "type": "string",
+        "minLength": 1
+      },
+      "landingPage": {
+        "type": "string",
+        "minLength": 1
+      },
+      "adCopy": {
+        "type": "string",
+        "minLength": 1
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 1
+      },
+      "control": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "id",
+      "brand",
+      "landingPage",
+      "adCopy",
+      "evidence",
+      "control"
+    ],
+    "additionalProperties": false
+  },
+  "minItems": 4
+}

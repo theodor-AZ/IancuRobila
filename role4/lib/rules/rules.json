@@ -1,0 +1,357 @@
+[
+  {
+    "id": "ENV-GENERIC",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825",
+    "legalReference": "Directive 2005/29/EC Annex I point 4a, inserted by Directive (EU) 2024/825 Annex (2)",
+    "explanation": "Generic environmental claims need recognised excellent environmental performance relevant to the claim.",
+    "triggerTerms": [
+      "eco-friendly",
+      "green",
+      "planet safe"
+    ],
+    "riskyClaim": "100% eco-friendly detergent",
+    "saferAlternative": "Describe a specific measured attribute with its scope and evidence.",
+    "riskWording": "Possible misleading-claim risk: Generic environmental claims need recognised excellent environmental performance relevant to the claim. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "2024/825: national measures apply from 2026-09-27; country transposition not verified."
+  },
+  {
+    "id": "ENV-LABEL",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825",
+    "legalReference": "Directive 2005/29/EC Annex I point 2a, inserted by Directive (EU) 2024/825 Annex (1)",
+    "explanation": "Sustainability labels must be based on a certification scheme or established by public authorities.",
+    "triggerTerms": [
+      "eco seal",
+      "certified green",
+      "sustainability badge"
+    ],
+    "riskyClaim": "Our own certified green seal",
+    "saferAlternative": "Remove the seal or identify a qualifying scheme and verified scope.",
+    "riskWording": "Possible misleading-claim risk: Sustainability labels must be based on a certification scheme or established by public authorities. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "2024/825: national measures apply from 2026-09-27; country transposition not verified."
+  },
+  {
+    "id": "ENV-SCOPE",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825",
+    "legalReference": "Directive 2005/29/EC Annex I point 4b, inserted by Directive (EU) 2024/825 Annex (2)",
+    "explanation": "An environmental attribute of one aspect must not be presented as covering the entire product or business.",
+    "triggerTerms": [
+      "entirely sustainable",
+      "whole product",
+      "zero impact"
+    ],
+    "riskyClaim": "The whole detergent is recycled because its bottle contains recycled plastic",
+    "saferAlternative": "State the bottle material percentage and exclusions only.",
+    "riskWording": "Possible misleading-claim risk: An environmental attribute of one aspect must not be presented as covering the entire product or business. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "2024/825: national measures apply from 2026-09-27; country transposition not verified."
+  },
+  {
+    "id": "ENV-OFFSET",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825",
+    "legalReference": "Directive 2005/29/EC Annex I point 4c, inserted by Directive (EU) 2024/825 Annex (2)",
+    "explanation": "Product climate impact claims based on greenhouse gas offsetting require particular scrutiny under the inserted prohibition.",
+    "triggerTerms": [
+      "carbon neutral",
+      "climate positive",
+      "offset"
+    ],
+    "riskyClaim": "Carbon neutral thanks to purchased offsets",
+    "saferAlternative": "Remove the product neutrality claim; describe verified emissions reductions separately.",
+    "riskWording": "Possible misleading-claim risk: Product climate impact claims based on greenhouse gas offsetting require particular scrutiny under the inserted prohibition. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "2024/825: national measures apply from 2026-09-27; country transposition not verified."
+  },
+  {
+    "id": "ENV-FUTURE",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L0825",
+    "legalReference": "Directive 2005/29/EC Article 6(2)(d), inserted by Directive (EU) 2024/825 Article 1(2)(b)",
+    "explanation": "Future environmental performance claims need public verifiable commitments, a realistic implementation plan and independent expert verification.",
+    "triggerTerms": [
+      "net zero by",
+      "climate neutral by"
+    ],
+    "riskyClaim": "Net zero by 2030, guaranteed",
+    "saferAlternative": "Publish a resourced plan, measurable targets and independent findings before claiming future performance.",
+    "riskWording": "Possible misleading-claim risk: Future environmental performance claims need public verifiable commitments, a realistic implementation plan and independent expert verification. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "2024/825: national measures apply from 2026-09-27; country transposition not verified."
+  },
+  {
+    "id": "COS-EVIDENCE",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0655",
+    "legalReference": "Regulation (EU) No 655/2013 Article 2; Annex 3(1), 3(3), 4(1)",
+    "explanation": "Cosmetic performance claims need adequate verifiable evidence relevant to the product and claimed benefit.",
+    "triggerTerms": [
+      "48h protection",
+      "clinically proven",
+      "24h hydration"
+    ],
+    "riskyClaim": "Clinically proven 48h protection",
+    "saferAlternative": "Use only the duration and outcome supported by a relevant study; otherwise remove the claim.",
+    "riskWording": "Possible misleading-claim risk: Cosmetic performance claims need adequate verifiable evidence relevant to the product and claimed benefit. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "COS-INGREDIENT",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0655",
+    "legalReference": "Regulation (EU) No 655/2013 Annex 2(1)-(2), 3(6)",
+    "explanation": "Named ingredients must be deliberately present; ingredient properties need support before being attributed to the finished product.",
+    "triggerTerms": [
+      "with vitamin",
+      "ingredient proven",
+      "contains"
+    ],
+    "riskyClaim": "Vitamin C results guaranteed in this cream",
+    "saferAlternative": "Confirm composition and finished-product evidence before describing effects.",
+    "riskWording": "Possible misleading-claim risk: Named ingredients must be deliberately present; ingredient properties need support before being attributed to the finished product. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "COS-APPROVAL",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0655",
+    "legalReference": "Regulation (EU) No 655/2013 Annex 1(1)",
+    "explanation": "Cosmetics claims must not suggest authorisation or approval by an EU competent authority.",
+    "triggerTerms": [
+      "EU approved",
+      "authority approved"
+    ],
+    "riskyClaim": "EU-approved cosmetic results",
+    "saferAlternative": "Remove the authority-approval claim.",
+    "riskWording": "Possible misleading-claim risk: Cosmetics claims must not suggest authorisation or approval by an EU competent authority. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "COS-FAIRNESS",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0655",
+    "legalReference": "Regulation (EU) No 655/2013 Annex 5(1)",
+    "explanation": "Cosmetic claims should be objective and should not denigrate competitors or legally used ingredients.",
+    "triggerTerms": [
+      "toxic competitors",
+      "dangerous ingredients"
+    ],
+    "riskyClaim": "Other creams poison your skin",
+    "saferAlternative": "Describe supported product characteristics objectively.",
+    "riskWording": "Possible misleading-claim risk: Cosmetic claims should be objective and should not denigrate competitors or legally used ingredients. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "COS-CONDITIONS",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32013R0655",
+    "legalReference": "Regulation (EU) No 655/2013 Annex 4(3), 6(1)-(3)",
+    "explanation": "Conditions needed for a claimed cosmetic effect should be clearly communicated.",
+    "triggerTerms": [
+      "guaranteed results",
+      "one application"
+    ],
+    "riskyClaim": "Results guaranteed with one application",
+    "saferAlternative": "Disclose tested usage conditions and qualify the outcome.",
+    "riskWording": "Possible misleading-claim risk: Conditions needed for a claimed cosmetic effect should be clearly communicated. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "PRICE-PRIOR",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:01998L0006-20220528",
+    "legalReference": "Directive 98/6/EC Article 6a(1)-(5)",
+    "explanation": "Price reduction announcements use the prior price, generally the lowest price in at least the preceding 30 days; national options and exceptions require review.",
+    "triggerTerms": [
+      "was",
+      "now",
+      "sale",
+      "off"
+    ],
+    "riskyClaim": "50% off: was EUR 80, now EUR 40; 30-day low EUR 50",
+    "saferAlternative": "Use and disclose the applicable prior price; here EUR 50 to EUR 40 is 20%.",
+    "riskWording": "Possible misleading-claim risk: Price reduction announcements use the prior price, generally the lowest price in at least the preceding 30 days; national options and exceptions require review. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "PRICE-MATH",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Article 6(1)(d)",
+    "explanation": "Price and claimed price advantages can mislead; compare the stated percentage with the actual prices and context.",
+    "triggerTerms": [
+      "50% off",
+      "save",
+      "discount"
+    ],
+    "riskyClaim": "50% off: EUR 40 to EUR 30",
+    "saferAlternative": "State 25% off if that reference price is valid.",
+    "riskWording": "Possible misleading-claim risk: Price and claimed price advantages can mislead; compare the stated percentage with the actual prices and context. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "SCARCITY-TIME",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Annex I point 7",
+    "explanation": "False limited-time availability intended to force immediate decisions is a listed practice; a timer alone is not proof.",
+    "triggerTerms": [
+      "ends in",
+      "last chance",
+      "today only"
+    ],
+    "riskyClaim": "Sale ends in five minutes, resetting every visit",
+    "saferAlternative": "Use a genuine fixed deadline or remove the urgency claim.",
+    "riskWording": "Possible misleading-claim risk: False limited-time availability intended to force immediate decisions is a listed practice; a timer alone is not proof. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "SCARCITY-STOCK",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Article 6(1)(b)",
+    "explanation": "False availability information may affect transactional decisions; stock evidence is needed.",
+    "triggerTerms": [
+      "only 2 left",
+      "selling fast"
+    ],
+    "riskyClaim": "Only 2 left when inventory is 500",
+    "saferAlternative": "Use inventory-linked stock information or omit it.",
+    "riskWording": "Possible misleading-claim risk: False availability information may affect transactional decisions; stock evidence is needed. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "REVIEWS-FAKE",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Annex I point 23c",
+    "explanation": "Submitting or commissioning false reviews or misrepresenting endorsements is a listed practice.",
+    "triggerTerms": [
+      "five stars",
+      "customer testimonial",
+      "review"
+    ],
+    "riskyClaim": "A staff-written quote presented as a customer review",
+    "saferAlternative": "Remove invented endorsements; use permissioned authentic feedback.",
+    "riskWording": "Possible misleading-claim risk: Submitting or commissioning false reviews or misrepresenting endorsements is a listed practice. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "REVIEWS-VERIFIED",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Annex I point 23b; Article 7(6)",
+    "explanation": "Claims that reviews come from users or purchasers need reasonable proportionate checks; review-checking information is material when reviews are provided.",
+    "triggerTerms": [
+      "verified buyer",
+      "verified purchase"
+    ],
+    "riskyClaim": "Verified buyer with no purchase checks",
+    "saferAlternative": "Describe the checks actually performed; remove unsupported verification badges.",
+    "riskWording": "Possible misleading-claim risk: Claims that reviews come from users or purchasers need reasonable proportionate checks; review-checking information is material when reviews are provided. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "PRODUCT-CONSISTENCY",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Article 6(1)(b)",
+    "explanation": "Conflicting quantities or performance details may mislead depending on context and their effect on decisions.",
+    "triggerTerms": [
+      "500ml",
+      "48h",
+      "100 washes"
+    ],
+    "riskyClaim": "Ad promises 100 washes; product sheet says 25",
+    "saferAlternative": "Align advertising with the correct product specification.",
+    "riskWording": "Possible misleading-claim risk: Conflicting quantities or performance details may mislead depending on context and their effect on decisions. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  },
+  {
+    "id": "MATERIAL-OMISSIONS",
+    "source": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02005L0029-20260927",
+    "legalReference": "Directive 2005/29/EC Article 7(1)-(2), 7(4)",
+    "explanation": "Material information must not be omitted or obscured; invitations to purchase have specified information requirements subject to context.",
+    "triggerTerms": [
+      "free delivery",
+      "no fees",
+      "total"
+    ],
+    "riskyClaim": "EUR 20 total with unavoidable handling added later",
+    "saferAlternative": "Disclose the complete price and applicable delivery charges prominently.",
+    "riskWording": "Possible misleading-claim risk: Material information must not be omitted or obscured; invitations to purchase have specified information requirements subject to context. Review evidence, consumer context and applicable national law before deciding.",
+    "verification": {
+      "status": "verified",
+      "checkedOn": "2026-11-07",
+      "method": "Official EUR-Lex English text inspected; see docs/legal-sources.md"
+    },
+    "applicability": "EU framework; assess scope, national implementation where applicable and factual context."
+  }
+]

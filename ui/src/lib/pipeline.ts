@@ -2,6 +2,7 @@ import "server-only";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { checkAccessibility } from "./checks/checkAccessibility";
+import { checkKeyboard } from "./checks/checkKeyboard";
 import { checkLinks } from "./checks/checkLinks";
 import { checkPerformance } from "./checks/checkPerformance";
 import { capturePage } from "./checks/capturePage";
@@ -57,8 +58,12 @@ export async function runScan(id: string): Promise<void> {
     const offer: OfferData | null = offerRes.data ?? null;
     if (!offerRes.ok) warnings.push(`Offer extraction: ${offerRes.error}`);
     await writeFile(path.join(dir, "offer.json"), JSON.stringify(offer, null, 2));
-    // Name the report after the product on the page when the page says what it is.
-    if (offer?.product.brand || offer?.product.name) {
+    // Name the report after the product on the page when the page says what it is;
+    // otherwise use the page title (and never "localhost" as a brand).
+    if (!offer?.product.brand && !offer?.product.name && cap.data?.title) {
+      const local = /^(localhost|127\.0\.0\.1)$/.test(new URL(url).hostname);
+      await updateScan(id, { campaign: cap.data.title.slice(0, 80), ...(local ? { brand: "" } : {}) });
+    } else if (offer?.product.brand || offer?.product.name) {
       await updateScan(id, {
         brand: offer.product.brand ?? scan.brand,
         campaign: stripPrefix(offer.product.name, offer.product.brand) || scan.campaign,
@@ -75,9 +80,11 @@ export async function runScan(id: string): Promise<void> {
 
     // 3 · accessibility
     await updateScan(id, { step: 3 });
-    const a11y = await checkAccessibility(url, { browser, device: "desktop" });
+    const [a11y, kbd] = await Promise.all([checkAccessibility(url, { browser, device: "desktop" }), checkKeyboard(url, { browser })]);
     if (a11y.ok) findings.push(...a11y.findings);
     else warnings.push(`Accessibility check: ${a11y.error}`);
+    if (kbd.ok) findings.push(...kbd.findings);
+    else warnings.push(`Keyboard check: ${kbd.error}`);
 
     // 4 · cross-check ad ↔ page ↔ documents, then draw evidence frames
     await updateScan(id, { step: 4 });

@@ -237,6 +237,7 @@ function toFindings(data: LinksData): Finding[] {
         details: { count: n, aboveFold: group.some((g) => g.aboveFold), usesJsFramework: data.usesJsFramework },
       },
       rule: null,
+      ruleId: "UX-LINK",
       risk: 'If the button really does nothing, visitors who want to buy cannot continue.',
       fix: 'Give the button a real destination (href to the product / checkout page) or verify its click handler works.',
       // JS frameworks often attach click handlers at the root, which we cannot see.
@@ -256,6 +257,7 @@ function toFindings(data: LinksData): Finding[] {
         claim: label,
         evidence: { url: lc.url ?? undefined, selector: lc.selector, details: { status: lc.status, redirectChain: lc.redirectChain, aboveFold: lc.aboveFold } },
         rule: null,
+        ruleId: "UX-LINK",
         risk: lc.isCta
           ? 'Visitors who click the main button reach an error page instead of the offer: paid traffic is wasted and the campaign cannot convert.'
           : 'Visitors hit an error page, which lowers trust and can hurt conversion.',
@@ -271,6 +273,7 @@ function toFindings(data: LinksData): Finding[] {
         claim: label,
         evidence: { url: lc.url ?? undefined, selector: lc.selector, details: { redirectChain: lc.redirectChain, finalStatus: lc.status } },
         rule: null,
+        ruleId: "UX-LINK",
         risk: 'Each redirect adds delay (especially on mobile) and can drop tracking parameters.',
         fix: `Link directly to the final URL: ${lc.finalUrl}`,
         confidence: 0.9,

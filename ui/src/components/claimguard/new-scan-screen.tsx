@@ -33,6 +33,48 @@ async function loadDemo(): Promise<Pick<NewScanInput, "adText" | "landingUrl" | 
   return { adText: DEMO_AD_TEXT, landingUrl: `${window.location.origin}/demo-site/flawed-shop/index.html`, adImage, productCategory: "cosmetics" };
 }
 
+/** Colleague 4 demo campaigns (public/demo-campaigns, fictional brands). */
+const ROLE4_CAMPAIGNS = [
+  { id: "cosmetics", label: "Velunara (cosmetics)" },
+  { id: "detergent", label: "Mossmorrow (detergent)" },
+  { id: "store", label: "Nookstitch (online store)" },
+  { id: "control", label: "Plainharbor (clean control)" },
+] as const;
+
+async function fileFrom(url: string, name: string, type: string): Promise<File | null> {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    return new File([await r.blob()], name, { type });
+  } catch {
+    return null;
+  }
+}
+
+async function loadRole4(id: string): Promise<Partial<NewScanInput>> {
+  const base = `/demo-campaigns/${id}`;
+  const md = await (await fetch(`${base}/ad-copy.md`)).text();
+  // Ad copy as plain text: drop Markdown markers, keep the words.
+  const adText = md
+    .replace(/^#+\s*/gm, "")
+    .replace(/[*_`>]/g, "")
+    .replace(/^\s*[-•]\s+/gm, "")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+  const [adImage, d1, d2] = await Promise.all([
+    fileFrom(`${base}/artwork.svg`, `${id}-artwork.svg`, "image/svg+xml"),
+    fileFrom(`${base}/evidence-1.pdf`, `${id}-evidence-1.pdf`, "application/pdf"),
+    fileFrom(`${base}/evidence-2.pdf`, `${id}-evidence-2.pdf`, "application/pdf"),
+  ]);
+  return {
+    adText,
+    adImage,
+    documents: [d1, d2].filter((d): d is File => !!d),
+    landingUrl: `${window.location.origin}${base}/index.html`,
+    productCategory: id === "cosmetics" ? "cosmetics" : "general",
+  };
+}
+
 export function validateNewScan(v: NewScanInput): Errors {
   const e: Errors = {};
   if (v.adText.trim().length < 10) e.adText = "Paste the ad copy (at least 10 characters).";
@@ -87,12 +129,30 @@ export function NewScanScreen({ onSubmit }: { onSubmit: (input: NewScanInput) =>
         </div>
         <Button type="button" variant="ghost" size="sm" onClick={async () => {
             const demo = await loadDemo();
-            setV((s) => ({ ...s, ...demo }));
+            setV((s) => ({ ...s, ...demo, documents: [] }));
             setErrors({});
           }}>
           <Sparkles aria-hidden className="size-3.5" />
           Fill with demo campaign
         </Button>
+      </div>
+
+      <div className="-mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+        <span>Test campaigns with evidence PDFs:</span>
+        {ROLE4_CAMPAIGNS.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            onClick={async () => {
+              const demo = await loadRole4(c.id);
+              setV((s) => ({ ...s, ...demo }));
+              setErrors({});
+            }}
+            className="rounded-sm border px-2 py-1 text-foreground transition-colors hover:border-border-strong hover:bg-muted/50"
+          >
+            {c.label}
+          </button>
+        ))}
       </div>
 
       <fieldset className="grid gap-5 rounded-lg border bg-card p-5">
