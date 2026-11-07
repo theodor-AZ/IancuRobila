@@ -1,0 +1,235 @@
+{
+  "cosmetics-01": {
+    "anyOf": [
+      "missing-checkout",
+      "broken",
+      "404",
+      "buy now"
+    ]
+  },
+  "cosmetics-02": {
+    "anyOf": [
+      "contrast",
+      "bbbbbb"
+    ]
+  },
+  "cosmetics-03": {
+    "anyOf": [
+      "accessible name",
+      "unlabelled",
+      "unlabeled",
+      "icon button"
+    ]
+  },
+  "cosmetics-04": {
+    "anyOf": [
+      "keyboard",
+      "quick buy"
+    ]
+  },
+  "cosmetics-05": {
+    "anyOf": [
+      "stock",
+      "only 2",
+      "inventory"
+    ]
+  },
+  "cosmetics-06": {
+    "anyOf": [
+      "countdown",
+      "timer",
+      "deadline"
+    ]
+  },
+  "cosmetics-07": {
+    "anyOf": [
+      "testimonial",
+      "staff-written",
+      "best purchase",
+      "fake review"
+    ]
+  },
+  "cosmetics-08": {
+    "anyOf": [
+      "48h",
+      "clinically",
+      "protection"
+    ]
+  },
+  "cosmetics-09": {
+    "anyOf": [
+      "eu-approved",
+      "authority",
+      "approval"
+    ]
+  },
+  "cosmetics-10": {
+    "anyOf": [
+      "50 ml",
+      "30 ml",
+      "volume"
+    ]
+  },
+  "cosmetics-11": {
+    "anyOf": [
+      "percentage",
+      "arithmetic",
+      "50%"
+    ]
+  },
+  "detergent-01": {
+    "anyOf": [
+      "missing-checkout",
+      "broken",
+      "404",
+      "buy now"
+    ]
+  },
+  "detergent-02": {
+    "anyOf": [
+      "contrast",
+      "bbbbbb"
+    ]
+  },
+  "detergent-03": {
+    "anyOf": [
+      "accessible name",
+      "unlabelled",
+      "unlabeled",
+      "icon button"
+    ]
+  },
+  "detergent-04": {
+    "anyOf": [
+      "keyboard",
+      "quick buy"
+    ]
+  },
+  "detergent-05": {
+    "anyOf": [
+      "stock",
+      "only 2",
+      "inventory"
+    ]
+  },
+  "detergent-06": {
+    "anyOf": [
+      "countdown",
+      "timer",
+      "deadline"
+    ]
+  },
+  "detergent-07": {
+    "anyOf": [
+      "testimonial",
+      "staff-written",
+      "best purchase",
+      "fake review"
+    ]
+  },
+  "detergent-08": {
+    "anyOf": [
+      "eco-friendly"
+    ]
+  },
+  "detergent-09": {
+    "anyOf": [
+      "offset"
+    ]
+  },
+  "detergent-10": {
+    "anyOf": [
+      "seal"
+    ]
+  },
+  "detergent-11": {
+    "anyOf": [
+      "whole detergent"
+    ]
+  },
+  "detergent-12": {
+    "anyOf": [
+      "100 washes",
+      "25 washes"
+    ]
+  },
+  "store-01": {
+    "anyOf": [
+      "missing-checkout",
+      "broken",
+      "404",
+      "buy now"
+    ]
+  },
+  "store-02": {
+    "anyOf": [
+      "contrast",
+      "bbbbbb"
+    ]
+  },
+  "store-03": {
+    "anyOf": [
+      "accessible name",
+      "unlabelled",
+      "unlabeled",
+      "icon button"
+    ]
+  },
+  "store-04": {
+    "anyOf": [
+      "keyboard",
+      "quick buy"
+    ]
+  },
+  "store-05": {
+    "anyOf": [
+      "stock",
+      "only 2",
+      "inventory"
+    ]
+  },
+  "store-06": {
+    "anyOf": [
+      "countdown",
+      "timer",
+      "deadline"
+    ]
+  },
+  "store-07": {
+    "anyOf": [
+      "testimonial",
+      "staff-written",
+      "best purchase",
+      "fake review"
+    ]
+  },
+  "store-08": {
+    "anyOf": [
+      "prior price",
+      "30-day",
+      "eur 75",
+      "reference price"
+    ]
+  },
+  "store-09": {
+    "anyOf": [
+      "organic",
+      "polyester",
+      "composition"
+    ]
+  },
+  "store-10": {
+    "anyOf": [
+      "purchase-checked",
+      "verified",
+      "checks"
+    ]
+  },
+  "store-11": {
+    "anyOf": [
+      "percentage",
+      "arithmetic",
+      "70%"
+    ]
+  }
+}
