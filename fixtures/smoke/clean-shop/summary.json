@@ -1,0 +1,33 @@
+{
+  "url": "http://localhost:4180/clean-shop/",
+  "scannedAt": "2026-11-07T09:37:50.720Z",
+  "totalMs": 5777,
+  "modules": {
+    "capturePage": {
+      "ok": true,
+      "durationMs": 2318,
+      "findings": 0
+    },
+    "checkLinks": {
+      "ok": true,
+      "durationMs": 606,
+      "findings": 0
+    },
+    "checkPerformance": {
+      "ok": true,
+      "durationMs": 1206,
+      "findings": 0
+    },
+    "checkAccessibility": {
+      "ok": true,
+      "durationMs": 932,
+      "findings": 0
+    },
+    "extractOffer": {
+      "ok": true,
+      "durationMs": 601,
+      "findings": 0
+    }
+  },
+  "findingCount": 0
+}

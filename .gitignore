@@ -1,0 +1,6 @@
+node_modules/
+*.log
+.env*
+# real-site probe output (third-party HTML/screenshots) - summarized in scanner-notes.md instead
+probes/
+.impeccable/

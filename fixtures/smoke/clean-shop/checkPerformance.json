@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:4180/clean-shop/",
+  "ok": true,
+  "durationMs": 1206,
+  "findings": [],
+  "data": {
+    "lcpMs": 272,
+    "lcpElement": "<h1> Terra Wash Laundry Detergent, 1.5 L",
+    "firstContentfulPaintMs": 272,
+    "domContentLoadedMs": 270,
+    "loadMs": 270,
+    "transferKb": 2,
+    "requests": 1,
+    "throttled": true
+  }
+}

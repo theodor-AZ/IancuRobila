@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:4180/flawed-shop/",
+  "ok": true,
+  "durationMs": 1241,
+  "findings": [],
+  "data": {
+    "lcpMs": 328,
+    "lcpElement": "<h1> GlowPure Hydra Cream",
+    "firstContentfulPaintMs": 328,
+    "domContentLoadedMs": 314,
+    "loadMs": 315,
+    "transferKb": 4,
+    "requests": 1,
+    "throttled": true
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "url": "http://localhost:4180/flawed-shop/",
+  "ok": true,
+  "durationMs": 608,
+  "findings": [],
+  "data": {
+    "pageUrl": "http://localhost:4180/flawed-shop/",
+    "product": {
+      "name": "GlowPure Hydra Cream 50 ml",
+      "brand": "GlowPure",
+      "sku": "GP-HC-50"
+    },
+    "prices": [
+      {
+        "amount": 119.99,
+        "currency": "RON",
+        "raw": "119.99",
+        "source": "json-ld",
+        "primary": true
+      }
+    ],
+    "originalPrices": [
+      {
+        "amount": 149.99,
+        "currency": "RON",
+        "raw": "149.99",
+        "source": "json-ld",
+        "primary": true
+      },
+      {
+        "amount": 149.99,
+        "currency": "RON",
+        "raw": "149,99 lei",
+        "source": "strikethrough",
+        "primary": true
+      }
+    ],
+    "discounts": [
+      {
+        "raw": "-20%",
+        "context": "-20%",
+        "percent": 20,
+        "primary": true
+      }
+    ],
+    "computedDiscountPercent": 20,
+    "shipping": {
+      "free": false,
+      "freeThreshold": null,
+      "costs": [
+        {
+          "amount": 19.99,
+          "currency": "RON",
+          "raw": "19,99 lei",
+          "source": "text",
+          "primary": true
+        }
+      ],
+      "mentions": [
+        {
+          "raw": "Delivery",
+          "context": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+          "primary": true
+        },
+        {
+          "raw": "shipping",
+          "context": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+          "primary": true
+        }
+      ]
+    },
+    "warranty": [
+      {
+        "raw": "Returns within 14 days",
+        "context": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+        "primary": true
+      },
+      {
+        "raw": "warranty",
+        "context": "Delivery: courier shipping 19,99 lei. Returns within 14 days. 2-year warranty.",
+        "primary": true
+      }
+    ],
+    "stock": [
+      {
+        "raw": "Only 2 left",
+        "context": "Only 2 left! Offer ends in 02:14:59",
+        "primary": true
+      }
+    ],
+    "schemaAvailability": "InStock",
+    "urgency": [
+      {
+        "raw": "ends in 02:14:59",
+        "context": "Only 2 left! Offer ends in 02:14:59",
+        "primary": true
+      }
+    ],
+    "structuredProducts": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "GlowPure Hydra Cream 50 ml",
+        "brand": {
+          "@type": "Brand",
+          "name": "GlowPure"
+        },
+        "sku": "GP-HC-50",
+        "offers": {
+          "@type": "Offer",
+          "price": "119.99",
+          "priceCurrency": "RON",
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "priceType": "https://schema.org/ListPrice",
+            "price": "149.99",
+            "priceCurrency": "RON"
+          }
+        }
+      }
+    ]
+  }
+}

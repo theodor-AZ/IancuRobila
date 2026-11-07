@@ -1,0 +1,33 @@
+{
+  "url": "http://localhost:4180/flawed-shop/",
+  "scannedAt": "2026-11-07T09:37:56.843Z",
+  "totalMs": 6121,
+  "modules": {
+    "capturePage": {
+      "ok": true,
+      "durationMs": 2621,
+      "findings": 0
+    },
+    "checkLinks": {
+      "ok": true,
+      "durationMs": 615,
+      "findings": 2
+    },
+    "checkPerformance": {
+      "ok": true,
+      "durationMs": 1241,
+      "findings": 0
+    },
+    "checkAccessibility": {
+      "ok": true,
+      "durationMs": 939,
+      "findings": 4
+    },
+    "extractOffer": {
+      "ok": true,
+      "durationMs": 608,
+      "findings": 0
+    }
+  },
+  "findingCount": 6
+}
