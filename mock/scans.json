@@ -1,0 +1,41 @@
+[
+  {
+    "id": "scan-001",
+    "campaignName": "HydraGlow Botanical Serum – Autumn Promo",
+    "brand": "GlowBotanics",
+    "productCategory": "cosmetics",
+    "landingPageUrl": "https://demo-glowbotanics.ro/promo",
+    "adText": "100% eco-friendly packaging and formula! Clinically proven 48h continuous hydration protection. Zero carbon footprint – 100% climate neutral skincare. Flash Sale: Get 50% OFF everything today + Free express delivery on all orders, no minimum spend! Hurry, only 2 items left in stock!",
+    "adImageUrl": "/placeholder-ad-cosmetics.jpg",
+    "documents": ["eco-serum-spec.pdf", "hydration-study-2026.pdf"],
+    "createdAt": "2026-11-07T10:15:00Z",
+    "score": 42,
+    "findingIds": ["fnd-01", "fnd-02", "fnd-03", "fnd-04", "fnd-05", "fnd-06", "fnd-07", "fnd-08", "fnd-09", "fnd-10", "fnd-11", "fnd-12"]
+  },
+  {
+    "id": "scan-002",
+    "campaignName": "EcoWash Concentrated Detergent – Green Launch",
+    "brand": "PureHome Lab",
+    "productCategory": "general",
+    "landingPageUrl": "https://demo-purehomelab.ro/ecowash",
+    "adText": "100% eco-friendly detergent with zero carbon footprint. Free express delivery on all orders!",
+    "adImageUrl": "/placeholder-ad-eco.jpg",
+    "documents": ["ecowash-safety-sheet.pdf"],
+    "createdAt": "2026-11-07T09:30:00Z",
+    "score": 68,
+    "findingIds": ["fnd-01", "fnd-03", "fnd-05", "fnd-09"]
+  },
+  {
+    "id": "scan-003",
+    "campaignName": "DermaCalm Barrier Cream – Verified EU Campaign",
+    "brand": "DermaCalm",
+    "productCategory": "cosmetics",
+    "landingPageUrl": "https://demo-dermacalm.ro/barrier-cream",
+    "adText": "Formulated with 92% naturally derived ingredients (ISO 16128). Tested to support skin hydration for up to 24 hours. 20% OFF this weekend – free shipping on orders over 200 RON.",
+    "adImageUrl": "/placeholder-ad-clean.jpg",
+    "documents": ["iso-16128-certificate.pdf", "clinical-24h-report.pdf"],
+    "createdAt": "2026-11-06T18:45:00Z",
+    "score": 94,
+    "findingIds": ["fnd-10"]
+  }
+]
